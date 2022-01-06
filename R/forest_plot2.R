@@ -461,7 +461,13 @@ forest_plot <- function(mr_res, exponentiate=FALSE, single_snp_method="Wald rati
 {
 	requireNamespace("ggplot2", quietly=TRUE)
 	requireNamespace("cowplot", quietly=TRUE)
-	requireNamespace("gridExtra", quietly=TRUE)
+	
+	if (!requireNamespace("gridExtra", quietly = TRUE)){
+	  stop(
+	    "Package \"gridExtra\" must be installed to use this function.",
+	    call. = FALSE
+	  )
+	}
 
 	dat <- format_mr_results(
 		mr_res, 
