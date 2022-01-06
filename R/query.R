@@ -1,4 +1,3 @@
-
 #' Get list of studies with available GWAS summary statistics through API
 #'
 #' @param access_token Google OAuth2 access token. Used to authenticate level of access to data

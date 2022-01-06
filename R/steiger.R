@@ -1,5 +1,3 @@
-
-
 #' Evaluate the Steiger test's sensitivity to measurement error
 #'
 #' @param rgx_o Observed variance of exposure explained by SNPs
