@@ -27,6 +27,12 @@ bp2 <- subset(bp, ! SNP %in% a$removed_snps)
 c <- mr_rucker_bootstrap(bp2)
 
 pdf("rucker_bootstrap.pdf", width=10, height=10)
+if (!requireNamespace("gridExtra", quietly = TRUE)) {
+  stop(
+    "This test requires package \"gridExtra\" to be installed.",
+    call. = FALSE
+  )
+}
 gridExtra::grid.arrange(
 	b$q_plot + labs(title="All variants Rucker bootstrap"),
 	c$q_plot + labs(title="Excluding Cooks D > 4/n Rucker bootstrap"),
