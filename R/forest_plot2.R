@@ -28,9 +28,6 @@
 format_mr_results <- function(mr_res, exponentiate=FALSE, single_snp_method="Wald ratio", multi_snp_method="Inverse variance weighted", ao_slc=T, priority="Cardiometabolic")
 {
 
-	requireNamespace("ggplot2", quietly=TRUE)
-	requireNamespace("plyr", quietly=TRUE)
-
 	# Get extra info on outcomes
 	if(ao_slc) 
 	{ 
