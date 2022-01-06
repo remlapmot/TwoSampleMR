@@ -19,7 +19,13 @@
 #' @importFrom lattice wireframe
 steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 {
-	requireNamespace("lattice", quietly=TRUE)
+	if (!requireNamespace("lattice", quietly = TRUE)) {
+	  stop(
+	    "Package \"lattice\" must be installed to use this function.",
+	    call. = FALSE
+	  )  
+	}
+  
 	if(rgy_o > rgx_o)
 	{
 		a <- rgy_o
