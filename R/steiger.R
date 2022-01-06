@@ -16,7 +16,6 @@
 #' \item{pl}{plot of parameter space}
 #' }
 #' @importFrom grDevices rgb
-#' @importFrom lattice wireframe
 steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 {
 	if (!requireNamespace("lattice", quietly = TRUE)) {
