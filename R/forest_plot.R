@@ -15,14 +15,6 @@
 ### 7. Combine the three sub-figures into a single figure
 ### 7.1.Generate a list of spacings for annotation columns and for the forest-plot column
 ### 8. Export results as a pdf/windows meta file and to screen
-
-
-# library(ggplot2)
-# library(plyr)
-# library(gtable)
-
-
-
 ## 8.0.1. Unifiying all into a single function that calls each of the above methods
 
 
