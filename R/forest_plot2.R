@@ -456,9 +456,7 @@ forest_plot_names <- function(dat, section=NULL, bottom=TRUE)
 #' @return grid plot object
 forest_plot <- function(mr_res, exponentiate=FALSE, single_snp_method="Wald ratio", multi_snp_method="Inverse variance weighted", group_single_categories=TRUE, by_category=TRUE, in_columns=FALSE, threshold=NULL, xlab="", xlim=NULL, trans="identity",ao_slc=T, priority="Cardiometabolic")
 {
-	requireNamespace("ggplot2", quietly=TRUE)
-	requireNamespace("cowplot", quietly=TRUE)
-	
+
 	if (!requireNamespace("gridExtra", quietly = TRUE)){
 	  stop(
 	    "Package \"gridExtra\" must be installed to use this function.",
