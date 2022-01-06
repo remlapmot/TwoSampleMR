@@ -48,7 +48,6 @@ Imports:
 Suggests: 
     Cairo,
     car,
-    covr,
     glmnet,
     gridExtra,
     gtable,
