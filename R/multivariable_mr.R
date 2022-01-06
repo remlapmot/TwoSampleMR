@@ -545,6 +545,12 @@ mv_ivw <- function(mvdat, pval_threshold=5e-8)
 #' @return data frame of retained features
 mv_lasso_feature_selection <- function(mvdat)
 {
+  if (!requireNamespace("glmnet", quietly = TRUE)) {
+    stop(
+      "Package \"glmnet\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
 	message("Performing feature selection")
 	b <- glmnet::cv.glmnet(x=mvdat$exposure_beta, y=mvdat$outcome_beta, weight=1/mvdat$outcome_se^2, intercept=0)
 	c <- glmnet::coef.glmnet(b, s = "lambda.min")
