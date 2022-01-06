@@ -1,6 +1,14 @@
 ```{r init, echo=FALSE}
 
 suppressPackageStartupMessages(library(knitr))
+
+if (!requireNamespace("Cairo", quietly = TRUE)) {
+  stop(
+    "Package \"Cairo\" should be installed to compile the report. ",
+    "Please install with install.packages('Cairo')",
+    call. = FALSE
+  )
+}
 suppressPackageStartupMessages(library(Cairo))
 opts_chunk$set(warning=FALSE, echo=FALSE, message=FALSE, results='asis', fig.width=6, fig.height=6, dev="png", fig.path=paste0('figure/', sanitise_string(title)))
 
