@@ -166,10 +166,6 @@ get_rsq <- function(dat)
 #' @return List
 #' @examples
 #' \dontrun{
-#' # Load libraries
-#' library(dplyr)
-#' library(randomForest)
-#' 
 #' # Example of body mass index on coronary heart disease
 #' # Extract and harmonise data
 #' a <- extract_instruments(2)
