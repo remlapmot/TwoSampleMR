@@ -51,6 +51,7 @@ Imports:
     stringr
 Suggests: 
     Cairo,
+    car,
     covr,
     psych,
     randomForest,
