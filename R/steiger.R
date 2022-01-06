@@ -104,7 +104,13 @@ steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 #' @importFrom stats pnorm
 mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yyo=1, ...)
 {
-	requireNamespace("psych", quietly=TRUE)
+	if (!requireNamespace("psych", quietly = TRUE)) {
+	  stop(
+	    "Package \"psych\" must be installed to use this function. ",
+	    "Please install it using install.packages('psych')",
+	    call. = FALSE
+	  )
+	}
 
 	r_exp <- abs(r_exp)
 	r_out <- abs(r_out)
