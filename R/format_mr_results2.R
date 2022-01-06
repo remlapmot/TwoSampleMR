@@ -105,33 +105,6 @@ subset_on_method <- function(mr_res, single_snp_method="Wald ratio", multi_snp_m
 #' @export
 #' @return data frame
 
-# 
-# library(TwoSampleMR)
-# library(MRInstruments)
-
-# exp_dat <- extract_instruments(outcomes=c(2,300))
-
-# chd_out_dat <- extract_outcome_data(
-#     snps = exp_dat$SNP,
-#     outcomes = c(6,7,8,9)
-# )
-
-# dat <- harmonise_data(
-#     exposure_dat = exp_dat, 
-#     outcome_dat = chd_out_dat
-# )
-
-# dat<-power.prune(dat,method.size=F)
-
-
-# Res<-mr(dat)
-# Het<-mr_heterogeneity(dat)
-# Plt<-mr_pleiotropy_test(dat)
-# Sin<-mr_singlesnp(dat)
-
-# All.res<-combine_all_mrresults(Res=Res,Het=Het,Plt=Plt,Sin=Sin)
-# All.res<-split_exposure(All.res)
-# All.res<-split_outcome(All.res)
 
 combine_all_mrresults <- function(res,het,plt,sin,ao_slc=T,Exp=F,split.exposure=F,split.outcome=F)
 {
