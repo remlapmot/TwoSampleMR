@@ -33,7 +33,6 @@ Imports:
     gridExtra,
     ieugwasr (>= 0.1.5),
     knitr,
-    lattice,
     magrittr,
     MASS,
     MendelianRandomization,
@@ -53,6 +52,7 @@ Suggests:
     car,
     covr,
     gtable,
+    lattice,
     psych,
     randomForest,
     testthat
