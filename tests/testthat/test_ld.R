@@ -1,6 +1,4 @@
 context("ld")
-library(TwoSampleMR)
-
 
 a <- extract_instruments(2, clump=FALSE)
 out <- clump_data(a)
@@ -27,7 +25,3 @@ out <- clump_data(a)
 test_that("clump multiple", {
 	expect_equal(length(unique(a$id.exposure)), length(unique(out$id.exposure)))
 })
-
-
-
-

@@ -1,5 +1,4 @@
 context("other formats")
-library(TwoSampleMR)
 
 dat <- make_dat("ieu-a-2", "ieu-a-7")
 
@@ -43,4 +42,3 @@ test_that("radial MR", {
 	w <- mr_ivw_radial(dat$beta.exposure, dat$beta.outcome, dat$se.exposure, dat$se.outcome)
 	expect_true(class(w) == "list")
 })
-

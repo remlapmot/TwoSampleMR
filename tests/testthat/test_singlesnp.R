@@ -1,5 +1,4 @@
 context("singlesnp")
-library(TwoSampleMR)
 
 dat <- make_dat("ieu-a-2", "ieu-a-7")
 
@@ -27,4 +26,3 @@ test_that("singlesnp_plot", {
 	p <- mr_funnel_plot(w)
 	expect_true(length(p) == 1)
 })
-

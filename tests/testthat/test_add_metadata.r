@@ -1,5 +1,4 @@
 context("add metadata")
-library(TwoSampleMR)
 
 test_that("exposure data 1", {
 	d <- extract_instruments('ieu-a-2') %>% add_metadata()
@@ -59,4 +58,3 @@ test_that("ieu-b-109", {
 	expect_true("samplesize.exposure" %in% names(d))
 	expect_true(all(!is.na(d$samplesize.exposure)))
 })
-
