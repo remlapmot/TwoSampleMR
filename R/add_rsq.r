@@ -108,7 +108,12 @@ get_r_from_pn_less_accurate <- function(p, n)
 #' @importFrom stats coefficients cor lm rnorm
 test_r_from_pn <- function()
 {
-	requireNamespace("ggplot2", quietly = TRUE)
+	if (!requireNamespace("ggplot2", quietly = TRUE)) {
+	  stop(
+	    "Package \"ggplot2\" must be installed to use this function.",
+	    call. = FALSE
+	  )
+	}
 
 	param <- expand.grid(
 		n = c(10, 100, 1000, 10000, 100000),
