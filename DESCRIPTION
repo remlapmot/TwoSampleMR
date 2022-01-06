@@ -40,6 +40,7 @@ Imports:
     MRPRESSO,
     pbapply,
     plyr,
+    psych,
     RadialMR,
     reshape2,
     rmarkdown,
@@ -53,7 +54,6 @@ Suggests:
     gtable,
     lattice,
     MASS,
-    psych,
     randomForest,
     testthat
 VignetteBuilder: 
