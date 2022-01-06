@@ -70,6 +70,13 @@ ldsc_h2_internal <- function(Z, r2, N, W=NULL)
 #' @keywords internal
 ldsc_rg_internal <- function(Zs, r2, h1, h2, N1, N2, Nc=0, W=NULL)
 {
+  if (!requireNamespace("MASS", quietly = TRUE)) {
+    stop(
+      "Package \"MASS\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
+  
     if(is.null(W))
     {
         W = rep(1,length(r2))
