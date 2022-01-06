@@ -78,8 +78,6 @@ mr_singlesnp <- function(dat, parameters=default_parameters(), single_method="mr
 #' @return List of plots
 mr_forest_plot <- function(singlesnp_results, exponentiate=FALSE)
 {
-	requireNamespace("ggplot2", quietly=TRUE)
-	requireNamespace("plyr", quietly=TRUE)
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
@@ -145,8 +143,6 @@ mr_forest_plot <- function(singlesnp_results, exponentiate=FALSE)
 #' @return List of plots
 mr_density_plot <- function(singlesnp_results, mr_results, exponentiate=FALSE, bandwidth="nrd0")
 {
-	requireNamespace("ggplot2", quietly=TRUE)
-	requireNamespace("plyr", quietly=TRUE)
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
@@ -190,8 +186,6 @@ mr_density_plot <- function(singlesnp_results, mr_results, exponentiate=FALSE, b
 #' @return List of plots
 mr_funnel_plot <- function(singlesnp_results)
 {
-	requireNamespace("ggplot2", quietly=TRUE)
-	requireNamespace("plyr", quietly=TRUE)
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
