@@ -1,6 +1,13 @@
 #' @importFrom stats influence.measures ks.test median pnorm residuals shapiro.test var
 system_metrics <- function(dat)
 {
+  if (!requireNamespace("car", quietly = TRUE)) {
+    stop(
+      "Package \"car\" must be installed to use this function.",
+      call. = FALSE
+    )  
+  }
+  
 	# Number of SNPs
 	# Sample size outcome
 	# Sample size exposure
