@@ -248,14 +248,6 @@ directionality_test <- function(dat)
 #' @importFrom stats pnorm rnorm
 mr_steiger2 <- function(r_exp, r_out, n_exp, n_out, r_xxo = 1, r_yyo=1, ...)
 {
-  if (!requireNamespace("psych", quietly = TRUE)) {
-    stop(
-      "Package \"psych\" must be installed to use this function. ",
-      "Please install it using install.packages('psych')",
-      call. = FALSE
-    )
-  }
-  
 	index <- any(is.na(r_exp)) | any(is.na(r_out)) | any(is.na(n_exp)) | any(is.na(n_out))
 	n_exp <- n_exp[!index]
 	n_out <- n_out[!index]
