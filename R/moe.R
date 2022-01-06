@@ -201,8 +201,18 @@ mr_moe <- function(res, rf)
 
 mr_moe_single <- function(res, rf)
 {
-  requireNamespace("dplyr", quietly = TRUE)
-  requireNamespace("randomForest", quietly = TRUE)
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop(
+      "Package \"dplyr\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
+  if (!requireNamespace("randomForest", quietly = TRUE)) {
+    stop(
+      "Package \"randomForest\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
 	metric <- res$info[1,] %>% dplyr::select(-c(id.exposure, id.outcome, steiger_filtered, outlier_filtered, nsnp_removed))
 
 	methodlist <- names(rf)
