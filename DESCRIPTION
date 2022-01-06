@@ -47,7 +47,6 @@ Imports:
     MRPRESSO,
     pbapply,
     plyr,
-    psych,
     RadialMR,
     randomForest,
     reshape2,
@@ -56,6 +55,7 @@ Imports:
 Suggests: 
     Cairo,
     covr,
+    psych,
     testthat
 VignetteBuilder: 
     knitr
