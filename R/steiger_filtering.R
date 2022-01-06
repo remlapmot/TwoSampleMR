@@ -29,13 +29,6 @@ steiger_filtering <- function(dat)
 #' @importFrom stats pnorm
 steiger_filtering_internal <- function(dat)
 {
-  if (!requireNamespace("psych", quietly = TRUE)) {
-    stop(
-      "Package \"psych\" must be installed to use this function. ",
-      "Please install it using install.packages('psych')",
-      call. = FALSE
-    )
-  }
   
   if(! "units.outcome" %in% names(dat))
 	{
