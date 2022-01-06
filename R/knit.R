@@ -21,7 +21,6 @@
 knit_report <- function(input_filename, output_filename, ...)
 {
 	requireNamespace("knitr", quietly = TRUE)
-    requireNamespace("markdown", quietly = TRUE)
     output_filename <- normalizePath(output_filename)
 
     output_dir <- dirname(output_filename)
