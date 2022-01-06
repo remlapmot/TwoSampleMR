@@ -32,7 +32,6 @@ Imports:
     ieugwasr (>= 0.1.5),
     knitr,
     magrittr,
-    MASS,
     MendelianRandomization,
     meta,
     mr.raps,
@@ -53,6 +52,7 @@ Suggests:
     gridExtra,
     gtable,
     lattice,
+    MASS,
     psych,
     randomForest,
     testthat
