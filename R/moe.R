@@ -187,8 +187,6 @@ get_rsq <- function(dat)
 #'}
 mr_moe <- function(res, rf)
 {
-	requireNamespace("dplyr", quietly = TRUE)
-	requireNamespace("randomForest", quietly = TRUE)
 	lapply(res, function(x)
 	{
 		o <- try(mr_moe_single(x, rf))
