@@ -21,7 +21,14 @@ Ghuber <- function (u, k = 30, deriv = 0)
 #' @return model fit
 ldsc_h2_internal <- function(Z, r2, N, W=NULL)
 {
-    if (is.null(W))
+  if (!requireNamespace("MASS", quietly = TRUE)) {
+    stop(
+      "Package \"MASS\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }  
+  
+  if (is.null(W))
     {
         W <- rep(1, length(Z))
     }
