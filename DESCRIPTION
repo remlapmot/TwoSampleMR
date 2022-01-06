@@ -31,7 +31,6 @@ Imports:
     ggplot2,
     glmnet,
     gridExtra,
-    gtable,
     ieugwasr (>= 0.1.5),
     knitr,
     lattice,
@@ -53,6 +52,7 @@ Suggests:
     Cairo,
     car,
     covr,
+    gtable,
     psych,
     randomForest,
     testthat
