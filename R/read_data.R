@@ -522,10 +522,12 @@ check_units <- function(x, id, col)
 #' @export
 #' @return Data frame
 #' @examples \dontrun{
-#' require(MRInstruments)
-#' data(gwas_catalog)
-#' bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
-#' bmi <- format_data(bmi)
+#' if (requireNamespace("MRInstruments", quietly = TRUE)) {
+#'   library(MRInstruments)
+#'   data(gwas_catalog)
+#'   bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
+#'   bmi <- format_data(bmi)
+#' }
 #'}
 format_gwas_catalog <- function(gwas_catalog_subset, type="exposure")
 {
