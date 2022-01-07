@@ -19,9 +19,11 @@ DEPRECATED. Please use \code{\link{format_data}} instead.
 }
 \examples{
 \dontrun{
-require(MRInstruments)
-data(gwas_catalog)
-bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
-bmi <- format_data(bmi)
+if (requireNamespace("MRInstruments", quietly = TRUE)) {
+  library(MRInstruments)
+  data(gwas_catalog)
+  bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
+  bmi <- format_data(bmi)
+}
 }
 }
