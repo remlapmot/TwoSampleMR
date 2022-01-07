@@ -45,8 +45,7 @@ Imports:
     psych,
     RadialMR,
     reshape2,
-    rmarkdown,
-    stringr
+    rmarkdown
 Suggests: 
     Cairo,
     car,
