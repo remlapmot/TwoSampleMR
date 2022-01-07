@@ -22,7 +22,11 @@ knitr::opts_chunk$set(
 ```{r echo=FALSE}
 knitr::opts_chunk$set(eval=TRUE, cache=TRUE)
 suppressWarnings(suppressPackageStartupMessages(library(TwoSampleMR)))
-suppressWarnings(suppressPackageStartupMessages(library(MRInstruments)))
+if (!requireNamespace("MRInstruments", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+  remotes::install_github("MRCIEU/MRInstruments")
+}
+if (requireNamespace("MRInstruments", quietly = TRUE)) suppressWarnings(suppressPackageStartupMessages(library(MRInstruments)))
 suppressWarnings(suppressPackageStartupMessages(library(knitr)))
 suppressWarnings(suppressPackageStartupMessages(library(ggplot2)))
 ```
