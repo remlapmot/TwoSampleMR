@@ -38,7 +38,6 @@ Imports:
     MendelianRandomization,
     meta,
     mr.raps,
-    MRInstruments,
     MRMix,
     MRPRESSO,
     pbapply,
@@ -56,6 +55,7 @@ Suggests:
     gtable,
     lattice,
     MASS,
+    MRInstruments,
     randomForest,
     testthat
 VignetteBuilder: 
