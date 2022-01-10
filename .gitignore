@@ -16,3 +16,7 @@ vignettes/*_cache/
 vignettes/*_files/
 vignettes/*.R
 vignettes/*.html
+
+# Output files from R CMD check
+/*.Rcheck/
+/check/
