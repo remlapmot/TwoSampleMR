@@ -36,7 +36,7 @@ Imports:
     knitr,
     magrittr,
     MendelianRandomization,
-    meta (>= 4.19-2),
+    meta,
     mr.raps,
     MRMix,
     MRPRESSO,
