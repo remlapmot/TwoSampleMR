@@ -6,7 +6,7 @@
 #' to try out a limited range of the functionality in this package, 
 #' but for any serious work we strongly recommend using this R package.
 #' 
-#' **Full documentation available here:** [https://mrcieu.github.io/TwoSampleMR](https://mrcieu.github.io/TwoSampleMR/)
+#' **Full documentation available here:** [https://mrcieu.github.io/TwoSampleMR/](https://mrcieu.github.io/TwoSampleMR/)
 #'
 #' @name TwoSampleMR-package
 #' @aliases TwoSampleMR twosamplemr

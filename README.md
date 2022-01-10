@@ -57,4 +57,4 @@ is available here: <https://hub.docker.com/r/mrcieu/twosamplemr>
 <!-- Additional content -->
 
 **Full documentation available here:**
-<https://mrcieu.github.io/TwoSampleMR>
+<https://mrcieu.github.io/TwoSampleMR/>
