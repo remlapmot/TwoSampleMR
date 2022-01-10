@@ -4,7 +4,6 @@
 ^\.travis\.yml$
 ^codecov\.yml$
 ^doc$
-^Meta$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.github$
