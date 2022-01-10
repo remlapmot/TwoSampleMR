@@ -29,6 +29,13 @@ if (!requireNamespace("MRInstruments", quietly = TRUE)) {
     call. = FALSE
   )
 }
+if (!requireNamespace("MendelianRandomization", quietly = TRUE)) {
+  stop(
+    "Package \"MendelianRandomization\" must be installed to run this vignette. ",
+    "Please install it with install.packages('MendelianRandomization')",
+    call. = FALSE
+  )
+}
 suppressWarnings(suppressPackageStartupMessages(library(MRInstruments)))
 suppressWarnings(suppressPackageStartupMessages(library(knitr)))
 suppressWarnings(suppressPackageStartupMessages(library(ggplot2)))

@@ -1,5 +1,7 @@
 context("other formats")
 
+skip_if_not_installed("MendelianRandomization")
+
 dat <- make_dat("ieu-a-2", "ieu-a-7")
 
 test_that("MRInput", {

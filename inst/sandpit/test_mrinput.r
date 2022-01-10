@@ -8,5 +8,13 @@ dat <- harmonise_data(a,b)
 o1 <- dat_to_MRInput(dat, get_correlations=FALSE)
 o2 <- dat_to_MRInput(dat, get_correlations=TRUE)
 
+if (!requireNamespace("MendelianRandomization", quietly = TRUE)) {
+  stop(
+    "Package \"MendelianRandomization\" must be installed to run this test. ",
+    "Install it with install.packages('MendelianRandomization'). ",
+    call. = FALSE
+  )
+}
+
 MendelianRandomization::mr_ivw(o1[[1]])
 MendelianRandomization::mr_ivw(o2[[1]])

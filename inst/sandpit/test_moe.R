@@ -9,6 +9,14 @@ out <- mr_moe(dat, rf)
 
 d <- dat_to_MRInput(dat)[[1]]
 
+if (!requireNamespace("MendelianRandomization", quietly = TRUE)) {
+  stop(
+    "Package \"MendelianRandomization\" must be installed to run this test. ",
+    "Install it with install.packages('MendelianRandomization'). ",
+    call. = FALSE
+  )
+}
+
 MendelianRandomization::mr_ivw(d, model="fixed")@StdError
 o <- summary(lm(beta.outcome ~ 0 + beta.exposure, weight=1/se.outcome^2, data=dat))
 o$sigma
