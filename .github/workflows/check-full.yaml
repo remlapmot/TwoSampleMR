@@ -79,9 +79,16 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_: false
+        if: matrix.config.r != '3.6'
         run: |
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c('--no-manual', '--as-cran'), error_on = 'error', check_dir = 'check')
+        else:
+        env: 
+          _R_CHECK_FORCE_SUGGESTS_: false
+        run: |
+          options(crayon.enabled = TRUE)
+          rcmdcheck::rcmdcheck(args = c('--no-manual', '--as-cran', '--no-vignettes', '--no-build-vignettes'), error_on = 'error', check_dir = 'check', build_args = '--no-build-vignettes')
         shell: Rscript {0}
 
       - name: Show testthat output
