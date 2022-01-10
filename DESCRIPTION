@@ -35,7 +35,6 @@ Imports:
     ieugwasr (>= 0.1.5),
     knitr,
     magrittr,
-    MendelianRandomization,
     meta,
     mr.raps,
     MRMix,
@@ -54,6 +53,7 @@ Suggests:
     gtable,
     lattice,
     MASS,
+    MendelianRandomization,
     MRInstruments,
     randomForest,
     testthat
