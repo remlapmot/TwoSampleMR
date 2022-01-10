@@ -14,5 +14,5 @@ to try out a limited range of the functionality in this package,
 but for any serious work we strongly recommend using this R package.
 }
 \details{
-\strong{Full documentation available here:} \href{https://mrcieu.github.io/TwoSampleMR/}{https://mrcieu.github.io/TwoSampleMR}
+\strong{Full documentation available here:} \url{https://mrcieu.github.io/TwoSampleMR/}
 }
