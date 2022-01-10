@@ -16,7 +16,9 @@ mv_subset(
 \arguments{
 \item{mvdat}{Output from \code{\link{mv_harmonise_data}}.}
 
-\item{features}{Dataframe of features to retain, must have column with name \code{exposure} that has list of exposures to retain from mvdat. The default is \code{mvdat_lasso_feature_selection(mvdat)}.}
+\item{features}{Dataframe of features to retain, must have column with name
+\code{exposure} that has list of exposures to retain from mvdat. The default is\cr
+\code{mvdat_lasso_feature_selection(mvdat)}.}
 
 \item{intercept}{Should the intercept by estimated (\code{TRUE}) or force line through the origin (\code{FALSE}, the default).}
 
