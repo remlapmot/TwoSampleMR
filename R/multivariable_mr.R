@@ -568,7 +568,7 @@ mv_lasso_feature_selection <- function(mvdat)
 #' }
 #' @md
 #' @param mvdat Output from [`mv_harmonise_data`].
-#' @param features Dataframe of features to retain, must have column with name 'exposure' that has list of exposures tor etain from mvdat. The default is `mvdat_lasso_feature_selection(mvdat)`.
+#' @param features Dataframe of features to retain, must have column with name `exposure` that has list of exposures to retain from mvdat. The default is `mvdat_lasso_feature_selection(mvdat)`.
 #' @param intercept Should the intercept by estimated (`TRUE`) or force line through the origin (`FALSE`, the default).
 #' @param instrument_specific Should the estimate for each exposure be obtained by using all instruments from all exposures (`FALSE`, default) or by using only the instruments specific to each exposure (`TRUE`).
 #' @param pval_threshold P-value threshold to include instruments. The default is `5e-8`.
