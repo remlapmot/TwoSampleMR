@@ -60,7 +60,6 @@ knit_report <- function(input_filename, output_filename, ...)
 #' Using the output from the \code{mr} function this report will generate a report containing tables and graphs summarising the results.
 #' A separate report is produced for each exposure - outcome pair that was analysed.
 #'
-#' @md
 #' @param dat Output from \code{\link{harmonise_data}}
 #' @param output_path Directory in which reports should be saved.
 #' @param output_type Choose `"html"` or `"md"`. Default is `"html"`.

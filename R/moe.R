@@ -156,11 +156,9 @@ get_rsq <- function(dat)
 #' Based on the method described here \doi{10.1101/173682}.
 #' Once all MR methods have been applied to a summary set, you can then use the mixture of experts to predict the method most likely to be the most accurate.
 #'
-#' @md
 #' @param res Output from [`mr_wrapper`]. 
 #' @param rf The trained random forest for the methods. This is available to download at <https://www.dropbox.com/s/5la7y38od95swcf/rf.rdata?dl=0>.
 #' 
-#' @md
 #' @details
 #' The `mr_moe` function modifies the `estimates` item in the list of results from the [`mr_wrapper`] function. It does three things:
 #' 1. Adds the MOE column, which is a predictor for each method for how well it performs in terms of high power and low type 1 error (scaled 0-1, where 1 is best performance). 

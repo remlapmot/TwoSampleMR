@@ -285,7 +285,6 @@ mr_wald_ratio <- function(b_exp, b_out, se_exp, se_out, parameters)
 
 #' Perform 2 sample IV using simple standard error
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -316,7 +315,6 @@ mr_meta_fixed_simple <- function(b_exp, b_out, se_exp, se_out, parameters)
 
 #' Perform 2 sample IV using fixed effects meta analysis and delta method for standard errors
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -352,7 +350,6 @@ mr_meta_fixed <- function(b_exp, b_out, se_exp, se_out, parameters)
 
 #' Perform 2 sample IV using random effects meta analysis and delta method for standard errors
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -444,7 +441,6 @@ mr_two_sample_ml <- function(b_exp, b_out, se_exp, se_out, parameters)
 
 #' Egger's regression for Mendelian randomization
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -547,7 +543,6 @@ linreg <- function(x, y, w=rep(x,1))
 
 #' Run bootstrap to generate standard errors for MR
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -620,7 +615,6 @@ mr_egger_regression_bootstrap <- function(b_exp, b_out, se_exp, se_out, paramete
 #'
 #' Perform MR using summary statistics. Bootstraps used to calculate standard error.
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -653,7 +647,6 @@ mr_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameters=default_
 #'
 #' Perform MR using summary statistics. Bootstraps used to calculate standard error.
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -791,7 +784,6 @@ mr_penalised_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameter
 
 #' MR median estimators
 #'
-#' @md
 #' @param dat Output from [`harmonise_data()`].
 #' @param parameters List of parameters. The default is `default_parameters()`.
 #'
@@ -839,7 +831,6 @@ mr_median <- function(dat, parameters=default_parameters())
 #' The standard error is corrected for under dispersion
 #' Use the [`mr_ivw_mre`] function for estimates that don't correct for under dispersion.
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -878,7 +869,6 @@ mr_ivw <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters()
 #' The standard error is corrected for under dispersion
 #' Use the \code{\link{mr_ivw_mre}} function for estimates that don't correct for under dispersion.
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -916,7 +906,6 @@ mr_uwr <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters()
 #'
 #' Same as \code{\link{mr_ivw}} but no correction for under dispersion.
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -952,7 +941,6 @@ mr_ivw_mre <- function(b_exp, b_out, se_exp, se_out, parameters=default_paramete
 
 #' Inverse variance weighted regression (fixed effects)
 #'
-#' @md
 #' @param b_exp Vector of genetic effects on exposure.
 #' @param b_out Vector of genetic effects on outcome.
 #' @param se_exp Standard errors of genetic effects on exposure.
@@ -988,7 +976,6 @@ mr_ivw_fe <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameter
 #' Robust adjusted profile score
 #'
 #' @inheritParams mr_ivw
-#' @md
 #' @param parameters A list of parameters. Specifically, `over.dispersion` and `loss.function`.
 #' `over.dispersion` is a logical concerning should the model consider overdispersion (systematic pleiotropy).
 #' And `loss.function` allows using either the squared error loss (`"l2"`) or robust loss functions/scores (`"huber"` or `"tukey"`).
