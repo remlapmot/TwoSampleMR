@@ -5,7 +5,7 @@ on:
   pull_request:
     branches:
       - master
-  workflow_dispath:
+  workflow_dispatch:
   schedule:
     - cron: '37 7 * * MON' # run at 7:37am UTC on Mondays
 
