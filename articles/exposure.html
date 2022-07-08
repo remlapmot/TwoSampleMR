@@ -165,12 +165,12 @@ BMI rs2241423 0.13 0.0204081632653061 G A 0.78 1e-18 kg/m2 LBXCOR1 227886</code>
 <span><span class="co">#&gt; 5              247166      BMI             TRUE             reported</span></span>
 <span><span class="co">#&gt; 6              227886      BMI             TRUE             reported</span></span>
 <span><span class="co">#&gt;   units.exposure_dat id.exposure data_source.exposure</span></span>
-<span><span class="co">#&gt; 1              kg/m2      8LW1rs             textfile</span></span>
-<span><span class="co">#&gt; 2              kg/m2      8LW1rs             textfile</span></span>
-<span><span class="co">#&gt; 3              kg/m2      8LW1rs             textfile</span></span>
-<span><span class="co">#&gt; 4              kg/m2      8LW1rs             textfile</span></span>
-<span><span class="co">#&gt; 5              kg/m2      8LW1rs             textfile</span></span>
-<span><span class="co">#&gt; 6              kg/m2      8LW1rs             textfile</span></span></code></pre></div>
+<span><span class="co">#&gt; 1              kg/m2      ZC4LY4             textfile</span></span>
+<span><span class="co">#&gt; 2              kg/m2      ZC4LY4             textfile</span></span>
+<span><span class="co">#&gt; 3              kg/m2      ZC4LY4             textfile</span></span>
+<span><span class="co">#&gt; 4              kg/m2      ZC4LY4             textfile</span></span>
+<span><span class="co">#&gt; 5              kg/m2      ZC4LY4             textfile</span></span>
+<span><span class="co">#&gt; 6              kg/m2      ZC4LY4             textfile</span></span></code></pre></div>
 <p>The output from this function is a new data frame with standardised column names:</p>
 <ul>
 <li><code>SNP</code></li>
@@ -244,12 +244,12 @@ rs1558902,0.39,0.020408163,A,T,0.42,5.00E-120,kg/m2,FTO,222476</code></pre>
 <span><span class="co">#&gt; 5              247166 exposure             TRUE             reported</span></span>
 <span><span class="co">#&gt; 6              227886 exposure             TRUE             reported</span></span>
 <span><span class="co">#&gt;   units.exposure_dat id.exposure data_source.exposure</span></span>
-<span><span class="co">#&gt; 1              kg/m2      8wUJiT             textfile</span></span>
-<span><span class="co">#&gt; 2              kg/m2      8wUJiT             textfile</span></span>
-<span><span class="co">#&gt; 3              kg/m2      8wUJiT             textfile</span></span>
-<span><span class="co">#&gt; 4              kg/m2      8wUJiT             textfile</span></span>
-<span><span class="co">#&gt; 5              kg/m2      8wUJiT             textfile</span></span>
-<span><span class="co">#&gt; 6              kg/m2      8wUJiT             textfile</span></span></code></pre></div>
+<span><span class="co">#&gt; 1              kg/m2      3yF2q8             textfile</span></span>
+<span><span class="co">#&gt; 2              kg/m2      3yF2q8             textfile</span></span>
+<span><span class="co">#&gt; 3              kg/m2      3yF2q8             textfile</span></span>
+<span><span class="co">#&gt; 4              kg/m2      3yF2q8             textfile</span></span>
+<span><span class="co">#&gt; 5              kg/m2      3yF2q8             textfile</span></span>
+<span><span class="co">#&gt; 6              kg/m2      3yF2q8             textfile</span></span></code></pre></div>
 <p>If the <code>Phenotype</code> column is not provided (as is the case in this example) then it will assume that the phenotype’s name is simply “exposure”. This is entered in the <code>exposure</code> column. It can be renamed manually:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bmi_exp_dat</span><span class="op">$</span><span class="va">exposure</span> <span class="op">&lt;-</span> <span class="st">"BMI"</span></span></code></pre></div>
@@ -282,8 +282,8 @@ rs1558902,0.39,0.020408163,A,T,0.42,5.00E-120,kg/m2,FTO,222476</code></pre>
 <span><span class="co">#&gt; 1 rs1             1           1                      A exposure</span></span>
 <span><span class="co">#&gt; 2 rs2             2           2                      T exposure</span></span>
 <span><span class="co">#&gt;   mr_keep.exposure pval.exposure pval_origin.exposure id.exposure</span></span>
-<span><span class="co">#&gt; 1             TRUE     0.3173105             inferred      DKqHQz</span></span>
-<span><span class="co">#&gt; 2             TRUE     0.3173105             inferred      DKqHQz</span></span>
+<span><span class="co">#&gt; 1             TRUE     0.3173105             inferred      120OI1</span></span>
+<span><span class="co">#&gt; 2             TRUE     0.3173105             inferred      120OI1</span></span>
 <span><span class="co">#&gt;   other_allele.exposure eaf.exposure</span></span>
 <span><span class="co">#&gt; 1                    NA           NA</span></span>
 <span><span class="co">#&gt; 2                    NA           NA</span></span></code></pre></div>
@@ -529,10 +529,10 @@ rs1558902,0.39,0.020408163,A,T,0.42,5.00E-120,kg/m2,FTO,222476</code></pre>
 <span><span class="co">#&gt; [1] "Available"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`Total associations`</span></span>
-<span><span class="co">#&gt; [1] 244645222094</span></span>
+<span><span class="co">#&gt; [1] 244646429745</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`Total complete datasets`</span></span>
-<span><span class="co">#&gt; [1] 42458</span></span>
+<span><span class="co">#&gt; [1] 42459</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $`Total public datasets`</span></span>
 <span><span class="co">#&gt; [1] 42334</span></span>
@@ -593,7 +593,7 @@ rs1558902,0.39,0.020408163,A,T,0.42,5.00E-120,kg/m2,FTO,222476</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bmi_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clump_data.html">clump_data</a></span><span class="op">(</span><span class="va">bmi_exp_dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Please look at vignettes for options on running this locally if you need to run many instances of this command.</span></span>
-<span><span class="co">#&gt; Clumping 8wUJiT, 30 variants, using EUR population reference</span></span>
+<span><span class="co">#&gt; Clumping 3yF2q8, 30 variants, using EUR population reference</span></span>
 <span><span class="co">#&gt; Removing 3 of 30 variants due to LD with other variants or absence from LD reference panel</span></span></code></pre></div>
 <p>The <code>clump_data</code> command takes any data frame that has been formatted to be an exposure data type of data frame. Note that for the instruments in the R/MRInstruments package the SNPs are already LD clumped.</p>
 <p><strong>Note:</strong> The LD reference panel only includes SNPs (no INDELs). There are five super-populations from which LD can be calculated, by default European samples are used. Only SNPs with MAF &gt; 0.01 within-population are available.</p>
