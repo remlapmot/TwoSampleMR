@@ -17,6 +17,7 @@ Changes:
 * Allow chr and pos to be read in from local summary data files
 * When reading in local data without p-values, editing the inferred p-value method to be two-sided
 * All images in the vignettes (and hence also in the rendered pkgdown website) now have accompanying alt text descriptions
+* ggplot2 version 3.4.0 or later is now required due to the deprecation of the `size` argument and aesthetic for lines, which has been renamed to `linewidth`. Users don't need to make any changes to their code due to this fix. (Note for developers: the affected functions were `mr_forest_plot()`, `forest_plot_basic()`, `forest_plot_basic2()`, and `mr_leaveoneout_plot()`)
 
 TwoSampleMR v0.5.6 (Release date: 2021-03-25)
 ==============

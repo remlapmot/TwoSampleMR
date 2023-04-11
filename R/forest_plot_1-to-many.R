@@ -324,10 +324,10 @@ forest_plot_basic2 <- function(dat, section=NULL, colour_group=NULL, colour_grou
 
 	p <-ggplot2::ggplot(dat, ggplot2::aes(x=effect, y=exposure)) +
 	ggplot2::geom_rect(ggplot2::aes(fill=col), colour=colour_scheme,xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
-	ggplot2::geom_vline(xintercept=seq(ceiling(lo_orig), ceiling(up), by=0.5), alpha=0, size=0.3) +
-	ggplot2::geom_vline(xintercept=null_line, colour="#333333", size=0.3) +
-	# ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, size=0.4, colour="#aaaaaa") +
-	ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, size=0.4, colour=colour_scheme) +
+	ggplot2::geom_vline(xintercept=seq(ceiling(lo_orig), ceiling(up), by=0.5), alpha=0, linewidth=0.3) +
+	ggplot2::geom_vline(xintercept=null_line, colour="#333333", linewidth=0.3) +
+	# ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, linewidth=0.4, colour="#aaaaaa") +
+	ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, linewidth=0.4, colour=colour_scheme) +
 	# ggplot2::geom_point(colour="black", size=2.2) +
 	ggplot2::geom_point(colour=colour_scheme, size=2.2,shape=shape_points,fill=colour_scheme) +
 	# ggplot2::scale_fill_manual(values="cyan4")+
@@ -355,7 +355,7 @@ forest_plot_basic2 <- function(dat, section=NULL, colour_group=NULL, colour_grou
 		plot.margin=ggplot2::unit(c(2,3,2,0), units="points"),
 		plot.background=ggplot2::element_rect(fill="white"),
 		panel.spacing=ggplot2::unit(0,"lines"),
-		panel.background=ggplot2::element_rect(colour="white", fill=colour_scheme, size=1),
+		panel.background=ggplot2::element_rect(colour="white", fill=colour_scheme, linewidth=1),
 		strip.text.y = ggplot2::element_blank()
 		# strip.background = ggplot2::element_blank()
 	) +
@@ -445,7 +445,7 @@ forest_plot_names2 <- function(dat, section=NULL, var1="outcome2",bottom=TRUE,ti
 		plot.margin=ggplot2::unit(c(2,0,2,0), units="points"),
 		plot.background=ggplot2::element_rect(fill="white"),
 		panel.spacing=ggplot2::unit(0,"lines"),
-		panel.background=ggplot2::element_rect(colour=colour_scheme, fill=colour_scheme, size=1),
+		panel.background=ggplot2::element_rect(colour=colour_scheme, fill=colour_scheme, linewidth=1),
 		strip.text.y = ggplot2::element_blank()
 		# strip.background = ggplot2::element_blank()
 	) +
@@ -529,7 +529,7 @@ forest_plot_addcol <- function(dat, section=NULL, addcol=NULL,bottom=TRUE,addcol
 		plot.margin=ggplot2::unit(c(2,0,2,0), units="points"),
 		plot.background=ggplot2::element_rect(fill="white"),
 		panel.spacing=ggplot2::unit(0,"lines"),
-		panel.background=ggplot2::element_rect(colour="red", fill=colour_scheme, size=1),
+		panel.background=ggplot2::element_rect(colour="red", fill=colour_scheme, linewidth=1),
 		strip.text.y = ggplot2::element_blank(),
 		strip.text.x = ggplot2::element_blank()
 		# strip.background = ggplot2::element_blank()

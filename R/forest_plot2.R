@@ -308,9 +308,9 @@ forest_plot_basic <- function(dat, section=NULL, colour_group=NULL, colour_group
 
 	p <- ggplot2::ggplot(dat, ggplot2::aes(x=effect, y=exposure)) +
 	ggplot2::geom_rect(ggplot2::aes(fill=col), xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
-	ggplot2::geom_vline(xintercept=seq(ceiling(lo_orig), ceiling(up), by=0.5), colour="white", size=0.3) +
-	ggplot2::geom_vline(xintercept=null_line, colour="#333333", size=0.3) +
-	ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, size=0.4, colour="#aaaaaa") +
+	ggplot2::geom_vline(xintercept=seq(ceiling(lo_orig), ceiling(up), by=0.5), colour="white", linewidth=0.3) +
+	ggplot2::geom_vline(xintercept=null_line, colour="#333333", linewidth=0.3) +
+	ggplot2::geom_errorbarh(ggplot2::aes(xmin=lo_ci, xmax=up_ci), height=0, linewidth=0.4, colour="#aaaaaa") +
 	ggplot2::geom_point(colour="black", size=2.2) +
 	point_plot +
 	ggplot2::facet_grid(lab ~ .) +
@@ -335,7 +335,7 @@ forest_plot_basic <- function(dat, section=NULL, colour_group=NULL, colour_group
 		plot.margin=ggplot2::unit(c(2,3,2,0), units="points"),
 		plot.background=ggplot2::element_rect(fill="white"),
 		panel.spacing=ggplot2::unit(0,"lines"),
-		panel.background=ggplot2::element_rect(colour="red", fill="grey", size=1),
+		panel.background=ggplot2::element_rect(colour="red", fill="grey", linewidth=1),
 		strip.text.y = ggplot2::element_blank()
 		# strip.background = ggplot2::element_blank()
 	) +
@@ -425,7 +425,7 @@ forest_plot_names <- function(dat, section=NULL, bottom=TRUE)
 		plot.margin=ggplot2::unit(c(2,0,2,0), units="points"),
 		plot.background=ggplot2::element_rect(fill="white"),
 		panel.spacing=ggplot2::unit(0,"lines"),
-		panel.background=ggplot2::element_rect(colour="red", fill="grey", size=1),
+		panel.background=ggplot2::element_rect(colour="red", fill="grey", linewidth=1),
 		strip.text.y = ggplot2::element_blank()
 		# strip.background = ggplot2::element_blank()
 	) +
