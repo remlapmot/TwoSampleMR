@@ -5,14 +5,14 @@ test_that("control", {
 	lipids <- mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302"))
 	chd <- extract_outcome_data(lipids$SNP, "ieu-a-7")
 	control <- mv_harmonise_data(lipids, chd)
-	mv_residual(control, intercept=TRUE, instrument_specific=TRUE)$result
-	mv_residual(control, intercept=FALSE, instrument_specific=TRUE)$result
-	mv_residual(control, intercept=TRUE, instrument_specific=FALSE)$result
-	mv_residual(control, intercept=FALSE, instrument_specific=FALSE)$result
-	mv_multiple(control, intercept=TRUE, instrument_specific=TRUE)$result
-	mv_multiple(control, intercept=FALSE, instrument_specific=TRUE)$result
-	mv_multiple(control, intercept=TRUE, instrument_specific=FALSE)$result
-	mv_multiple(control, intercept=FALSE, instrument_specific=FALSE)$result
+	expect_equal(mv_residual(control, intercept=TRUE, instrument_specific=TRUE)$result[1, "b"], -0.0436, tol = 1e-4)
+	expect_equal(mv_residual(control, intercept=FALSE, instrument_specific=TRUE)$result[1, "b"], -0.0375, tol = 1e-4)
+	expect_equal(mv_residual(control, intercept=TRUE, instrument_specific=FALSE)$result[1, "b"], -0.0209, tol = 1e-4)
+	expect_equal(mv_residual(control, intercept=FALSE, instrument_specific=FALSE)$result[1, "b"], -0.0096, tol = 1e-4)
+	expect_equal(mv_multiple(control, intercept=TRUE, instrument_specific=TRUE)$result[1, "b"], -0.0826, tol = 1e-4)
+	expect_equal(mv_multiple(control, intercept=FALSE, instrument_specific=TRUE)$result[1, "b"], -0.0689, tol = 1e-4)
+	expect_equal(mv_multiple(control, intercept=TRUE, instrument_specific=FALSE)$result[1, "b"], -0.0971, tol = 1e-4)
+	expect_equal(mv_multiple(control, intercept=FALSE, instrument_specific=FALSE)$result[1, "b"], -0.0892, tol = 1e-4)
 })
 
 
