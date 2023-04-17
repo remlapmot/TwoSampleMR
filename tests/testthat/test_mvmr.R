@@ -20,16 +20,16 @@ test_that("dat", {
 	a <- mv_extract_exposures(c("ukb-b-5238", "ieu-a-1001"))
 	b <- extract_outcome_data(a$SNP, "ieu-a-297")
 	dat <- mv_harmonise_data(a, b)
-	mv_residual(dat, intercept=TRUE, instrument_specific=TRUE)$result
-	mv_residual(dat, intercept=FALSE, instrument_specific=TRUE)$result
-	mv_residual(dat, intercept=TRUE, instrument_specific=FALSE)$result
-	mv_residual(dat, intercept=FALSE, instrument_specific=FALSE)$result
-	mv_multiple(dat, intercept=TRUE, instrument_specific=TRUE)$result
-	mv_multiple(dat, intercept=FALSE, instrument_specific=TRUE)$result
-	mv_multiple(dat, intercept=TRUE, instrument_specific=FALSE)$result
-	mv_multiple(dat, intercept=FALSE, instrument_specific=FALSE)$result
-	mv_ivw(dat)$result
-	mv_basic(dat)$result
+	expect_equal(mv_residual(dat, intercept=TRUE, instrument_specific=TRUE)$result[1, "b"], 0.0484, tol = 1e-4)
+	expect_equal(mv_residual(dat, intercept=FALSE, instrument_specific=TRUE)$result[1, "b"], 0.0202, tol = 1e-4)
+	expect_equal(mv_residual(dat, intercept=TRUE, instrument_specific=FALSE)$result[1, "b"], -0.1665, tol = 1e-4)
+	expect_equal(mv_residual(dat, intercept=FALSE, instrument_specific=FALSE)$result[1, "b"], -0.2153, tol = 1e-4)
+	expect_equal(mv_multiple(dat, intercept=TRUE, instrument_specific=TRUE)$result[1, "b"], 0.2816, tol = 1e-4)
+	expect_equal(mv_multiple(dat, intercept=FALSE, instrument_specific=TRUE)$result[1, "b"], 0.1380, tol = 1e-4)
+	expect_equal(mv_multiple(dat, intercept=TRUE, instrument_specific=FALSE)$result[1, "b"], -0.2075, tol = 1e-4)
+	expect_equal(mv_multiple(dat, intercept=FALSE, instrument_specific=FALSE)$result[1, "b"], -0.3717, tol = 1e-4)
+	expect_equal(mv_ivw(dat)$result[1, "b"], 0.1380, tol = 1e-4)
+	expect_equal(mv_basic(dat)$result[1, "b"], -0.2536, tol = 1e-4)
 })
 
 
