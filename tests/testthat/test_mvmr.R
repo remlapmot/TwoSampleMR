@@ -37,11 +37,10 @@ test_that("ordering", {
 	lipids1 <- mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302"))
 	chd1 <- extract_outcome_data(lipids1$SNP, "ieu-a-7")
 	control1 <- mv_harmonise_data(lipids1, chd1)
-	mv_multiple(control1)
+	expect_equal(mv_multiple(control1)$result[1, "b"], -0.0892, tol = 1e-4)
 
 	lipids2 <- mv_extract_exposures(c("ieu-a-302","ieu-a-300","ieu-a-299"))
 	chd2 <- extract_outcome_data(lipids2$SNP, "ieu-a-7")
 	control2 <- mv_harmonise_data(lipids2, chd2)
-	mv_multiple(control2)
-
+	expect_equal(mv_multiple(control2)$result[1, "b"], -0.0892, tol = 1e-4)
 })
