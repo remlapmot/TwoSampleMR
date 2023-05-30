@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">TwoSampleMR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,12 @@ Hemani</h4>
 <code class="sourceCode R"><span><span class="va">ao</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/available_outcomes.html">available_outcomes</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; API: public: http://gwas-api.mrcieu.ac.uk/</span></span>
 <span><span class="va">bmi_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_instruments.html">extract_instruments</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">'ieu-a-2'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Server code: 502; Server is possibly experiencing traffic, trying again...</span></span>
+<span><span class="co">#&gt; Retry succeeded!</span></span>
 <span><span class="va">chd_out_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_outcome_data.html">extract_outcome_data</a></span><span class="op">(</span>snps <span class="op">=</span> <span class="va">bmi_exp_dat</span><span class="op">$</span><span class="va">SNP</span>, outcomes <span class="op">=</span> <span class="st">'ieu-a-7'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Extracting data for 79 SNP(s) from 1 GWAS(s)</span></span></code></pre></div>
+<span><span class="co">#&gt; Extracting data for 79 SNP(s) from 1 GWAS(s)</span></span>
+<span><span class="co">#&gt; Server code: 502; Server is possibly experiencing traffic, trying again...</span></span>
+<span><span class="co">#&gt; Retry succeeded!</span></span></code></pre></div>
 <p>but it is important to harmonise the effects. This means that the
 effect of a SNP on the exposure and the effect of that SNP on the
 outcome must each correspond to the same allele.</p>
