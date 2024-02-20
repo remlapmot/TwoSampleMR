@@ -12,18 +12,18 @@ test_that("mv exposure local", {
 
     f1 <- tempfile()
     f2 <- tempfile()
-    write.table(a1, file=f1, row=F, col=T, qu=F, sep="\t")
-    write.table(a2, file=f2, row=F, col=T, qu=F, sep="\t")
+    write.table(a1, file = f1, row.names = FALSE, col.names = TRUE, quote = FALSE, sep = "\t")
+    write.table(a2, file = f2, row.names = FALSE, col.names = TRUE, quote = FALSE, sep = "\t")
 
     exposure_dat <- mv_extract_exposures_local(
         c(f1, f2),
         sep = "\t",
-        snp_col=c("rsid"),
-        beta_col=c("beta"),
-        se_col=c("se"),
-        effect_allele_col=c("ea"),
-        other_allele_col=c("nea"),
-        pval_col=c("p")
+        snp_col = c("rsid"),
+        beta_col = c("beta"),
+        se_col = c("se"),
+        effect_allele_col = c("ea"),
+        other_allele_col = c("nea"),
+        pval_col = c("p")
     )
 
     expect_true(nrow(exposure_dat) > 100)
