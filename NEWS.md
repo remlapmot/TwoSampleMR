@@ -1,3 +1,10 @@
+# TwoSampleMR v0.5.11
+
+(Release date: 2024-##-##)
+
+* Amended `size` argument to `linewidth` in several places in `mr_leaveoneout_plot()` and `mr_forest_plot()` as per ggplot2 version 3.4.0 update
+* In NEWS, merged the two entries for version 0.4.17 into a single entry
+
 # TwoSampleMR v0.5.10
 
 (Release date: 2024-02-20)
