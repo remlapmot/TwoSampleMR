@@ -28,4 +28,3 @@ test_that("mv exposure local", {
 
     expect_true(nrow(exposure_dat) > 100)
 })
-
