@@ -82,6 +82,9 @@ mv_extract_exposures <- function(id_exposure, clump_r2=0.001, clump_kb=10000, ha
 #' @param clump_r2 Default=`0.001` for clumping
 #' @param clump_kb Default=`10000` for clumping
 #' @param harmonise_strictness See `action` argument in [harmonise_data()]. Default=`2`
+#' @param plink_bin If `NULL` and `bfile` is not `NULL` then will detect packaged plink binary for specific OS. Otherwise specify path to plink binary. Default = `NULL`
+#' @param pop Which 1000 genomes super population to use for clumping
+#' @param bfile If this is provided then will use the API. Default = `NULL`
 #'
 #' @export
 #' @return List
