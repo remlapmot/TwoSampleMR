@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">TwoSampleMR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.11</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,7 +162,7 @@ BMI rs2241423 0.13 0.0204081632653061 G A 0.78 1e-18 kg/m2 LBXCOR1 227886</code>
 <p>The exact path to the file will be different on everyone’s computer,
 but it can be located like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bmi_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bmi.txt"</span>, package<span class="op">=</span><span class="st">"TwoSampleMR"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">bmi_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bmi.txt"</span>, package <span class="op">=</span> <span class="st">"TwoSampleMR"</span><span class="op">)</span></span></code></pre></div>
 <p>You can read the data in like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bmi_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_exposure_data.html">read_exposure_data</a></span><span class="op">(</span><span class="va">bmi_file</span><span class="op">)</span></span>
@@ -189,12 +189,12 @@ but it can be located like this:</p>
 <span><span class="co">#&gt; 5              247166      BMI             TRUE             reported</span></span>
 <span><span class="co">#&gt; 6              227886      BMI             TRUE             reported</span></span>
 <span><span class="co">#&gt;   units.exposure_dat id.exposure data_source.exposure</span></span>
-<span><span class="co">#&gt; 1              kg/m2      S5q7l3             textfile</span></span>
-<span><span class="co">#&gt; 2              kg/m2      S5q7l3             textfile</span></span>
-<span><span class="co">#&gt; 3              kg/m2      S5q7l3             textfile</span></span>
-<span><span class="co">#&gt; 4              kg/m2      S5q7l3             textfile</span></span>
-<span><span class="co">#&gt; 5              kg/m2      S5q7l3             textfile</span></span>
-<span><span class="co">#&gt; 6              kg/m2      S5q7l3             textfile</span></span></code></pre></div>
+<span><span class="co">#&gt; 1              kg/m2      KsZmlQ             textfile</span></span>
+<span><span class="co">#&gt; 2              kg/m2      KsZmlQ             textfile</span></span>
+<span><span class="co">#&gt; 3              kg/m2      KsZmlQ             textfile</span></span>
+<span><span class="co">#&gt; 4              kg/m2      KsZmlQ             textfile</span></span>
+<span><span class="co">#&gt; 5              kg/m2      KsZmlQ             textfile</span></span>
+<span><span class="co">#&gt; 6              kg/m2      KsZmlQ             textfile</span></span></code></pre></div>
 <p>The output from this function is a new data frame with standardised
 column names:</p>
 <ul>
@@ -274,12 +274,12 @@ is located here:</p>
 <span><span class="co">#&gt; 5              247166 exposure             TRUE             reported</span></span>
 <span><span class="co">#&gt; 6              227886 exposure             TRUE             reported</span></span>
 <span><span class="co">#&gt;   units.exposure_dat id.exposure data_source.exposure</span></span>
-<span><span class="co">#&gt; 1              kg/m2      319BZE             textfile</span></span>
-<span><span class="co">#&gt; 2              kg/m2      319BZE             textfile</span></span>
-<span><span class="co">#&gt; 3              kg/m2      319BZE             textfile</span></span>
-<span><span class="co">#&gt; 4              kg/m2      319BZE             textfile</span></span>
-<span><span class="co">#&gt; 5              kg/m2      319BZE             textfile</span></span>
-<span><span class="co">#&gt; 6              kg/m2      319BZE             textfile</span></span></code></pre></div>
+<span><span class="co">#&gt; 1              kg/m2      YL0fZP             textfile</span></span>
+<span><span class="co">#&gt; 2              kg/m2      YL0fZP             textfile</span></span>
+<span><span class="co">#&gt; 3              kg/m2      YL0fZP             textfile</span></span>
+<span><span class="co">#&gt; 4              kg/m2      YL0fZP             textfile</span></span>
+<span><span class="co">#&gt; 5              kg/m2      YL0fZP             textfile</span></span>
+<span><span class="co">#&gt; 6              kg/m2      YL0fZP             textfile</span></span></code></pre></div>
 <p>If the <code>Phenotype</code> column is not provided (as is the case
 in this example) then it will assume that the phenotype’s name is simply
 “exposure”. This is entered in the <code>exposure</code> column. It can
@@ -317,8 +317,8 @@ function. For example, here is some randomly created data:</p>
 <span><span class="co">#&gt; 1 rs1             1           1                      A exposure</span></span>
 <span><span class="co">#&gt; 2 rs2             2           2                      T exposure</span></span>
 <span><span class="co">#&gt;   mr_keep.exposure pval.exposure pval_origin.exposure id.exposure</span></span>
-<span><span class="co">#&gt; 1             TRUE     0.3173105             inferred      A9ypyt</span></span>
-<span><span class="co">#&gt; 2             TRUE     0.3173105             inferred      A9ypyt</span></span>
+<span><span class="co">#&gt; 1             TRUE     0.3173105             inferred      67vZfb</span></span>
+<span><span class="co">#&gt; 2             TRUE     0.3173105             inferred      67vZfb</span></span>
 <span><span class="co">#&gt;   other_allele.exposure eaf.exposure</span></span>
 <span><span class="co">#&gt; 1                    NA           NA</span></span>
 <span><span class="co">#&gt; 2                    NA           NA</span></span></code></pre></div>
@@ -443,7 +443,7 @@ stored in the <code>metab_qtls</code> data object. Use
 <span><span class="co">#&gt; 4 -0.104582 0.009940 7.40e-26        13 22569</span></span>
 <span><span class="co">#&gt; 5 -0.071001 0.009603 1.49e-13        14 24793</span></span>
 <span><span class="co">#&gt; 6 -0.069135 0.009598 6.12e-13        14 24792</span></span></code></pre></div>
-<p>For example, to obtain instruments for the Alanine:</p>
+<p>For example, to obtain instruments for Alanine:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ala_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format_metab_qtls.html">format_metab_qtls</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">metab_qtls</span>, <span class="va">phenotype</span> <span class="op">==</span> <span class="st">"Ala"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -473,11 +473,7 @@ are stored in the <code>proteomic_qtls</code> data object. Use
 <p>For example, to obtain instruments for the ApoH protein:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">apoh_exp_dat</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/format_proteomic_qtls.html">format_proteomic_qtls</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">proteomic_qtls</span>, <span class="va">analyte</span> <span class="op">==</span> <span class="st">"ApoH"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in format_data(proteomic_qtls_subset, type = type, phenotype_col =</span></span>
-<span><span class="co">#&gt; "analyte"): effect_allele column is not character data. Coercing...</span></span>
-<span><span class="co">#&gt; Warning in format_data(proteomic_qtls_subset, type = type, phenotype_col =</span></span>
-<span><span class="co">#&gt; "analyte"): other_allele column is not character data. Coercing...</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/format_proteomic_qtls.html">format_proteomic_qtls</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">proteomic_qtls</span>, <span class="va">analyte</span> <span class="op">==</span> <span class="st">"ApoH"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gene-expression-levels">Gene expression levels<a class="anchor" aria-label="anchor" href="#gene-expression-levels"></a>
@@ -563,81 +559,48 @@ constructing polygenic risk scores using different p-value
 thresholds.</p>
 <p>You can check the status of the API:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ieugwasr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ieugwasr/man/api_status.html" class="external-link">api_status</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; API: public: http://gwas-api.mrcieu.ac.uk/</span></span>
-<span><span class="co">#&gt; $`API version`</span></span>
-<span><span class="co">#&gt; [1] "3.8.7"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Access</span></span>
-<span><span class="co">#&gt; [1] "public"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Neo4j status`</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`ElasticSearch status`</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`LD reference panel`</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`1000 genomes annotation VCF`</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`PLINK executable`</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Cromwell</span></span>
-<span><span class="co">#&gt; [1] "Available"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Total associations`</span></span>
-<span><span class="co">#&gt; [1] 346380158721</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Total complete datasets`</span></span>
-<span><span class="co">#&gt; [1] 50172</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Total public datasets`</span></span>
-<span><span class="co">#&gt; [1] 50041</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"class")</span></span>
-<span><span class="co">#&gt; [1] "ApiStatus"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ieugwasr</span><span class="fu">::</span><span class="fu"><a href="https://mrcieu.github.io/ieugwasr/reference/api_status.html" class="external-link">api_status</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To obtain a list and details about the available GWASs do the
 following:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ao</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/available_outcomes.html">available_outcomes</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ao</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 25</span></span></span>
-<span><span class="co">#&gt;   id      trait ncase group_name  year author consortium sex     pmid population</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ieu-b-… Schi…  <span style="text-decoration: underline;">1</span>234 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 Hispanic …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ieu-b-… Schi… <span style="text-decoration: underline;">52</span>017 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 European  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ieu-b-… Schi… <span style="text-decoration: underline;">12</span>305 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 East Asian</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ieu-b-… Schi… <span style="text-decoration: underline;">64</span>322 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 Mixed     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ieu-b-… Schi… <span style="text-decoration: underline;">76</span>755 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 Mixed     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ieu-b-… Schi…  <span style="text-decoration: underline;">5</span>998 public      <span style="text-decoration: underline;">2</span>022 Trube… PGC        Male… 3.54<span style="color: #949494;">e</span>7 African A…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: unit &lt;chr&gt;, sample_size &lt;int&gt;, build &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ncontrol &lt;int&gt;, category &lt;chr&gt;, subcategory &lt;chr&gt;, ontology &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   note &lt;chr&gt;, mr &lt;int&gt;, nsnp &lt;int&gt;, doi &lt;chr&gt;, coverage &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   study_design &lt;chr&gt;, priority &lt;int&gt;, sd &lt;dbl&gt;</span></span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ao</span><span class="op">)</span></span></code></pre></div>
 <p>For information about authentication see <a href="https://mrcieu.github.io/ieugwasr/articles/guide.html#authentication" class="external-link uri">https://mrcieu.github.io/ieugwasr/articles/guide.html#authentication</a>.</p>
-<p>The <code>available_outcomes</code> function returns a table of all
-the available studies in the database. Each study has a unique ID.
-e.g.</p>
+<p>The <code><a href="../reference/available_outcomes.html">available_outcomes()</a></code> function returns a table of all
+the available studies in the database. Each study has a unique ID. e.g.,
+You might obtain</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ao</span>, select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">trait</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">#&gt;   trait         id        </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Schizophrenia ieu-b-5103</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Schizophrenia ieu-b-5102</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Schizophrenia ieu-b-5101</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Schizophrenia ieu-b-5100</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Schizophrenia ieu-b-5099</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Schizophrenia ieu-b-5098</span></span></code></pre></div>
+<span><span class="co">#&gt;           trait         id</span></span>
+<span><span class="co">#&gt; 1 Schizophrenia ieu-b-5103</span></span>
+<span><span class="co">#&gt; 2 Schizophrenia ieu-b-5102</span></span>
+<span><span class="co">#&gt; 3 Schizophrenia ieu-b-5101</span></span>
+<span><span class="co">#&gt; 4 Schizophrenia ieu-b-5100</span></span>
+<span><span class="co">#&gt; 5 Schizophrenia ieu-b-5099</span></span>
+<span><span class="co">#&gt; 6 Schizophrenia ieu-b-5098</span></span></code></pre></div>
 <p>To extract instruments for a particular trait using a particular
 study, for example to obtain SNPs for body mass index using the Locke et
-al 2015 GIANT study, you specify the study ID as follows:</p>
+al. 2015 GIANT study, you specify the study ID as follows:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bmi2014_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_instruments.html">extract_instruments</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">'ieu-a-2'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bmi2014_exp_dat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    79 obs. of  15 variables:</span></span>
+<span><span class="co">#&gt;  $ pval.exposure         : num  2.18e-08 4.57e-11 5.06e-14 5.45e-10 1.88e-28 ...</span></span>
+<span><span class="co">#&gt;  $ samplesize.exposure   : num  339152 339065 313621 338768 338123 ...</span></span>
+<span><span class="co">#&gt;  $ chr.exposure          : chr  "1" "1" "1" "1" ...</span></span>
+<span><span class="co">#&gt;  $ se.exposure           : num  0.003 0.0031 0.0087 0.0029 0.003 0.0037 0.0031 0.003 0.0038 0.003 ...</span></span>
+<span><span class="co">#&gt;  $ beta.exposure         : num  -0.0168 0.0201 0.0659 0.0181 0.0331 0.0497 -0.0227 0.0221 0.0209 0.0175 ...</span></span>
+<span><span class="co">#&gt;  $ pos.exposure          : int  47684677 78048331 110082886 201784287 72837239 177889480 49589847 96924097 164567689 181550962 ...</span></span>
+<span><span class="co">#&gt;  $ id.exposure           : chr  "ieu-a-2" "ieu-a-2" "ieu-a-2" "ieu-a-2" ...</span></span>
+<span><span class="co">#&gt;  $ SNP                   : chr  "rs977747" "rs17381664" "rs7550711" "rs2820292" ...</span></span>
+<span><span class="co">#&gt;  $ effect_allele.exposure: chr  "G" "C" "T" "C" ...</span></span>
+<span><span class="co">#&gt;  $ other_allele.exposure : chr  "T" "T" "C" "A" ...</span></span>
+<span><span class="co">#&gt;  $ eaf.exposure          : num  0.5333 0.425 0.0339 0.5083 0.6083 ...</span></span>
+<span><span class="co">#&gt;  $ exposure              : chr  "Body mass index || id:ieu-a-2" "Body mass index || id:ieu-a-2" "Body mass index || id:ieu-a-2" "Body mass index || id:ieu-a-2" ...</span></span>
+<span><span class="co">#&gt;  $ mr_keep.exposure      : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...</span></span>
+<span><span class="co">#&gt;  $ pval_origin.exposure  : chr  "reported" "reported" "reported" "reported" ...</span></span>
+<span><span class="co">#&gt;  $ data_source.exposure  : chr  "igd" "igd" "igd" "igd" ...</span></span></code></pre></div>
 <p>This returns a set of LD clumped SNPs that are GWAS significant for
 BMI. You can specify various parameters for this function:</p>
 <ul>
@@ -669,11 +632,27 @@ to perform clumping.</p>
 that have LD R-square above the specified threshold only the SNP with
 the lowest P-value will be retained. To do this, use the following
 command:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bmi_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clump_data.html">clump_data</a></span><span class="op">(</span><span class="va">bmi_exp_dat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Please look at vignettes for options on running this locally if you need to run many instances of this command.</span></span>
-<span><span class="co">#&gt; Clumping 319BZE, 30 variants, using EUR population reference</span></span>
-<span><span class="co">#&gt; Removing 3 of 30 variants due to LD with other variants or absence from LD reference panel</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bmi_exp_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clump_data.html">clump_data</a></span><span class="op">(</span><span class="va">bmi2014_exp_dat</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bmi_exp_dat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    30 obs. of  16 variables:</span></span>
+<span><span class="co">#&gt;  $ SNP                   : chr  "rs10767664" "rs13078807" "rs1514175" "rs1558902" ...</span></span>
+<span><span class="co">#&gt;  $ beta.exposure         : num  0.19 0.1 0.07 0.39 0.11 0.13 0.06 0.09 0.13 0.06 ...</span></span>
+<span><span class="co">#&gt;  $ se.exposure           : num  0.0306 0.0204 0.0204 0.0204 0.0204 ...</span></span>
+<span><span class="co">#&gt;  $ effect_allele.exposure: chr  "A" "G" "A" "A" ...</span></span>
+<span><span class="co">#&gt;  $ other_allele.exposure : chr  "T" "A" "G" "T" ...</span></span>
+<span><span class="co">#&gt;  $ eaf.exposure          : num  0.78 0.2 0.43 0.42 0.31 0.78 0.41 0.24 0.21 0.21 ...</span></span>
+<span><span class="co">#&gt;  $ pval.exposure         : num  5e-26 4e-11 8e-14 5e-120 3e-13 ...</span></span>
+<span><span class="co">#&gt;  $ units.exposure        : chr  "kg/m2" "kg/m2" "kg/m2" "kg/m2" ...</span></span>
+<span><span class="co">#&gt;  $ gene.exposure         : chr  "BDNF" "CADM2" "TNNI3K" "FTO" ...</span></span>
+<span><span class="co">#&gt;  $ samplesize.exposure   : int  225238 221431 207641 222476 247166 227886 209051 218439 209849 220081 ...</span></span>
+<span><span class="co">#&gt;  $ exposure              : chr  "BMI" "BMI" "BMI" "BMI" ...</span></span>
+<span><span class="co">#&gt;  $ mr_keep.exposure      : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...</span></span>
+<span><span class="co">#&gt;  $ pval_origin.exposure  : chr  "reported" "reported" "reported" "reported" ...</span></span>
+<span><span class="co">#&gt;  $ units.exposure_dat    : chr  "kg/m2" "kg/m2" "kg/m2" "kg/m2" ...</span></span>
+<span><span class="co">#&gt;  $ id.exposure           : chr  "FXhiAH" "FXhiAH" "FXhiAH" "FXhiAH" ...</span></span>
+<span><span class="co">#&gt;  $ data_source.exposure  : chr  "textfile" "textfile" "textfile" "textfile" ...</span></span></code></pre></div>
 <p>The <code><a href="../reference/clump_data.html">clump_data()</a></code> function takes any data frame that has
 been formatted to be an exposure data type of data frame. Note that for
 the instruments in the MRInstruments package the SNPs are already LD
