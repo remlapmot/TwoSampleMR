@@ -52,14 +52,14 @@ Imports:
     RadialMR,
     reshape2,
     rmarkdown
-Suggests: 
+Suggests:
     Cairo,
     car,
     markdown,
     MRInstruments,
     randomForest,
     testthat
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Remotes:
     gqi/MRMix,
