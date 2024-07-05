@@ -114,7 +114,7 @@ test_r_from_pn <- function()
 		rsq = 10^seq(-4,-0.5, length.out=30)
 	)
 
-	for(i in 1:nrow(param))
+	for (i in 1:nrow(param))
 	{
 		message(i)
 		x <- scale(stats::rnorm(param$n[i]))
@@ -182,7 +182,7 @@ get_r_from_pn <- function(p, n)
 	if (any(index))
 	{
 		index <- which(index)
-		for(i in 1:length(index))
+		for (i in 1:length(index))
 		{
 			if (p[index[i]] == 0)
 			{
@@ -255,7 +255,7 @@ get_r_from_lor <- function(lor, af, ncase, ncontrol, prevalence, model="logit", 
 
 	nsnp <- length(lor)
 	r <- array(NA, nsnp)
-	for(i in 1:nsnp)
+	for (i in 1:nsnp)
 	{
 		if (model == "logit")
 		{
@@ -340,7 +340,7 @@ get_population_allele_frequency <- function(af, prop, odds_ratio, prevalence)
 {
 	stopifnot(length(af) == length(odds_ratio))
 	stopifnot(length(prop) == length(odds_ratio))
-	for(i in 1:length(odds_ratio))
+	for (i in 1:length(odds_ratio))
 	{
 		co <- contingency(af[i], prop[i], odds_ratio[i])
 		af_controls <- co[1,2] / (co[1,2] + co[2,2])
