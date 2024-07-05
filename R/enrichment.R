@@ -17,7 +17,7 @@ fishers_combined_test <- function(pval)
 		warning("p-values of 0 are unreliable in Fisher's combined test.")
 		pval[index] <- 1e-50
 	}
-	p <- stats::pchisq(-2 * sum(log(pval)), df=2*length(pval), lower.tail=FALSE)
+	p <- stats::pchisq(-2 * sum(log(pval)), df = 2 * length(pval), lower.tail = FALSE)
 	return(list(pval=p, nsnp=length(pval)))
 }
 
@@ -33,15 +33,15 @@ enrichment_method_list <- function()
 {
 	a <- list(
 		list(
-			obj="fishers_combined_test",
-			name="Fisher's combined test",
-			PubmedID="",
-			Description=""
+			obj = "fishers_combined_test",
+			name = "Fisher's combined test",
+			PubmedID = "",
+			Description = ""
 		)
 	)
 	a <- lapply(a, as.data.frame)
 	a <- plyr::rbind.fill(a)
-	a <- as.data.frame(lapply(a, as.character), stringsAsFactors=FALSE)
+	a <- as.data.frame(lapply(a, as.character), stringsAsFactors = FALSE)
 	return(a)	
 }
 
@@ -61,7 +61,7 @@ enrichment <- function(dat, method_list=enrichment_method_list()$obj)
 		# message("Performing enrichment analysis of '", x$id.exposure[1], "' on '", x$id.outcome[1], "'")
 
 		x <- subset(x1, !is.na(pval.outcome))
-		if(nrow(x) == 0)
+		if (nrow(x) == 0)
 		{
 			message("No outcome p-values for analysis of '", x1$id.exposure[1], "' on '", x1$id.outcome[1], "'")
 			return(NULL)
