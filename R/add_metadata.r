@@ -53,7 +53,7 @@ add_metadata <- function(dat, cols = c("sample_size", "ncase", "ncontrol", "unit
 					dat[[x]] <- NA
 				}
 
-				for(id in unique(info[["id.exposure"]]))
+				for (id in unique(info[["id.exposure"]]))
 				{
 					dat[[x]][is.na(dat[[x]]) & dat[["id.exposure"]] == id] <- info[[x]][info[["id.exposure"]] == id]
 				}
