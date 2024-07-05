@@ -20,11 +20,11 @@ mr_mean_ivw <- function(d)
 			id.outcome = id.outcome,
 			method = "Wald ratio",
 			nsnp = nrow(d),
-			b=res$b,
-			se=res$b,
-			ci_low=b-se*1.96,
-			ci_upp=b+se*1.96,
-			pval=stats::pt(abs(b/se), 1, lower.tail=FALSE) * 2
+			b = res$b,
+			se = res$b,
+			ci_low = b - se * 1.96,
+			ci_upp = b + se * 1.96,
+			pval = stats::pt(abs(b / se), 1, lower.tail = FALSE) * 2
 		)
 		return(list(estimates=out))
 	}
@@ -37,9 +37,9 @@ mr_mean_ivw <- function(d)
 		nsnp = nrow(d),
 		b = unw$coefficients[1],
 		se = unw$coefficients[2],
-		ci_low=b-se*1.96,
-		ci_upp=b+se*1.96,
-		pval=stats::pt(abs(b/se), nrow(d)-1, lower.tail=FALSE) * 2
+		ci_low = b - se * 1.96,
+		ci_upp = b + se * 1.96,
+		pval = stats::pt(abs(b / se), nrow(d) - 1, lower.tail = FALSE) * 2
 	)
 
 	weights1 <- sqrt(b_exp^2 / se_out^2)
@@ -51,10 +51,10 @@ mr_mean_ivw <- function(d)
 	y2 <- ratios * weights2
 	ivw2 <- summary(stats::lm(y2 ~ -1 + weights2))
 
-	ivwoutliers <- dplyr::tibble(id.exposure = id.exposure, id.outcome = id.outcome, SNP=d$SNP, Qj=weights2^2 * (ratios - stats::coefficients(ivw2)[1])^2, Qpval=stats::pchisq(Qj,1,lower.tail=FALSE))
+	ivwoutliers <- dplyr::tibble(id.exposure = id.exposure, id.outcome = id.outcome, SNP = d$SNP, Qj = weights2^2 * (ratios - stats::coefficients(ivw2)[1])^2, Qpval = stats::pchisq(Qj, 1, lower.tail = FALSE))
 
 	Qivw2 <- sum(ivwoutliers$Qj)
-	Qivw2pval <- stats::pchisq(Qivw2, nrow(d)-1, lower.tail=FALSE)
+	Qivw2pval <- stats::pchisq(Qivw2, nrow(d) - 1, lower.tail = FALSE)
 
 	# Collate
 	re_out <- dplyr::tibble(
@@ -66,7 +66,7 @@ mr_mean_ivw <- function(d)
 		se = c(ivw2$coefficients[2]),
 		ci_low = b - se * 1.96,
 		ci_upp = b + se * 1.96,
-		pval = stats::pt(abs(b / se), nrow(d)-1, lower.tail=FALSE) * 2
+		pval = stats::pt(abs(b / se), nrow(d) - 1, lower.tail = FALSE) * 2
 	)
 
 	fe_out <- re_out
@@ -82,8 +82,8 @@ mr_mean_ivw <- function(d)
 		id.outcome = id.outcome,
 		method = c("IVW"),
 		Q = c(Qivw2),
-		df = c(nrow(d)-1),
-		pval = stats::pchisq(Q, df, lower.tail=FALSE)
+		df = c(nrow(d) - 1),
+		pval = stats::pchisq(Q, df, lower.tail = FALSE)
 	)
 
 	ret <- list(estimates=out, heterogeneity = heterogeneity, outliers=ivwoutliers)
@@ -114,13 +114,13 @@ mr_mean_egger <- function(d)
 	y2 <- ratios * weights2
 	egger2 <- summary(stats::lm(y2 ~ weights2))
 	eggeroutliers <- dplyr::tibble(
-		SNP=d$SNP, 
+		SNP = d$SNP,
 		Qj = weights2^2 * (ratios - stats::coefficients(egger2)[1,1] / weights2 - stats::coefficients(egger2)[2,1])^2, 
-		Qpval=stats::pchisq(Qj,1,lower.tail=FALSE)
+		Qpval = stats::pchisq(Qj, 1, lower.tail = FALSE)
 	)
 
 	Qegger2 <- sum(eggeroutliers$Qj)
-	Qegger2pval <- stats::pchisq(Qegger2, nrow(d)-1, lower.tail=FALSE)
+	Qegger2pval <- stats::pchisq(Qegger2, nrow(d) - 1, lower.tail = FALSE)
 
 
 	# Collate
@@ -129,11 +129,11 @@ mr_mean_egger <- function(d)
 		id.outcome = id.outcome,
 		method = c("RE Egger"),
 		nsnp = nrow(d),
-		b = c(egger2$coefficients[2,1]),
-		se = c(egger2$coefficients[2,2]),
+		b = c(egger2$coefficients[2, 1]),
+		se = c(egger2$coefficients[2, 2]),
 		ci_low = b - se * 1.96,
 		ci_upp = b + se * 1.96,
-		pval = stats::pt(abs(b / se), nrow(d)-2, lower.tail=FALSE) * 2
+		pval = stats::pt(abs(b / se), nrow(d) - 2, lower.tail = FALSE) * 2
 	)
 
 	fe_out <- re_out
@@ -149,8 +149,8 @@ mr_mean_egger <- function(d)
 		id.outcome = id.outcome,
 		method = c("Egger"),
 		Q = c(Qegger2),
-		df = c(nrow(d)-2),
-		pval = stats::pchisq(Q, df, lower.tail=FALSE)
+		df = c(nrow(d) - 2),
+		pval = stats::pchisq(Q, df, lower.tail = FALSE)
 	)
 
 	directional_pleiotropy <- dplyr::tibble(
@@ -158,9 +158,9 @@ mr_mean_egger <- function(d)
 		id.outcome = id.outcome,
 		method = c("FE Egger intercept", "RE Egger intercept"),
 		nsnp = nrow(d),
-		b = c(egger2$coefficients[1,1], egger2$coefficients[1,1]),
-		se = c(egger2$coefficients[1,2] / max(1, egger2$sigma), egger2$coefficients[1,2]),
-		pval = stats::pt(abs(b/se), nrow(d)-2, lower.tail=FALSE) * 2
+		b = c(egger2$coefficients[1, 1], egger2$coefficients[1, 1]),
+		se = c(egger2$coefficients[1, 2] / max(1, egger2$sigma), egger2$coefficients[1, 2]),
+		pval = stats::pt(abs(b / se), nrow(d) - 2, lower.tail = FALSE) * 2
 	)
 
 	ret <- list(estimates=out, heterogeneity = heterogeneity, directional_pleiotropy = directional_pleiotropy, outliers=eggeroutliers)
@@ -191,7 +191,7 @@ mr_mean <- function(dat, parameters=default_parameters())
 				method = "Rucker",
 				Q = out$heterogeneity$Q[1] - out$heterogeneity$Q[2],
 				df = 1,
-				pval = stats::pchisq(Q, df, lower.tail=FALSE)
+				pval = stats::pchisq(Q, df, lower.tail = FALSE)
 			)
 			out$heterogeneity <- dplyr::bind_rows(out$heterogeneity, temp)
 			return(out)
@@ -209,7 +209,7 @@ mr_all <- function(dat, parameters=default_parameters())
 		m1$estimates <- dplyr::bind_rows(m1$estimates, m2, m3)
 	}
 	m1$info <- c(list(
-			id.exposure = dat$id.exposure[1], id.outcome = dat$id.outcome[1]),		
+			id.exposure = dat$id.exposure[1], id.outcome = dat$id.outcome[1]),
 			system_metrics(dat)
 		) %>% dplyr::as_tibble()
 	return(m1)
@@ -226,10 +226,10 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 	m[[1]] <- mr_all(dat, parameters=parameters)
 	if(!is.null(m[[1]]))
 	{
-		if("outliers" %in% names(m[[1]]))
+		if ("outliers" %in% names(m[[1]]))
 		{
 			temp <- subset(dat, ! SNP %in% subset(m[[1]]$outliers, Qpval < 0.05)$SNP)
-			m[[2]] <- mr_all(temp, parameters=parameters)
+			m[[2]] <- mr_all(temp, parameters = parameters)
 			snps_retained$outlier[snps_retained$SNP %in% temp$SNP] <- TRUE
 		} else {
 			m[[2]] <- m[[1]]
@@ -245,10 +245,10 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			)
 		} else {
 			m[[3]] <- mr_all(dat_st, parameters=parameters)
-			if("outliers" %in% names(m[[3]]))
+			if ("outliers" %in% names(m[[3]]))
 			{
 				temp <- subset(dat_st, ! SNP %in% subset(m[[3]]$outliers, Qpval < 0.05)$SNP)
-				m[[4]] <- mr_all(temp, parameters=parameters)
+				m[[4]] <- mr_all(temp, parameters = parameters)
 				snps_retained$both[snps_retained$SNP %in% temp$SNP] <- TRUE
 			} else {
 				m[[4]] <- m[[3]]
@@ -308,7 +308,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		lapply(m, function(y) y[[i]]) %>% dplyr::bind_rows()
 	})
 	names(o) <- nom
-	o$info <- o$info %>% dplyr::mutate(nsnp_removed = dplyr::first(nsnp)-nsnp)
+	o$info <- o$info %>% dplyr::mutate(nsnp_removed = dplyr::first(nsnp) - nsnp)
 	o$snps_retained <- snps_retained
 
 	return(o)
@@ -328,7 +328,7 @@ mr_wrapper <- function(dat, parameters=default_parameters())
 	{
 		message("Performing MR analysis of '", x$id.exposure[1], "' on '", x$id.outcome[1], "'")
 		d <- subset(x, mr_keep)
-		o <- mr_wrapper_single(d, parameters=parameters)
+		o <- mr_wrapper_single(d, parameters = parameters)
 		o
 	})
 }
