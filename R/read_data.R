@@ -193,7 +193,7 @@ if (inherits(dat, "data.table")) {
 	dat$SNP <- gsub("[[:space:]]", "", dat$SNP)
 	dat <- subset(dat, !is.na(SNP))
 
-	if(!is.null(snps))
+	if (!is.null(snps))
 	{
 		dat <- subset(dat, SNP %in% snps)
 	}
@@ -362,9 +362,9 @@ if (inherits(dat, "data.table")) {
 		dat$pval.outcome[index] <- min_pval
 
 		dat$pval_origin.outcome <- "reported"
-		if(any(is.na(dat$pval.outcome)))
+		if (any(is.na(dat$pval.outcome)))
 		{
-			if("beta.outcome" %in% names(dat) & "se.outcome" %in% names(dat))
+			if ("beta.outcome" %in% names(dat) && "se.outcome" %in% names(dat))
 			{
 				index <- is.na(dat$pval.outcome)
 				dat$pval.outcome[index] <- stats::pnorm(abs(dat$beta.outcome[index])/dat$se.outcome[index], lower.tail=FALSE)
@@ -374,7 +374,7 @@ if (inherits(dat, "data.table")) {
 	}
 	
 	# If no pval column then create it from beta and se if available
-	if("beta.outcome" %in% names(dat) & "se.outcome" %in% names(dat) & ! "pval.outcome" %in% names(dat))
+	if ("beta.outcome" %in% names(dat) && "se.outcome" %in% names(dat) && ! "pval.outcome" %in% names(dat))
 	{
 		message("Inferring p-values")
 		dat$pval.outcome <- stats::pnorm(abs(dat$beta.outcome)/dat$se.outcome, lower.tail=FALSE) * 2
@@ -412,7 +412,7 @@ if (inherits(dat, "data.table")) {
 			dat$samplesize.outcome <- as.numeric(dat$samplesize.outcome)
 		}
 
-		if("ncontrol.outcome" %in% names(dat) & "ncase.outcome" %in% names(dat))
+		if ("ncontrol.outcome" %in% names(dat) && "ncase.outcome" %in% names(dat))
 		{
 			index <- is.na(dat$samplesize.outcome) & !is.na(dat$ncase.outcome) & !is.na(dat$ncontrol.outcome)
 			if(any(index))
@@ -421,7 +421,7 @@ if (inherits(dat, "data.table")) {
 				dat$samplesize.outcome[index] <- dat$ncase.outcome[index] + dat$ncontrol.outcome[index]			
 			}
 		}
-	} else if("ncontrol.outcome" %in% names(dat) & "ncase.outcome" %in% names(dat))
+	} else if ("ncontrol.outcome" %in% names(dat) && "ncase.outcome" %in% names(dat))
 	{
 		message("Generating sample size from ncase and ncontrol")
 		dat$samplesize.outcome <- dat$ncase.outcome + dat$ncontrol.outcome
@@ -477,9 +477,9 @@ if (inherits(dat, "data.table")) {
 		mrcols <- c("SNP", "beta.outcome", "se.outcome", "effect_allele.outcome")
 		mrcols_present <- mrcols[mrcols %in% names(dat)]
 		dat$mr_keep.outcome <- dat$mr_keep.outcome & apply(dat[, mrcols_present], 1, function(x) !any(is.na(x)))
-		if(any(!dat$mr_keep.outcome))
+		if (any(!dat$mr_keep.outcome))
 		{
-			warning("The following SNP(s) are missing required information for the MR tests and will be excluded\n", paste(subset(dat, !mr_keep.outcome)$SNP, collapse="\n"))
+			warning("The following SNP(s) are missing required information for the MR tests and will be excluded\n", paste(subset(dat, !mr_keep.outcome)$SNP, collapse = "\n"))
 		}
 	}
 	if(all(!dat$mr_keep.outcome))
@@ -722,7 +722,7 @@ combine_data <- function(x)
 #' @return data frame
 convert_outcome_to_exposure <- function(outcome_dat)
 {
-	id <- subset(outcome_dat, !duplicated(outcome), select=c(outcome, id.outcome))
+	id <- subset(outcome_dat, !duplicated(outcome), select = c(outcome, id.outcome))
 	exposure_dat <- format_data(
 		outcome_dat,
 		beta_col = "beta.outcome",
@@ -734,8 +734,8 @@ convert_outcome_to_exposure <- function(outcome_dat)
 		eaf_col="eaf.outcome",
 		units_col="units.outcome"
 	)
-	exposure_dat <- merge(exposure_dat, id, by.x="exposure", by.y="outcome")
-	exposure_dat <- subset(exposure_dat, select=-c(id.exposure))
+	exposure_dat <- merge(exposure_dat, id, by.x = "exposure", by.y = "outcome")
+	exposure_dat <- subset(exposure_dat, select = -c(id.exposure))
 	names(exposure_dat)[names(exposure_dat) == "id.outcome"] <- "id.exposure"
 	return(exposure_dat)
 }
