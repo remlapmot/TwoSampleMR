@@ -21,17 +21,17 @@
 #'
 #' @export
 #' @return data frame.
-format_1_to_many <- function(mr_res, b="b",se="se",exponentiate=FALSE, ao_slc=FALSE,by=NULL,TraitM="outcome",addcols=NULL,weight=NULL)
+format_1_to_many <- function(mr_res, b = "b", se = "se", exponentiate = FALSE, ao_slc = FALSE, by = NULL, TraitM = "outcome", addcols = NULL, weight = NULL)
 {
-	if(!is.null(by)){
-		mr_res<-mr_res[,names(mr_res)!="subcategory"]
-		names(mr_res)[names(mr_res)==by]<-"subcategory"
-	}else{
-		mr_res$subcategory<-""
+	if (!is.null(by)){
+		mr_res <- mr_res[, names(mr_res) != "subcategory"]
+		names(mr_res)[names(mr_res) == by] <- "subcategory"
+	} else {
+		mr_res$subcategory <- ""
 	}
 
-	if(is.null(weight)) {
-		mr_res$weight=3
+	if (is.null(weight)) {
+		mr_res$weight = 3
 	}
 
 	if(TraitM=="exposure"){ #the plot function currently tries to plot separate plots for each unique exposure. This is a legacy of the original multiple exposures forest plot function and needs to be cleaned up. The function won't work if the TraitM column is called exposure
