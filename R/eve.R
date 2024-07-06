@@ -12,7 +12,7 @@ mr_mean_ivw <- function(d)
 	id.exposure = d$id.exposure[1]
 	id.outcome = d$id.outcome[1]
 
-	if(nrow(d) == 1)
+	if (nrow(d) == 1)
 	{
 		res <- mr_wald_ratio(b_exp, b_out, se_exp, se_out)
 		out <- dplyr::tibble(
@@ -26,7 +26,7 @@ mr_mean_ivw <- function(d)
 			ci_upp = b + se * 1.96,
 			pval = stats::pt(abs(b / se), 1, lower.tail = FALSE) * 2
 		)
-		return(list(estimates=out))
+		return(list(estimates = out))
 	}
 
 	unw <- summary(stats::lm(b_out ~ -1 + b_exp))
@@ -71,7 +71,7 @@ mr_mean_ivw <- function(d)
 
 	fe_out <- re_out
 	fe_out$se <- fe_out$se / max(1, ivw2$sigma)
-	fe_out$pval <- stats::pnorm(abs(fe_out$b / fe_out$se), lower.tail=FALSE) * 2
+	fe_out$pval <- stats::pnorm(abs(fe_out$b / fe_out$se), lower.tail = FALSE) * 2
 	fe_out$method <- c("FE IVW")
 
 	out <- dplyr::bind_rows(unw_out, fe_out, re_out)
@@ -86,7 +86,7 @@ mr_mean_ivw <- function(d)
 		pval = stats::pchisq(Q, df, lower.tail = FALSE)
 	)
 
-	ret <- list(estimates=out, heterogeneity = heterogeneity, outliers=ivwoutliers)
+	ret <- list(estimates=out, heterogeneity = heterogeneity, outliers = ivwoutliers)
 	return(ret)
 }
 
@@ -138,7 +138,7 @@ mr_mean_egger <- function(d)
 
 	fe_out <- re_out
 	fe_out$se <- fe_out$se / max(1, egger2$sigma)
-	fe_out$pval <- stats::pnorm(abs(fe_out$b / fe_out$se), lower.tail=FALSE) * 2
+	fe_out$pval <- stats::pnorm(abs(fe_out$b / fe_out$se), lower.tail = FALSE) * 2
 	fe_out$method <- c("FE Egger")
 
 	out <- dplyr::bind_rows(fe_out, re_out)
@@ -163,19 +163,19 @@ mr_mean_egger <- function(d)
 		pval = stats::pt(abs(b / se), nrow(d) - 2, lower.tail = FALSE) * 2
 	)
 
-	ret <- list(estimates=out, heterogeneity = heterogeneity, directional_pleiotropy = directional_pleiotropy, outliers=eggeroutliers)
+	ret <- list(estimates=out, heterogeneity = heterogeneity, directional_pleiotropy = directional_pleiotropy, outliers = eggeroutliers)
 	return(ret)
 }
 
-mr_mean <- function(dat, parameters=default_parameters())
+mr_mean <- function(dat, parameters = default_parameters())
 {
 	m1 <- try(mr_mean_ivw(dat))
 	m2 <- try(mr_mean_egger(dat))
-	if(inherits(m1, "try-error"))
+	if (inherits(m1, "try-error"))
 	{
 		return(NULL)
 	} else {
-		if(inherits(m2, "try-error"))
+		if (inherits(m2, "try-error"))
 		{
 			return(m1)
 		} else {
@@ -199,10 +199,10 @@ mr_mean <- function(dat, parameters=default_parameters())
 	}
 }
 
-mr_all <- function(dat, parameters=default_parameters())
+mr_all <- function(dat, parameters = default_parameters())
 {
 	m1 <- mr_mean(dat)
-	if(sum(dat$mr_keep) > 3)
+	if (sum(dat$mr_keep) > 3)
 	{
 		m2 <- try(mr_median(dat, parameters=parameters))
 		m3 <- try(mr_mode(dat, parameters=parameters)[1:3,])
@@ -215,7 +215,7 @@ mr_all <- function(dat, parameters=default_parameters())
 	return(m1)
 }
 
-mr_wrapper_single <- function(dat, parameters=default_parameters())
+mr_wrapper_single <- function(dat, parameters = default_parameters())
 {
 	dat <- steiger_filtering(dat)
 	m <- list()
@@ -223,8 +223,8 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		SNP = dat$SNP,
 		outlier = FALSE, steiger = FALSE, both = FALSE
 	)
-	m[[1]] <- mr_all(dat, parameters=parameters)
-	if(!is.null(m[[1]]))
+	m[[1]] <- mr_all(dat, parameters = parameters)
+	if (!is.null(m[[1]]))
 	{
 		if ("outliers" %in% names(m[[1]]))
 		{
@@ -238,13 +238,13 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 
 		dat_st <- subset(dat, steiger_dir)
 		snps_retained$steiger[snps_retained$SNP %in% dat_st$SNP] <- TRUE
-		if(nrow(dat_st) == 0)
+		if (nrow(dat_st) == 0)
 		{
 			m[[3]] <- m[[4]] <- list(
-				estimates=dplyr::tibble(method="Steiger null", nsnp = 0, b=0, se=NA, ci_low=NA, ci_upp=NA, pval=1)
+				estimates=dplyr::tibble(method = "Steiger null", nsnp = 0, b = 0, se = NA, ci_low = NA, ci_upp = NA, pval = 1)
 			)
 		} else {
-			m[[3]] <- mr_all(dat_st, parameters=parameters)
+			m[[3]] <- mr_all(dat_st, parameters = parameters)
 			if ("outliers" %in% names(m[[3]]))
 			{
 				temp <- subset(dat_st, ! SNP %in% subset(m[[3]]$outliers, Qpval < 0.05)$SNP)
@@ -257,7 +257,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		}
 	}
 
-	if(!is.null(m[[1]]))
+	if (!is.null(m[[1]]))
 	{
 		m[[1]] <- lapply(m[[1]], function(x)
 		{
@@ -268,7 +268,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[2]]))
+	if (!is.null(m[[2]]))
 	{
 		m[[2]] <- lapply(m[[2]], function(x)
 		{
@@ -279,7 +279,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[3]]))
+	if (!is.null(m[[3]]))
 	{
 		m[[3]] <- lapply(m[[3]], function(x)
 		{
@@ -290,7 +290,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[4]]))
+	if (!is.null(m[[4]]))
 	{
 		m[[4]] <- lapply(m[[4]], function(x)
 		{
@@ -322,7 +322,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 #'
 #' @export
 #' @return list
-mr_wrapper <- function(dat, parameters=default_parameters())
+mr_wrapper <- function(dat, parameters = default_parameters())
 {
 	plyr::dlply(dat, c("id.exposure", "id.outcome"), function(x)
 	{
