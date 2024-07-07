@@ -6,7 +6,7 @@
 \alias{TwoSampleMR-package}
 \title{TwoSampleMR: Two Sample MR Functions and Interface to MR Base Database}
 \description{
-A package for performing Mendelian randomization using GWAS summary data. It uses the IEU GWAS database \url{https://gwas.mrcieu.ac.uk/} to automatically obtain data, and a wide range of methods to run the analysis. You can use the MR-Base web app \url{https://www.mrbase.org/} to try out a limited range of the functionality in this package, but for any serious work we strongly recommend using this R package.
+A package for performing Mendelian randomization using GWAS summary data. It uses the IEU GWAS database \url{https://api.opengwas.io/} to automatically obtain data, and a wide range of methods to run the analysis. You can use the MR-Base web app \url{https://www.mrbase.org/} to try out a limited range of the functionality in this package, but for any serious work we strongly recommend using this R package.
 }
 \seealso{
 Useful links:
