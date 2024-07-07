@@ -53,7 +53,7 @@ We are using Elasticsearch and Neo4j on an Oracle Cloud Infrastructure to serve 
 
 ### Browse available datasets online
 
-We have a new home for the GWAS summary data: <https://gwas.mrcieu.ac.uk/>.
+We have a new home for the GWAS summary data: <https://api.opengwas.io/>.
 
 ### Chromosome and position
 
@@ -97,8 +97,8 @@ Either the data in the database, or the GWAS VCF files, can be queried and the r
 
 ## Key links
 
-- The IEU GWAS database: https://gwas.mrcieu.ac.uk
-- API to the IEU GWAS database: https://gwas-api.mrcieu.ac.uk
+- The IEU GWAS database: https://api.opengwas.io/
+- API to the IEU GWAS database: https://api.opengwas.io/
 - ieugwasr package, for R access to the API: https://mrcieu.github.io/ieugwasr/
 - ieugwaspy package, for python access to the API: https://github.com/MRCIEU/ieugwaspy/ (Under construction)
 - gwasvcf package, R interface to GWAS VCF files: https://mrcieu.github.io/gwasvcf/
