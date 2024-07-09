@@ -4,7 +4,7 @@ template:
   light-switch: true
   bslib:
     bootswatch: united
-    pkgdown-navbar-bg: '#e95420'
+    # pkgdown-navbar-bg: '#e95420'
 
 navbar:
   left:
