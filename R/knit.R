@@ -98,12 +98,12 @@ mr_report <- function(dat, output_path = ".", output_type = "html", author = "An
     combinations <- plyr::ddply(dat, c("id.exposure", "id.outcome"), plyr::summarise, n=length(exposure), exposure=exposure[1], outcome=outcome[1])
 
     output_file <- array("", nrow(combinations))
-    for(i in seq_len(nrow(combinations)))
+    for (i in seq_len(nrow(combinations)))
     {
         title <- paste(combinations$exposure[i], "against", combinations$outcome[i])
         tablist <- lapply(m[c("mr", "enrichment", "directionality_test", "mr_heterogeneity", "mr_pleiotropy_test")], function(x)
             {
-                if(is.null(x))
+                if (is.null(x))
                 {
                     return(NULL)
                 } else {
@@ -115,7 +115,7 @@ mr_report <- function(dat, output_path = ".", output_type = "html", author = "An
         plotlist <- lapply(p, function(x) {
             d <- attributes(x)$split_labels
             index <- which(d$id.exposure == combinations$id.exposure[i] & d$id.outcome == combinations$id.outcome[i])
-            if(length(index) < 1)
+            if (length(index) < 1)
             {
                 return(blank_plot("Insufficient number of SNPs"))
             } else {

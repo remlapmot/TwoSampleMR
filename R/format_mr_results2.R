@@ -139,27 +139,27 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 	# Convert all factors to character
 	# lapply(names(Res), FUN=function(x) class(Res[,x]))
 	Class<-unlist(lapply(names(res), FUN=function(x) class(res[,x])))
-	if(any(Class == "factor")) {
+	if (any(Class == "factor")) {
 		Pos<-which(unlist(lapply(names(res), FUN=function(x) class(res[,x])))=="factor")
-		for(i in seq_along(Pos)){
+		for (i in seq_along(Pos)){
 			res[,Pos[i]]<-as.character(res[,Pos[i]])
 		}
 	}
 
 	# lapply(names(Het), FUN=function(x) class(Het[,x]))
 	Class<-unlist(lapply(names(het), FUN=function(x) class(het[,x])))
-	if(any(Class == "factor")) {
+	if (any(Class == "factor")) {
 		Pos<-which(unlist(lapply(names(het), FUN=function(x) class(het[,x])))=="factor")
-		for(i in seq_along(Pos)){
+		for (i in seq_along(Pos)){
 			het[,Pos[i]]<-as.character(het[,Pos[i]])
 		}
 	}
 
 	# lapply(names(Sin), FUN=function(x) class(Sin[,x]))
 	Class<-unlist(lapply(names(sin), FUN=function(x) class(sin[,x])))
-	if(any(Class == "factor")) {
+	if (any(Class == "factor")) {
 		Pos<-which(unlist(lapply(names(sin), FUN=function(x) class(sin[,x])))=="factor")
-		for(i in seq_along(Pos)){
+		for (i in seq_along(Pos)){
 			sin[,Pos[i]]<-as.character(sin[,Pos[i]])
 		}
 	}
@@ -178,7 +178,7 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 	res<-merge(res,het,by=c("id.outcome","id.exposure","Method"),all.x=TRUE)
 	res<-plyr::rbind.fill(res,sin[,c("exposure","outcome","id.exposure","id.outcome","SNP","b","se","pval","Method")])
 
-	if(ao_slc)
+	if (ao_slc)
 	{
 		ao<-available_outcomes()
 		names(ao)[names(ao)=="nsnp"]<-"nsnps.outcome.array"
@@ -187,11 +187,11 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 
 	res$nsnp[is.na(res$nsnp)]<-1
 
-	for(i in unique(res$id.outcome))
+	for (i in unique(res$id.outcome))
 	{
 		Methods<-unique(res$Method[res$id.outcome==i])
 		Methods<-Methods[Methods!="Wald ratio"]
-		for(j in unique(Methods))
+		for (j in unique(Methods))
 		{
 			res$SNP[res$id.outcome == i & res$Method==j]<-paste(res$SNP[res$id.outcome == i & res$Method=="Wald ratio"],collapse="; ")
 		}
@@ -276,7 +276,7 @@ power_prune <- function(dat,method=1,dist.outcome="binary")
 			}
 			if (any(is.na(ncase))) {
 				ncase<-dat1$samplesize.outcome
-				if(dist.outcome=="binary") warning(paste("dist.outcome set to binary but case sample size is missing. Will use total sample size instead but power pruning may be less accurate"))
+				if (dist.outcome=="binary") warning(paste("dist.outcome set to binary but case sample size is missing. Will use total sample size instead but power pruning may be less accurate"))
 			}
 			if (any(is.na(ncase))) stop("sample size missing for at least 1 summary set")
 			dat1<-dat1[order(ncase,decreasing=TRUE),]
@@ -326,12 +326,12 @@ power_prune <- function(dat,method=1,dist.outcome="binary")
 				se<-dat2$se.exposure
 				z<-dat2$beta.exposure/dat2$se.exposure
 				n<-dat2$samplesize.exposure
-				b<-z/sqrt(2*p*(1-p)*(n+z^2))
+				b <- z / sqrt(2 * p * (1 - p) * (n + z^2))
 				if (any(is.na(dat2$ncase.outcome))) stop(paste("number of cases missing for summary set: ",id.subset.unique[j],sep=""))
 				n.cas<-dat2$ncase.outcome
 				n.con<-dat2$ncontrol.outcome
 				var<-1 # variance of risk factor assumed to be 1
-				r2<-2*b^2*p*(1-p)/var
+				r2 <- 2 * b^2 * p * (1 - p) / var
 				if (any(is.na(r2))) warning("beta or allele frequency missing for some SNPs, which could affect accuracy of power pruning")
 				r2<-r2[!is.na(r2)]
 				# k<-length(p[!is.na(p)]) #number of SNPs in the instrument / associated with the risk factor
@@ -342,7 +342,7 @@ power_prune <- function(dat,method=1,dist.outcome="binary")
 					iv.se<- 1/sqrt(mean(dat2$samplesize.outcome, na.rm = TRUE)*r2sum) #standard error of the IV should be proportional to this
 				}
 				if (dist.outcome == "binary") {
-					if(any(is.na(n.cas)) || any(is.na(n.con))) {
+					if (any(is.na(n.cas)) || any(is.na(n.con))) {
 						warning("dist.outcome set to binary but number of cases or controls is missing. Will try using total sample size instead but power pruning will be less accurate")
 						iv.se<- 1/sqrt(mean(dat2$samplesize.outcome, na.rm = TRUE)*r2sum)
 					} else {

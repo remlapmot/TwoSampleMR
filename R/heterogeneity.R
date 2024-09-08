@@ -14,7 +14,7 @@ mr_heterogeneity <- function(dat, parameters=default_parameters(), method_list =
 	{
 		# message("Performing MR analysis of '", x$id.exposure[1], "' on '", x$id.outcome[1], "'")
 		x <- subset(x1, mr_keep)
-		if(nrow(x) < 2)
+		if (nrow(x) < 2)
 		{
 			message("Not enough SNPs available for Heterogeneity analysis of '", x1$id.exposure[1], "' on '", x1$id.outcome[1], "'")
 			return(NULL)
@@ -53,7 +53,7 @@ mr_pleiotropy_test <- function(dat)
 	ptab <- plyr::ddply(dat, c("id.exposure", "id.outcome"), function(x1)
 	{
 		x <- subset(x1, mr_keep)
-		if(nrow(x) < 2)
+		if (nrow(x) < 2)
 		{
 			message("Not enough SNPs available for pleiotropy analysis of '", x1$id.exposure[1], "' on '", x1$id.outcome[1], "'")
 			return(NULL)
