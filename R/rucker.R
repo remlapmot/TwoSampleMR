@@ -14,7 +14,7 @@ Isq <- function(y,s)
 	w <- 1/s^2
 	sum.w <- sum(w)
 	mu.hat <- sum(y*w)/sum.w
-	Q <- sum(w*(y-mu.hat)^2)
+	Q <- sum(w * (y - mu.hat)^2)
 	Isq <- (Q - (k-1))/Q
 	Isq <- max(0,Isq)
 	return(Isq)
@@ -26,7 +26,7 @@ PM <- function(y = y, s = s, Alpha = 0.1)
 	df = k - 1
 	sig = stats::qnorm(1-Alpha/2)
 	low = stats::qchisq((Alpha/2), df)
-	up = stats::qchisq(1-(Alpha/2), df)
+	up = stats::qchisq(1 - (Alpha / 2), df)
 	med = stats::qchisq(0.5, df)
 	mn = df
 	mode = df-1
@@ -38,31 +38,31 @@ PM <- function(y = y, s = s, Alpha = 0.1)
 	MU = NULL
 	v = 1/s^2
 	sum.v = sum(v)
-	typS = sum(v*(k-1))/(sum.v^2 - sum(v^2))
-	for(j in 1:L)
+	typS = sum(v * (k - 1)) / (sum.v^2 - sum(v^2))
+	for (j in 1:L)
 	{
 		tausq = 0
 		Fstat = 1
 		TAUsq = NULL
-		while(Fstat>0)
+		while (Fstat>0)
 		{
 			TAUsq = c(TAUsq, tausq)
-			w = 1/(s^2+tausq)
+			w = 1 / (s^2 + tausq)
 			sum.w = sum(w)
 			w2 = w^2
 			yW = sum(y*w)/sum.w
-			Q1 = sum(w*(y-yW)^2)
-			Q2 = sum(w2*(y-yW)^2)
+			Q1 = sum(w * (y - yW)^2)
+			Q2 = sum(w2 * (y - yW)^2)
 			Fstat = Q1-Quant[j]
 			Ftau = max(Fstat,0)
-			delta = Fstat/Q2
+			delta = Fstat / Q2
 			tausq = tausq + delta
 		}
 		MU[j] = yW
 		V = 1/sum(w)
 		Tausq[j] = max(tausq,0)
-		Isq[j] = Tausq[j]/(Tausq[j]+typS)
-		CI[j,] = yW + sig*c(-1,1) *sqrt(V)
+		Isq[j] = Tausq[j] / (Tausq[j] + typS)
+		CI[j,] = yW + sig*c(-1,1) * sqrt(V)
 	}
 	return(list(tausq = Tausq, muhat = MU, Isq = Isq, CI = CI, quant = Quant))
 }
@@ -86,7 +86,7 @@ mr_rucker <- function(dat, parameters=default_parameters())
 	attributes(res)$id.outcome <- d$id.outcome
 	attributes(res)$exposure <- d$exposure
 	attributes(res)$outcome <- d$outcome
-	for(j in seq_len(nrow(d)))
+	for (j in seq_len(nrow(d)))
 	{
 		x <- subset(dat, exposure == d$exposure[j] & outcome == d$outcome[j])
 		message(x$exposure[1], " - ", x$outcome[1])
@@ -97,9 +97,9 @@ mr_rucker <- function(dat, parameters=default_parameters())
 
 mr_rucker_internal <- function(dat, parameters=default_parameters())
 {
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
-	if(nrow(dat) < 3)
+	if (nrow(dat) < 3)
 	{
 		warning("Need at least 3 SNPs")
 		return(NULL)
@@ -139,7 +139,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	phi_ivw <- Q_ivw / (nsnp - 1)
 
 	se_ivw_fe <- stats::coefficients(mod_ivw)[1,2] / max(mod_ivw$sigma, 1)
-	if(parameters$test_dist == "z")
+	if (parameters$test_dist == "z")
 	{
 		pval_ivw_fe <- stats::pnorm(abs(b_ivw_fe/se_ivw_fe), lower.tail=FALSE) * 2
 	} else {
@@ -152,7 +152,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	# se_ivw_re <- sqrt(phi_ivw / sum(w))
 	se_ivw_re <- stats::coefficients(mod_ivw)[1,2]
 	# pval_ivw_re <- pt(abs(b_ivw_re/se_ivw_re), nsnp-1, lower.tail=FALSE) * 2
-	if(parameters$test_dist == "z")
+	if (parameters$test_dist == "z")
 	{
 		pval_ivw_re <- stats::pnorm(abs(stats::coefficients(mod_ivw)[1,1]/stats::coefficients(mod_ivw)[1,2]), lower.tail=FALSE) * 2
 	} else {
@@ -179,7 +179,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	se1_egger_fe <- stats::coefficients(mod_egger)[2,2] / max(mod_egger$sigma, 1)
 	pval1_egger_fe <- stats::pt(abs(b1_egger_fe/se1_egger_fe), nsnp-2, lower.tail=FALSE) * 2
 	se0_egger_fe <- stats::coefficients(mod_egger)[1,2] / max(mod_egger$sigma, 1)
-	if(parameters$test_dist == "z")
+	if (parameters$test_dist == "z")
 	{
 		pval0_egger_fe <- stats::pnorm(abs(b0_egger_fe/se0_egger_fe), lower.tail=FALSE) * 2
 	} else {
@@ -192,7 +192,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	pval1_egger_re <- stats::coefficients(mod_egger)[2,4]
 	b0_egger_re <- stats::coefficients(mod_egger)[1,1]
 	se0_egger_re <- stats::coefficients(mod_egger)[1,2]
-	if(parameters$test_dist == "z")
+	if (parameters$test_dist == "z")
 	{
 		pval0_egger_re <- stats::pnorm(stats::coefficients(mod_egger)[1,1]/stats::coefficients(mod_egger)[1,2], lower.tail=FALSE)
 	} else {
@@ -229,11 +229,11 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	intercept$CI_upp <- intercept$Estimate + stats::qnorm(1-alpha/2) * intercept$SE
 	intercept$P <- c(pval0_egger_fe, pval0_egger_re)
 
-	if(Q_pval_ivw <= Qthresh)
+	if (Q_pval_ivw <= Qthresh)
 	{
-		if(Qdiff_p <= Qthresh)
+		if (Qdiff_p <= Qthresh)
 		{
-			if(Q_pval_egger <= Qthresh)
+			if (Q_pval_egger <= Qthresh)
 			{
 				res <- "D"
 			} else {
@@ -249,7 +249,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 	selected <- results[c("A", "B", "C", "D") %in% res, ]
 	selected$Method <- "Rucker"
 
-	if(res %in% c("A", "B"))
+	if (res %in% c("A", "B"))
 	{
 		cd <- stats::cooks.distance(lmod_ivw)
 	} else {
@@ -272,7 +272,7 @@ mr_rucker_internal <- function(dat, parameters=default_parameters())
 #' @export
 mr_rucker_bootstrap <- function(dat, parameters=default_parameters())
 {
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
 	nboot <- parameters$nboot
 	nsnp <- nrow(dat)
@@ -282,7 +282,7 @@ mr_rucker_bootstrap <- function(dat, parameters=default_parameters())
 	rucker <- mr_rucker(dat, parameters)
 	dat2 <- dat
 	l <- list()
-	for(i in 1:nboot)
+	for (i in 1:nboot)
 	{
 		dat2$beta.exposure <- stats::rnorm(nsnp, mean=dat$beta.exposure, sd=dat$se.exposure)
 		dat2$beta.outcome <- stats::rnorm(nsnp, mean=dat$beta.outcome, sd=dat$se.outcome)
@@ -371,7 +371,7 @@ mr_rucker_jackknife <- function(dat, parameters=default_parameters())
 	attributes(res)$id.outcome <- d$id.outcome
 	attributes(res)$exposure <- d$exposure
 	attributes(res)$outcome <- d$outcome
-	for(j in seq_len(nrow(d)))
+	for (j in seq_len(nrow(d)))
 	{
 		x <- subset(dat, exposure == d$exposure[j] & outcome == d$outcome[j])
 		message(x$exposure[1], " - ", x$outcome[1])
@@ -382,7 +382,7 @@ mr_rucker_jackknife <- function(dat, parameters=default_parameters())
 
 mr_rucker_jackknife_internal <- function(dat, parameters=default_parameters())
 {
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
 	nboot <- parameters$nboot
 	nsnp <- nrow(dat)
@@ -395,7 +395,7 @@ mr_rucker_jackknife_internal <- function(dat, parameters=default_parameters())
 	rucker_point$Method <- "Rucker point estimate"
 
 
-	if(nrow(dat) < 15)
+	if (nrow(dat) < 15)
 	{
 		message("Too few SNPs for jackknife")
 		res <- rbind(rucker$rucker, rucker_point)
@@ -404,7 +404,7 @@ mr_rucker_jackknife_internal <- function(dat, parameters=default_parameters())
 	} else {
 
 		l <- list()
-		for(i in 1:nboot)
+		for (i in 1:nboot)
 		{
 			# dat2$beta.exposure <- rnorm(nsnp, mean=dat$beta.exposure, sd=dat$se.exposure)
 			# dat2$beta.outcome <- rnorm(nsnp, mean=dat$beta.outcome, sd=dat$se.outcome)
@@ -487,7 +487,7 @@ mr_rucker_jackknife_internal <- function(dat, parameters=default_parameters())
 mr_rucker_cooksdistance <- function(dat, parameters=default_parameters())
 {
 
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
 	dat_orig <- dat
 	rucker_orig <- mr_rucker(dat_orig, parameters)
@@ -497,7 +497,7 @@ mr_rucker_cooksdistance <- function(dat, parameters=default_parameters())
 
 	i <- 1
 	l <- list()
-	while(any(index) && sum(!index) > 3)
+	while (any(index) && sum(!index) > 3)
 	{
 		dat <- dat[!index, ]
 		cooks_threshold <- 4/nrow(dat)

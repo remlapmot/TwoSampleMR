@@ -493,7 +493,7 @@ mr_egger_regression <- function(b_exp, b_out, se_exp, se_out, parameters)
 	dat <- data.frame(b_out=b_out, b_exp=b_exp, se_exp=se_exp, se_out=se_out, flipped=to_flip)
 	mod <- stats::lm(b_out ~ b_exp, weights=1/se_out^2)
 	smod <- summary(mod)
-	if(nrow(stats::coefficients(smod)) > 1)
+	if (nrow(stats::coefficients(smod)) > 1)
 	{
 		b <- stats::coefficients(smod)[2,1]
 		se <- stats::coefficients(smod)[2,2] / min(1,smod$sigma)
@@ -755,7 +755,7 @@ mr_penalised_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameter
 	VBj <- ((se_out)^2) / (b_exp)^2 + (b_out^2) * ((se_exp^2)) / (b_exp)^4
 	weights <- 1/VBj
 	bwm <- mr_weighted_median(b_exp, b_out, se_exp, se_out, parameters)
-	penalty <- stats::pchisq(weights*(betaIV-bwm$b)^2, df=1, lower.tail=FALSE)
+	penalty <- stats::pchisq(weights* (betaIV-bwm$b)^2, df=1, lower.tail=FALSE)
 	pen.weights <- weights*pmin(1, penalty*parameters$penk) # penalized weights
 	b <- weighted_median(betaIV, pen.weights) # penalized weighted median estimate
 	se <- weighted_median_bootstrap(b_exp, b_out, se_exp, se_out, pen.weights, parameters$nboot)

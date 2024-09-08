@@ -24,12 +24,12 @@ dat_to_MRInput <- function(dat, get_correlations=FALSE, pop="EUR")
 		message("Converting:")
 		message(" - exposure: ", x$exposure[1])
 		message(" - outcome: ", x$outcome[1])
-		if(get_correlations)
+		if (get_correlations)
 		{
 			message(" - obtaining LD matrix")
 			ld <- ld_matrix(unique(x$SNP), pop=pop)
 			out <- harmonise_ld_dat(x, ld)
-			if(is.null(out))
+			if (is.null(out))
 			{
 				return(NULL)
 			}
@@ -98,13 +98,13 @@ harmonise_ld_dat <- function(x, ld)
 		(snpnames$X3 == snpnames$effect_allele.exposure & snpnames$X2 == snpnames$other_allele.exposure)
 
 	# What happens if everything is gone?
-	if(nrow(x) == 0)
+	if (nrow(x) == 0)
 	{
 		message(" - none of the SNPs could be aligned to the LD reference panel")
 		return(NULL)
 	}
 
-	if(any(!snpnames$keep))
+	if (any(!snpnames$keep))
 	{
 		message(" - the following SNPs could not be aligned to the LD reference panel: \n- ", paste(subset(snpnames, !keep)$SNP, collapse="\n - "))
 	}
@@ -122,7 +122,7 @@ harmonise_ld_dat <- function(x, ld)
 	rownames(ld) <- snpnames$SNP
 	colnames(ld) <- snpnames$SNP
 
-	if(any(!snpnames$keep))
+	if (any(!snpnames$keep))
 	{
 		message("Removing ", sum(!snpnames$keep), " variants due to harmonisation issues")
 		ld <- ld[snpnames$keep, snpnames$keep]
@@ -153,7 +153,7 @@ run_mr_presso <- function(dat, NbDistribution = 1000,  SignifThreshold = 0.05)
 	attributes(res)$id.outcome <- d$id.outcome
 	attributes(res)$exposure <- d$exposure
 	attributes(res)$outcome <- d$outcome
-	for(j in seq_len(nrow(d)))
+	for (j in seq_len(nrow(d)))
 	{
 		x <- subset(dat, exposure == d$exposure[j] & outcome == d$outcome[j])
 		message(x$exposure[1], " - ", x$outcome[1])
@@ -231,26 +231,26 @@ run_mrmix <- function(dat)
 	plyr::dlply(dat, c("id.exposure", "id.outcome"), function(x)
 	{
 		message("Analysing ", x$id.exposure[1], " against ", x$id.outcome[1])
-		if(grepl("log odds", x$units.exposure[1]))
+		if (grepl("log odds", x$units.exposure[1]))
 		{
 			xunit <- "binary"
-		} else if(grepl("^SD", x$units.exposure[1]))
+		} else if (grepl("^SD", x$units.exposure[1]))
 		{
 			xunit <- "n"
 		} else {
 			xunit <- "continuous"
 		}
-		if(grepl("log odds", x$units.outcome[1]))
+		if (grepl("log odds", x$units.outcome[1]))
 		{
 			yunit <- "binary"
-		} else if(grepl("^SD", x$units.outcome[1]))
+		} else if (grepl("^SD", x$units.outcome[1]))
 		{
 			yunit <- "n"
 		} else {
 			yunit <- "continuous"
 		}
 		index <- is.na(x$eaf.exposure)
-		if(any(index))
+		if (any(index))
 		{
 			warning(paste0(x$id.exposure[1], ".", x$id.outcome[1], " - Some eaf.exposure values are missing, using eaf.outcome in their place"))
 			x$eaf.exposure[index] <- x$eaf.outcome[index]

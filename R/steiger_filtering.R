@@ -29,11 +29,11 @@ steiger_filtering <- function(dat)
 
 steiger_filtering_internal <- function(dat)
 {
-	if(! "units.outcome" %in% names(dat))
+	if (! "units.outcome" %in% names(dat))
 	{
 		dat$units.outcome <- NA
 	}
-	if(! "units.exposure" %in% names(dat))
+	if (! "units.exposure" %in% names(dat))
 	{
 		dat$units.exposure <- NA
 	}

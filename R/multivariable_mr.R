@@ -120,7 +120,7 @@ mv_extract_exposures_local <- function(
 	message("WARNING: Experimental function")
 
 	stopifnot(inherits(filenames_exposure, "character") | inherits(filenames_exposure, "list"))
-	if(inherits(filenames_exposure, "list")) {
+	if (inherits(filenames_exposure, "list")) {
 		stopifnot(all(sapply(filenames_exposure, function(x) inherits(x, "data.frame"))))
 		flag <- "data.frame"
 	} else {
@@ -128,29 +128,29 @@ mv_extract_exposures_local <- function(
 	}
 
 	n <- length(filenames_exposure)
-	if(length(sep) == 1) {sep <- rep(sep, n)}
-	if(length(phenotype_col) == 1) {phenotype_col <- rep(phenotype_col, n)}
-	if(length(snp_col) == 1) {snp_col <- rep(snp_col, n)}
-	if(length(beta_col) == 1) {beta_col <- rep(beta_col, n)}
-	if(length(se_col) == 1) {se_col <- rep(se_col, n)}
-	if(length(eaf_col) == 1) {eaf_col <- rep(eaf_col, n)}
-	if(length(effect_allele_col) == 1) {effect_allele_col <- rep(effect_allele_col, n)}
-	if(length(other_allele_col) == 1) {other_allele_col <- rep(other_allele_col, n)}
-	if(length(pval_col) == 1) {pval_col <- rep(pval_col, n)}
-	if(length(units_col) == 1) {units_col <- rep(units_col, n)}
-	if(length(ncase_col) == 1) {ncase_col <- rep(ncase_col, n)}
-	if(length(ncontrol_col) == 1) {ncontrol_col <- rep(ncontrol_col, n)}
-	if(length(samplesize_col) == 1) {samplesize_col <- rep(samplesize_col, n)}
-	if(length(gene_col) == 1) {gene_col <- rep(gene_col, n)}
-	if(length(id_col) == 1) {id_col <- rep(id_col, n)}
-	if(length(min_pval) == 1) {min_pval <- rep(min_pval, n)}
-	if(length(log_pval) == 1) {log_pval <- rep(log_pval, n)}
+	if (length(sep) == 1) {sep <- rep(sep, n)}
+	if (length(phenotype_col) == 1) {phenotype_col <- rep(phenotype_col, n)}
+	if (length(snp_col) == 1) {snp_col <- rep(snp_col, n)}
+	if (length(beta_col) == 1) {beta_col <- rep(beta_col, n)}
+	if (length(se_col) == 1) {se_col <- rep(se_col, n)}
+	if (length(eaf_col) == 1) {eaf_col <- rep(eaf_col, n)}
+	if (length(effect_allele_col) == 1) {effect_allele_col <- rep(effect_allele_col, n)}
+	if (length(other_allele_col) == 1) {other_allele_col <- rep(other_allele_col, n)}
+	if (length(pval_col) == 1) {pval_col <- rep(pval_col, n)}
+	if (length(units_col) == 1) {units_col <- rep(units_col, n)}
+	if (length(ncase_col) == 1) {ncase_col <- rep(ncase_col, n)}
+	if (length(ncontrol_col) == 1) {ncontrol_col <- rep(ncontrol_col, n)}
+	if (length(samplesize_col) == 1) {samplesize_col <- rep(samplesize_col, n)}
+	if (length(gene_col) == 1) {gene_col <- rep(gene_col, n)}
+	if (length(id_col) == 1) {id_col <- rep(id_col, n)}
+	if (length(min_pval) == 1) {min_pval <- rep(min_pval, n)}
+	if (length(log_pval) == 1) {log_pval <- rep(log_pval, n)}
 
 	l_full <- list()
 	l_inst <- list()
-	for(i in seq_along(filenames_exposure))
+	for (i in seq_along(filenames_exposure))
 	{
-		if(flag == "character") {
+		if (flag == "character") {
 			l_full[[i]] <- read_outcome_data(filenames_exposure[i],
 				sep = sep[i],
 				phenotype_col = phenotype_col[i],
@@ -192,7 +192,7 @@ mv_extract_exposures_local <- function(
 			)
 		}
 
-		if(l_full[[i]]$outcome[1] == "outcome") l_full[[i]]$outcome <- paste0("exposure", i)
+		if (l_full[[i]]$outcome[1] == "outcome") l_full[[i]]$outcome <- paste0("exposure", i)
 		l_inst[[i]] <- subset(l_full[[i]], pval.outcome < pval_threshold)
 		l_inst[[i]] <- subset(l_inst[[i]], !duplicated(SNP))
 		l_inst[[i]] <- convert_outcome_to_exposure(l_inst[[i]])
@@ -348,9 +348,9 @@ mv_residual <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 		index <- pval.exposure[,i] < pval_threshold
 
 		# Get outcome effects adjusted for all effects on all other exposures
-		if(intercept)
+		if (intercept)
 		{
-			if(instrument_specific)
+			if (instrument_specific)
 			{
 				marginal_outcome[index,i] <- stats::lm(beta.outcome[index] ~ beta.exposure[index, -c(i), drop=FALSE])$res
 				mod <- summary(stats::lm(marginal_outcome[index,i] ~ beta.exposure[index, i]))
@@ -359,7 +359,7 @@ mv_residual <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 				mod <- summary(stats::lm(marginal_outcome[,i] ~ beta.exposure[,i]))
 			}
 		} else {
-			if(instrument_specific)
+			if (instrument_specific)
 			{
 				marginal_outcome[index,i] <- stats::lm(beta.outcome[index] ~ 0 + beta.exposure[index, -c(i), drop=FALSE])$res
 				mod <- summary(stats::lm(marginal_outcome[index,i] ~ 0 + beta.exposure[index, i]))
@@ -368,7 +368,7 @@ mv_residual <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 				mod <- summary(stats::lm(marginal_outcome[,i] ~ 0 + beta.exposure[,i]))
 			}
 		}
-		if(sum(index) > (nexp + as.numeric(intercept)))
+		if (sum(index) > (nexp + as.numeric(intercept)))
 		{
 			effs[i] <- mod$coef[as.numeric(intercept) + 1, 1]
 			se[i] <- mod$coef[as.numeric(intercept) + 1, 2]
@@ -384,7 +384,7 @@ mv_residual <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 		flip <- sign(d$exposure) == -1
 		d$outcome[flip] <- d$outcome[flip] * -1
 		d$exposure <- abs(d$exposure)
-		if(plots)
+		if (plots)
 		{
 			p[[i]] <- ggplot2::ggplot(d[index,], ggplot2::aes(x=exposure, y=outcome)) +
 			ggplot2::geom_point() +
@@ -400,7 +400,7 @@ mv_residual <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 		marginal_outcome=marginal_outcome
 	)
 
-	if(plots) out$plots <- p
+	if (plots) out$plots <- p
 	return(out)
 }
 
@@ -445,16 +445,16 @@ mv_multiple <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 		# marginal_outcome[,i] <- lm(beta.outcome ~ beta.exposure[, -c(i)])$res
 
 		# Get the effect of the exposure on the residuals of the outcome
-		if(!intercept)
+		if (!intercept)
 		{
-			if(instrument_specific)
+			if (instrument_specific)
 			{
 				mod <- summary(stats::lm(beta.outcome[index] ~ 0 + beta.exposure[index, ,drop=FALSE], weights=w[index]))
 			} else {
 				mod <- summary(stats::lm(beta.outcome ~ 0 + beta.exposure, weights=w))
 			}
 		} else {
-			if(instrument_specific)
+			if (instrument_specific)
 			{
 				mod <- summary(stats::lm(beta.outcome[index] ~ beta.exposure[index, ,drop=FALSE], weights=w[index]))
 			} else {
@@ -462,7 +462,7 @@ mv_multiple <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 			}
 		}
 
-		if(instrument_specific && sum(index) <= (nexp + as.numeric(intercept)))
+		if (instrument_specific && sum(index) <= (nexp + as.numeric(intercept)))
 		{
 			effs[i] <- NA
 			se[i] <- NA
@@ -478,7 +478,7 @@ mv_multiple <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 		flip <- sign(d$exposure) == -1
 		d$outcome[flip] <- d$outcome[flip] * -1
 		d$exposure <- abs(d$exposure)
-		if(plots)
+		if (plots)
 		{
 			p[[i]] <- ggplot2::ggplot(d[index,], ggplot2::aes(x=exposure, y=outcome)) +
 			ggplot2::geom_point() +
@@ -492,7 +492,7 @@ mv_multiple <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 	out <- list(
 		result=result
 	)
-	if(plots)
+	if (plots)
 		out$plots=p
 
 	return(out)

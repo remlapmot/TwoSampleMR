@@ -15,7 +15,7 @@
 #' }
 steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 {
-	if(rgy_o > rgx_o)
+	if (rgy_o > rgx_o)
 	{
 		a <- rgy_o
 		b <- rgx_o
@@ -46,7 +46,7 @@ steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 		...
 	)
 
-	vz <- a * log(a) - b * log(b) + a*b*(log(b)-log(a))
+	vz <- a * log(a) - b * log(b) + a*b* (log(b)-log(a))
 	vz0 <- -2*b - b * log(a) - a*b*log(a) + 2*a*b
 
 	vz1 <- abs(vz - vz0)
@@ -107,11 +107,11 @@ mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yy
 	ip_exp <- is.na(p_exp) | is.na(n_exp)
 	ip_out <- is.na(p_out) | is.na(n_out)
 
-	if(any(ir_exp))
+	if (any(ir_exp))
 	{
 		r_exp[ir_exp] <- get_r_from_pn(p_exp[ir_exp & !ip_exp], n_exp[ir_exp & !ip_exp])
 	}
-	if(any(ir_out))
+	if (any(ir_out))
 	{
 		r_out[ir_out] <- get_r_from_pn(p_out[ir_out & !ip_out], n_out[ir_out & !ip_out])
 	}
@@ -158,10 +158,10 @@ mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yy
 #' @return List
 directionality_test <- function(dat)
 {
-	if(! all(c("r.exposure", "r.outcome") %in% names(dat)))
+	if (! all(c("r.exposure", "r.outcome") %in% names(dat)))
 	{
 		message("r.exposure and/or r.outcome not present.")
-		if(! all(c("pval.exposure", "pval.outcome", "samplesize.exposure", "samplesize.outcome") %in% names(dat)))
+		if (! all(c("pval.exposure", "pval.outcome", "samplesize.exposure", "samplesize.outcome") %in% names(dat)))
 		{
 			message("Can't calculate approximate SNP-exposure and SNP-outcome correlations without pval.exposure, pval.outcome, samplesize.exposure, samplesize.outcome")
 			message("Either supply these values, or supply the r.exposure and r.outcome values")
@@ -173,11 +173,11 @@ directionality_test <- function(dat)
 	}
 	dtest <- plyr::ddply(dat, c("id.exposure", "id.outcome"), function(x)
 	{
-		if(!"r.exposure" %in% names(x))
+		if (!"r.exposure" %in% names(x))
 		{
 			x$r.exposure <- NA
 		}
-		if(!"r.outcome" %in% names(x))
+		if (!"r.outcome" %in% names(x))
 		{
 			x$r.outcome <- NA
 		}

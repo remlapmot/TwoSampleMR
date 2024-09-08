@@ -10,7 +10,7 @@
 mr_singlesnp <- function(dat, parameters=default_parameters(), single_method="mr_wald_ratio", all_method=c("mr_ivw", "mr_egger_regression"))
 {
 
-	if(!"samplesize.outcome" %in% names(dat))
+	if (!"samplesize.outcome" %in% names(dat))
 	{
 		dat$samplesize.outcome <- NA
 	}
@@ -26,7 +26,7 @@ mr_singlesnp <- function(dat, parameters=default_parameters(), single_method="mr
 	{
 		x <- subset(X, mr_keep)
 		nsnp <- nrow(x)
-		if(nsnp == 0)
+		if (nsnp == 0)
 		{
 			x <- X[1,]
 			d <- data.frame(
@@ -45,7 +45,7 @@ mr_singlesnp <- function(dat, parameters=default_parameters(), single_method="mr
 			with(x, get(single_method)(beta.exposure[i], beta.outcome[i], se.exposure[i], se.outcome[i], parameters))
 		})
 		nom <- c()
-		for(i in seq_along(all_method))
+		for (i in seq_along(all_method))
 		{
 			l[[nsnp+i]] <- with(x, get(all_method[i])(beta.exposure, beta.outcome, se.exposure, se.outcome, parameters))
 
@@ -80,7 +80,7 @@ mr_forest_plot <- function(singlesnp_results, exponentiate=FALSE)
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
-		if(sum(!grepl("All", d$SNP)) < 2) {
+		if (sum(!grepl("All", d$SNP)) < 2) {
 			return(
 				blank_plot("Insufficient number of SNPs")
 			)
@@ -103,7 +103,7 @@ mr_forest_plot <- function(singlesnp_results, exponentiate=FALSE)
 		d$SNP <- ordered(d$SNP, levels=c(am, "", nom))
 
 		xint <- 0
-		if(exponentiate)
+		if (exponentiate)
 		{
 			d$b <- exp(d$b)
 			d$up <- exp(d$up)
@@ -145,7 +145,7 @@ mr_density_plot <- function(singlesnp_results, mr_results, exponentiate=FALSE, b
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
-		if(sum(!grepl("All", d$SNP)) < 2) {
+		if (sum(!grepl("All", d$SNP)) < 2) {
 			return(
 				blank_plot("Insufficient number of SNPs")
 			)
@@ -156,7 +156,7 @@ mr_density_plot <- function(singlesnp_results, mr_results, exponentiate=FALSE, b
 		d1 <- subset(mr_results, id.exposure == d2$id.exposure[1] & id.outcome == d2$id.outcome[1])
 
 		xint <- 0
-		if(exponentiate)
+		if (exponentiate)
 		{
 			d$b <- exp(d$b)
 			d$up <- exp(d$up)
@@ -188,7 +188,7 @@ mr_funnel_plot <- function(singlesnp_results)
 	res <- plyr::dlply(singlesnp_results, c("id.exposure", "id.outcome"), function(d)
 	{
 		d <- plyr::mutate(d)
-		if(sum(!grepl("All", d$SNP)) < 2) {
+		if (sum(!grepl("All", d$SNP)) < 2) {
 			return(
 				blank_plot("Insufficient number of SNPs")
 			)
