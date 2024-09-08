@@ -29,19 +29,19 @@ clump_data <- function(dat, clump_kb=10000, clump_r2=0.001, clump_p1=1, clump_p2
 
 	pval_column <- "pval.exposure"
 
-	if(!is.data.frame(dat))
+	if (!is.data.frame(dat))
 	{
 		stop("Expecting data frame returned from format_data")
 	}
 
-	if("pval.exposure" %in% names(dat) && "pval.outcome" %in% names(dat))
+	if ("pval.exposure" %in% names(dat) && "pval.outcome" %in% names(dat))
 	{
 		message("pval.exposure and pval.outcome columns present. Using pval.exposure for clumping.")
-	} else if(!"pval.exposure" %in% names(dat) && "pval.outcome" %in% names(dat))
+	} else if (!"pval.exposure" %in% names(dat) && "pval.outcome" %in% names(dat))
 	{
 		message("pval.exposure column not present, using pval.outcome column for clumping.")
 		pval_column <- "pval.outcome"
-	} else if(! "pval.exposure" %in% names(dat))
+	} else if (! "pval.exposure" %in% names(dat))
 	{
 		message("pval.exposure not present, setting clumping p-value to 0.99 for all variants")
 		dat$pval.exposure <- 0.99
@@ -49,7 +49,7 @@ clump_data <- function(dat, clump_kb=10000, clump_r2=0.001, clump_p1=1, clump_p2
 		pval_column <- "pval.exposure"
 	}
 
-	if(! "id.exposure" %in% names(dat))
+	if (! "id.exposure" %in% names(dat))
 	{
 		dat$id.exposure <- random_string(1)
 	}

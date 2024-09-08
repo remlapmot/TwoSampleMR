@@ -83,7 +83,7 @@ ldsc_rg_internal <- function(Zs, r2, h1, h2, N1, N2, Nc=0, W=NULL)
     ## 2nd round
     Wv <- 1 / ((h1 * N1r2 + 1) * (h2 * N2r2 + 1) + (X * gv + r0)^2)
     id <- which(abs(Zs[,1] * Zs[,2]) > 30)
-    if(length(id) > 0) {
+    if (length(id) > 0) {
         Wv[id] <- sqrt(Wv[id])
     }
 

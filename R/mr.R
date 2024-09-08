@@ -16,7 +16,7 @@ mr <- function(dat, parameters=default_parameters(), method_list=subset(mr_metho
 	{
 		# message("Performing MR analysis of '", x1$id.exposure[1], "' on '", x18WII58$id.outcome[1], "'")
 		x <- subset(x1, mr_keep)
-		if(nrow(x) == 0)
+		if (nrow(x) == 0)
 		{
 			message("No SNPs available for MR analysis of '", x1$id.exposure[1], "' on '", x1$id.outcome[1], "'")
 			return(NULL)
@@ -270,7 +270,7 @@ default_parameters <- function()
 #' }
 mr_wald_ratio <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(length(b_exp) > 1)
+	if (length(b_exp) > 1)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 	}
@@ -299,7 +299,7 @@ mr_wald_ratio <- function(b_exp, b_out, se_exp, se_out, parameters)
 #' }
 mr_meta_fixed_simple <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 	}
@@ -329,12 +329,12 @@ mr_meta_fixed_simple <- function(b_exp, b_out, se_exp, se_out, parameters)
 #' }
 mr_meta_fixed <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 1)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 1)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA, Q =NA, Q_df =NA, Q_pval =NA))
 	}
 	ratio <- b_out / b_exp
-	ratio.se <- sqrt((se_out^2/b_exp^2) + (b_out^2/b_exp^4)*se_exp^2 - 2*(b_out/b_exp^3)*parameters$Cov)
+	ratio.se <- sqrt((se_out^2/b_exp^2) + (b_out^2/b_exp^4)*se_exp^2 - 2* (b_out/b_exp^3)*parameters$Cov)
 	res <- meta::metagen(ratio, ratio.se)
 	b <- res$TE.fixed
 	se <- res$seTE.fixed
@@ -363,12 +363,12 @@ mr_meta_fixed <- function(b_exp, b_out, se_exp, se_out, parameters)
 #' }
 mr_meta_random <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA, Q =NA, Q_df =NA, Q_pval =NA))
 	}
 	ratio <- b_out / b_exp
-	ratio.se <- sqrt((se_out^2/b_exp^2) + (b_out^2/b_exp^4)*se_exp^2 - 2*(b_out/b_exp^3)*parameters$Cov)
+	ratio.se <- sqrt((se_out^2/b_exp^2) + (b_out^2/b_exp^4)*se_exp^2 - 2* (b_out/b_exp^3)*parameters$Cov)
 	res <- meta::metagen(ratio, ratio.se)
 	b <- res$TE.random
 	se <- res$seTE.random
@@ -397,7 +397,7 @@ mr_meta_random <- function(b_exp, b_out, se_exp, se_out, parameters)
 #' }
 mr_two_sample_ml <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA, Q=NA, Q_df=NA, Q_pval=NA))
 	}
@@ -409,7 +409,7 @@ mr_two_sample_ml <- function(b_exp, b_out, se_exp, se_out, parameters)
 		loglikelihood,
 		hessian=TRUE,
 		control = list(maxit=25000)), silent=TRUE)
-	if(inherits(opt, "try-error"))
+	if (inherits(opt, "try-error"))
 	{
 		message("mr_two_sample_ml failed to converge")
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA, Q=NA, Q_df=NA, Q_pval=NA))
@@ -417,7 +417,7 @@ mr_two_sample_ml <- function(b_exp, b_out, se_exp, se_out, parameters)
 
 	b <- opt$par[length(b_exp)+1]
 	se <- try(sqrt(solve(opt$hessian)[length(b_exp)+1,length(b_exp)+1]))
-	if(inherits(se, "try-error"))
+	if (inherits(se, "try-error"))
 	{
 		message("mr_two_sample_ml failed to converge")
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA, Q=NA, Q_df=NA, Q_pval=NA))
@@ -476,7 +476,7 @@ mr_egger_regression <- function(b_exp, b_out, se_exp, se_out, parameters)
 			smod = NA,
 			dat = NA
 		)
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
 	{
 		return(nulllist)
 	}
@@ -526,7 +526,7 @@ linreg <- function(x, y, w=rep(x,1))
 	se <- sqrt(sum((yp - yhat)^2) / (sum(!is.na(yhat)) - 2) / t(x)%*%x)
 
 	sum(w * (y-yhat)^2)
-	se <- sqrt(sum(w*(y-yhat)^2) /  (sum(!is.na(yhat)) - 2) / (sum(w*x^2)))
+	se <- sqrt(sum(w* (y-yhat)^2) /  (sum(!is.na(yhat)) - 2) / (sum(w*x^2)))
 	pval <- 2 * stats::pnorm(abs(bhat / se), lower.tail=FALSE)
 	return(list(ahat=ahat,bhat=bhat,se=se, pval=pval))
 }
@@ -554,7 +554,7 @@ linreg <- function(x, y, w=rep(x,1))
 #' }
 mr_egger_regression_bootstrap <- function(b_exp, b_out, se_exp, se_out, parameters)
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
 	{
 		return(list(
 			b = NA,
@@ -620,11 +620,11 @@ mr_egger_regression_bootstrap <- function(b_exp, b_out, se_exp, se_out, paramete
 #' }
 mr_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_iv <- b_out / b_exp
-	VBj <- ((se_out)^2)/(b_exp)^2 + (b_out^2)*((se_exp^2))/(b_exp)^4
+	VBj <- ((se_out)^2)/ (b_exp)^2 + (b_out^2) * ((se_exp^2)) / (b_exp)^4
 	b <- weighted_median(b_iv, 1 / VBj)
 	se <- weighted_median_bootstrap(b_exp, b_out, se_exp, se_out, 1 / VBj, parameters$nboot)
 	pval <- 2 * stats::pnorm(abs(b/se), lower.tail=FALSE)
@@ -652,7 +652,7 @@ mr_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameters=default_
 #' }
 mr_simple_median <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_iv <- b_out / b_exp
@@ -681,7 +681,7 @@ weighted_median <- function(b_iv, weights)
 	weights.sum <- weights.sum/sum(weights.order)
 	below <- max(which(weights.sum<0.5))
 	b = betaIV.order[below] + (betaIV.order[below+1]-betaIV.order[below])*
-	(0.5-weights.sum[below])/(weights.sum[below+1]-weights.sum[below])
+	(0.5-weights.sum[below]) / (weights.sum[below+1]-weights.sum[below])
 	return(b)
 }
 
@@ -693,7 +693,7 @@ weighted_median <- function(b_iv, weights)
 	weights.sum <- weights.sum/sum(weights.order)
 	below <- max(which(weights.sum<0.5))
 	b = betaIV.order[below] + (betaIV.order[below+1]-betaIV.order[below])*
-	(0.5-weights.sum[below])/(weights.sum[below+1]-weights.sum[below])
+	(0.5-weights.sum[below]) / (weights.sum[below+1]-weights.sum[below])
 	return(b)
 }
 
@@ -717,7 +717,7 @@ weighted_median <- function(b_iv, weights)
 weighted_median_bootstrap <- function(b_exp, b_out, se_exp, se_out, weights, nboot)
 {
 	med <- rep(0, nboot)
-	for(i in seq_len(nboot)){
+	for (i in seq_len(nboot)) {
 		b_exp.boot = stats::rnorm(length(b_exp), mean=b_exp, sd=se_exp)
 		b_out.boot = stats::rnorm(length(b_out), mean=b_out, sd=se_out)
 		betaIV.boot = b_out.boot/b_exp.boot
@@ -748,11 +748,11 @@ weighted_median_bootstrap <- function(b_exp, b_out, se_exp, se_out, weights, nbo
 #' }
 mr_penalised_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 	betaIV <- b_out/b_exp # ratio estimates
 	betaIVW <- sum(b_out*b_exp*se_out^-2)/sum(b_exp^2*se_out^-2) # IVW estimate
-	VBj <- ((se_out)^2)/(b_exp)^2 + (b_out^2)*((se_exp^2))/(b_exp)^4
+	VBj <- ((se_out)^2) / (b_exp)^2 + (b_out^2) * ((se_exp^2)) / (b_exp)^4
 	weights <- 1/VBj
 	bwm <- mr_weighted_median(b_exp, b_out, se_exp, se_out, parameters)
 	penalty <- stats::pchisq(weights*(betaIV-bwm$b)^2, df=1, lower.tail=FALSE)
@@ -774,9 +774,9 @@ mr_penalised_weighted_median <- function(b_exp, b_out, se_exp, se_out, parameter
 #' @return data frame
 mr_median <- function(dat, parameters=default_parameters())
 {
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
-	if(nrow(dat) < 3)
+	if (nrow(dat) < 3)
         {
 		warning("Need at least 3 SNPs")
 		return(NULL)
@@ -829,7 +829,7 @@ mr_median <- function(dat, parameters=default_parameters())
 #' }
 mr_ivw <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	ivw.res <- summary(stats::lm(b_out ~ -1 + b_exp, weights = 1/se_out^2))
@@ -866,7 +866,7 @@ mr_ivw <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters()
 #' }
 mr_uwr <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	ivw.res <- summary(stats::lm(b_out ~ -1 + b_exp))
@@ -902,7 +902,7 @@ mr_uwr <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters()
 #' }
 mr_ivw_mre <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	ivw.res <- summary(stats::lm(b_out ~ -1 + b_exp, weights = 1/se_out^2))
@@ -936,7 +936,7 @@ mr_ivw_mre <- function(b_exp, b_out, se_exp, se_out, parameters=default_paramete
 #' }
 mr_ivw_fe <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
-	if(sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
+	if (sum(!is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)) < 2)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	ivw.res <- summary(stats::lm(b_out ~ -1 + b_exp, weights = 1/se_out^2))
@@ -1017,7 +1017,7 @@ mr_sign <- function(b_exp, b_out, se_exp=NULL, se_out=NULL, parameters=NULL)
 {
 	b_exp[b_exp == 0] <- NA
 	b_out[b_out == 0] <- NA
-	if(sum(!is.na(b_exp) & !is.na(b_out)) < 6)
+	if (sum(!is.na(b_exp) & !is.na(b_out)) < 6)
 	{
 		return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 	}

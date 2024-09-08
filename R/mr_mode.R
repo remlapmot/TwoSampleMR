@@ -10,9 +10,9 @@
 #' @return data frame
 mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 {
-	if("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
+	if ("mr_keep" %in% names(dat)) dat <- subset(dat, mr_keep)
 
-	if(nrow(dat) < 3)
+	if (nrow(dat) < 3)
 	{
 		warning("Need at least 3 SNPs")
 		return(NULL)
@@ -31,14 +31,14 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 	beta <- function(BetaIV.in, seBetaIV.in, phi)
 	{
 		#Bandwidth rule - modified Silverman's rule proposed by Bickel (2002)
-		s <- 0.9*(min(stats::sd(BetaIV.in), stats::mad(BetaIV.in)))/length(BetaIV.in)^(1/5)
+		s <- 0.9* (min(stats::sd(BetaIV.in), stats::mad(BetaIV.in)))/length(BetaIV.in)^(1/5)
 
 		#Standardised weights
 		weights <- seBetaIV.in^-2/sum(seBetaIV.in^-2)
 
 		beta <- NULL
 
-		for(cur_phi in phi)
+		for (cur_phi in phi)
 		{
 			#Define the actual bandwidth
 			h <- max(0.00000001, s*cur_phi)
@@ -61,7 +61,7 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 		#Set up a matrix to store the results from each bootstrap iteration
 		beta.boot <- matrix(nrow=nboot, ncol=length(beta_Mode.in))
 
-		for(i in 1:nboot)
+		for (i in 1:nboot)
 		{
 			#Re-sample each ratio estimate using SEs derived not assuming NOME
 			BetaIV.boot      <- stats::rnorm(length(BetaIV.in), mean=BetaIV.in, sd=seBetaIV.in[,1])
@@ -71,18 +71,18 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 			#Simple mode, not assuming NOME
 			beta.boot[i, seq_along(phi)] <- beta(BetaIV.in=BetaIV.boot, seBetaIV.in=rep(1, length(BetaIV)), phi=phi)
 			#Weighted mode, not assuming NOME
-			beta.boot[i,(length(phi)+1):(2*length(phi))] <- beta(BetaIV.in=BetaIV.boot, seBetaIV.in=seBetaIV.in[,1], phi=phi)
+			beta.boot[i, (length(phi)+1):(2*length(phi))] <- beta(BetaIV.in=BetaIV.boot, seBetaIV.in=seBetaIV.in[,1], phi=phi)
 			#Penalised mode, not assuming NOME
 			weights <- 1/seBetaIV.in[,1]^2
-			penalty <- stats::pchisq(weights * (BetaIV.boot-beta.boot[i,(length(phi)+1):(2*length(phi))])^2, df=1, lower.tail=FALSE)
+			penalty <- stats::pchisq(weights * (BetaIV.boot-beta.boot[i, (length(phi)+1):(2*length(phi))])^2, df=1, lower.tail=FALSE)
 			pen.weights <- weights*pmin(1, penalty*parameters$penk)
 
-			beta.boot[i,(2*length(phi)+1):(3*length(phi))] <- beta(BetaIV.in=BetaIV.boot, seBetaIV.in=sqrt(1/pen.weights), phi=phi)
+			beta.boot[i, (2*length(phi)+1):(3*length(phi))] <- beta(BetaIV.in=BetaIV.boot, seBetaIV.in=sqrt(1/pen.weights), phi=phi)
 
 			#Simple mode, assuming NOME
-			beta.boot[i,(3*length(phi)+1):(4*length(phi))] <- beta(BetaIV.in=BetaIV.boot_NOME, seBetaIV.in=rep(1, length(BetaIV)), phi=phi)
+			beta.boot[i, (3*length(phi)+1):(4*length(phi))] <- beta(BetaIV.in=BetaIV.boot_NOME, seBetaIV.in=rep(1, length(BetaIV)), phi=phi)
 			#Weighted mode, assuming NOME
-			beta.boot[i,(4*length(phi)+1):(5*length(phi))] <- beta(BetaIV.in=BetaIV.boot_NOME, seBetaIV.in=seBetaIV.in[,2], phi=phi)
+			beta.boot[i, (4*length(phi)+1):(5*length(phi))] <- beta(BetaIV.in=BetaIV.boot_NOME, seBetaIV.in=seBetaIV.in[,2], phi=phi)
 		}
 		return(beta.boot)
 	}
@@ -96,7 +96,7 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 	BetaIV   <- b_out/b_exp
 
 	#SEs of ratio estimates
-	seBetaIV <- cbind(sqrt((se_out^2)/(b_exp^2) + ((b_out^2)*(se_exp^2))/(b_exp^4)), #SEs NOT assuming NOME
+	seBetaIV <- cbind(sqrt((se_out^2)/ (b_exp^2) + ((b_out^2) * (se_exp^2)) / (b_exp^4)), #SEs NOT assuming NOME
 	se_out/abs(b_exp)) #SEs ASSUMING NOME
 
 	#Point causal effect estimate using the simple mode
@@ -144,7 +144,7 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 		stringsAsFactors=FALSE
 	)
 
-	if(mode_method == "all")
+	if (mode_method == "all")
 	{
 		return(Results)
 	} else {
@@ -177,7 +177,7 @@ mr_mode <- function(dat, parameters=default_parameters(), mode_method="all")
 mr_weighted_mode <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
 	index <- !is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)
-	if(sum(index) < 3)
+	if (sum(index) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_exp <- b_exp[index]
@@ -207,7 +207,7 @@ mr_weighted_mode <- function(b_exp, b_out, se_exp, se_out, parameters=default_pa
 mr_simple_mode <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
 	index <- !is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)
-	if(sum(index) < 3)
+	if (sum(index) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_exp <- b_exp[index]
@@ -239,7 +239,7 @@ mr_simple_mode <- function(b_exp, b_out, se_exp, se_out, parameters=default_para
 mr_weighted_mode_nome <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
 	index <- !is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)
-	if(sum(index) < 3)
+	if (sum(index) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_exp <- b_exp[index]
@@ -271,7 +271,7 @@ mr_weighted_mode_nome <- function(b_exp, b_out, se_exp, se_out, parameters=defau
 mr_simple_mode_nome <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameters())
 {
 	index <- !is.na(b_exp) & !is.na(b_out) & !is.na(se_exp) & !is.na(se_out)
-	if(sum(index) < 3)
+	if (sum(index) < 3)
 	return(list(b=NA, se=NA, pval=NA, nsnp=NA))
 
 	b_exp <- b_exp[index]
@@ -286,7 +286,7 @@ mr_simple_mode_nome <- function(b_exp, b_out, se_exp, se_out, parameters=default
 mr_mode_broken <- function(dat, parameters=default_parameters(), mode_method="all")
 {
 	res <- plyr::ddply(dat, c("id.exposure", "exposure", "id.outcome", "outcome"), function(x) mr_mode_internal(x, parameters, mode_method="all"))
-	if(mode_method != "all")
+	if (mode_method != "all")
 	{
 		return(subset(res, method %in% mode_method))
 	} else {

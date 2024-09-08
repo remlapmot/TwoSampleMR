@@ -8,7 +8,7 @@
 #' @return List of data frames
 mr_leaveoneout <- function(dat, parameters=default_parameters(), method=mr_ivw)
 {
-	if(!"samplesize.outcome" %in% names(dat))
+	if (!"samplesize.outcome" %in% names(dat))
 	{
 		dat$samplesize.outcome <- NA
 	}
@@ -25,7 +25,7 @@ mr_leaveoneout <- function(dat, parameters=default_parameters(), method=mr_ivw)
 	{
 		x <- subset(X, mr_keep)
 		nsnp <- nrow(x)
-		if(nsnp == 0)
+		if (nsnp == 0)
 		{
 			x <- X[1,]
 			d <- data.frame(
@@ -39,7 +39,7 @@ mr_leaveoneout <- function(dat, parameters=default_parameters(), method=mr_ivw)
 			)
 			return(d)
 		}
-		if(nsnp > 2)
+		if (nsnp > 2)
 		{
 			l <- lapply(1:nsnp, function(i)
 			{
@@ -90,7 +90,7 @@ mr_leaveoneout_plot <- function(leaveoneout_results)
 	{
 		d <- plyr::mutate(d)
 		# Need to have at least 3 SNPs because IVW etc methods can't be performed with fewer than 2 SNPs
-		if(sum(!grepl("All", d$SNP)) < 3) {
+		if (sum(!grepl("All", d$SNP)) < 3) {
 			return(
 				blank_plot("Insufficient number of SNPs")
 			)
