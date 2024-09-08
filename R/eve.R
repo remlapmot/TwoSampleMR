@@ -12,7 +12,7 @@ mr_mean_ivw <- function(d)
 	id.exposure = d$id.exposure[1]
 	id.outcome = d$id.outcome[1]
 
-	if(nrow(d) == 1)
+	if (nrow(d) == 1)
 	{
 		res <- mr_wald_ratio(b_exp, b_out, se_exp, se_out)
 		out <- dplyr::tibble(
@@ -171,11 +171,11 @@ mr_mean <- function(dat, parameters=default_parameters())
 {
 	m1 <- try(mr_mean_ivw(dat))
 	m2 <- try(mr_mean_egger(dat))
-	if(inherits(m1, "try-error"))
+	if (inherits(m1, "try-error"))
 	{
 		return(NULL)
 	} else {
-		if(inherits(m2, "try-error"))
+		if (inherits(m2, "try-error"))
 		{
 			return(m1)
 		} else {
@@ -202,7 +202,7 @@ mr_mean <- function(dat, parameters=default_parameters())
 mr_all <- function(dat, parameters=default_parameters())
 {
 	m1 <- mr_mean(dat)
-	if(sum(dat$mr_keep) > 3)
+	if (sum(dat$mr_keep) > 3)
 	{
 		m2 <- try(mr_median(dat, parameters=parameters))
 		m3 <- try(mr_mode(dat, parameters=parameters)[1:3,])
@@ -224,9 +224,9 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		outlier = FALSE, steiger = FALSE, both = FALSE
 	)
 	m[[1]] <- mr_all(dat, parameters=parameters)
-	if(!is.null(m[[1]]))
+	if (!is.null(m[[1]]))
 	{
-		if("outliers" %in% names(m[[1]]))
+		if ("outliers" %in% names(m[[1]]))
 		{
 			temp <- subset(dat, ! SNP %in% subset(m[[1]]$outliers, Qpval < 0.05)$SNP)
 			m[[2]] <- mr_all(temp, parameters=parameters)
@@ -238,14 +238,14 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 
 		dat_st <- subset(dat, steiger_dir)
 		snps_retained$steiger[snps_retained$SNP %in% dat_st$SNP] <- TRUE
-		if(nrow(dat_st) == 0)
+		if (nrow(dat_st) == 0)
 		{
 			m[[3]] <- m[[4]] <- list(
 				estimates=dplyr::tibble(method="Steiger null", nsnp = 0, b=0, se=NA, ci_low=NA, ci_upp=NA, pval=1)
 			)
 		} else {
 			m[[3]] <- mr_all(dat_st, parameters=parameters)
-			if("outliers" %in% names(m[[3]]))
+			if ("outliers" %in% names(m[[3]]))
 			{
 				temp <- subset(dat_st, ! SNP %in% subset(m[[3]]$outliers, Qpval < 0.05)$SNP)
 				m[[4]] <- mr_all(temp, parameters=parameters)
@@ -257,7 +257,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		}
 	}
 
-	if(!is.null(m[[1]]))
+	if (!is.null(m[[1]]))
 	{
 		m[[1]] <- lapply(m[[1]], function(x)
 		{
@@ -268,7 +268,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[2]]))
+	if (!is.null(m[[2]]))
 	{
 		m[[2]] <- lapply(m[[2]], function(x)
 		{
@@ -279,7 +279,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[3]]))
+	if (!is.null(m[[3]]))
 	{
 		m[[3]] <- lapply(m[[3]], function(x)
 		{
@@ -290,7 +290,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 			return(x)
 		})
 	}
-	if(!is.null(m[[4]]))
+	if (!is.null(m[[4]]))
 	{
 		m[[4]] <- lapply(m[[4]], function(x)
 		{

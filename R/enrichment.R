@@ -12,7 +12,7 @@ fishers_combined_test <- function(pval)
 {
 	pval <- pval[is.finite(pval) & pval <=1 & pval >= 0]
 	index <- pval == 0
-	if(any(index))
+	if (any(index))
 	{
 		warning("p-values of 0 are unreliable in Fisher's combined test.")
 		pval[index] <- 1e-50
@@ -61,7 +61,7 @@ enrichment <- function(dat, method_list=enrichment_method_list()$obj)
 		# message("Performing enrichment analysis of '", x$id.exposure[1], "' on '", x$id.outcome[1], "'")
 
 		x <- subset(x1, !is.na(pval.outcome))
-		if(nrow(x) == 0)
+		if (nrow(x) == 0)
 		{
 			message("No outcome p-values for analysis of '", x1$id.exposure[1], "' on '", x1$id.outcome[1], "'")
 			return(NULL)

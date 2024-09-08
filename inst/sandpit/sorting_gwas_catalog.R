@@ -98,8 +98,8 @@ b[grep("mg/dl decrease",b$X95..CI..TEXT.),]
 pos2<-regexpr(",",ci95)
 pos[pos2!=-1]<-pos2[pos2!=-1] #for the scenario where instead of '-' there is a ','
 
-se<-(as.numeric(num2)-as.numeric(num1))/(1.96*2)
-lnse<-(log(as.numeric(num2))-log(as.numeric(num1)))/(1.96*2)
+se<- (as.numeric(num2)-as.numeric(num1)) / (1.96*2)
+lnse<- (log(as.numeric(num2))-log(as.numeric(num1))) / (1.96*2)
 snps.table$se<-se
 snps.table$lnse<-lnse
 snps.table$ci95<-ci95

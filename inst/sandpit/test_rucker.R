@@ -197,7 +197,7 @@ BXG = rnorm(length(BetaXG),BetaXG,seBetaXG)
 BYG = rnorm(length(BetaYG),BetaYG,seBetaYG)
 
 if (weights==1) {W = BXG^2/seBetaYG^2}
-if (weights==2) {W = 1/(seBetaYG^2/BXG^2 + (BYG^2)*seBetaXG^2/BXG^4)}
+if (weights==2) {W = 1 / (seBetaYG^2/BXG^2 + (BYG^2)*seBetaXG^2/BXG^4)}
 
             BIVw = BIV*sqrt(W)
             sW   = sqrt(W)
