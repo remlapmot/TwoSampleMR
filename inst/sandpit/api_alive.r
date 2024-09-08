@@ -18,21 +18,21 @@ load("~/repo/mr-eve/results/03/exposure_dat.rdata")
 snplist <- unique(exposure_dat$SNP)
 
 t1 <- Sys.time()
-options(mrbaseapi="http://ieu-db-interface.epi.bris.ac.uk:8080/")
-out1 <- extract_outcome_data(snplist, 1001, proxies=FALSE)
-Sys.time()-t1
+options(mrbaseapi = "http://ieu-db-interface.epi.bris.ac.uk:8080/")
+out1 <- extract_outcome_data(snplist, 1001, proxies = FALSE)
+Sys.time() - t1
 
 
 t1 <- Sys.time()
 toggle_api("release")
-out2 <- extract_outcome_data(snplist, 1001, proxies=FALSE)
-Sys.time()-t1
+out2 <- extract_outcome_data(snplist, 1001, proxies = FALSE)
+Sys.time() - t1
 
 
 t1 <- Sys.time()
-options(mrbaseapi="http://ieu-db-interface.epi.bris.ac.uk:8080/")
-pout1 <- extract_outcome_data(snplist[1:5000], 1001, proxies=TRUE)
-Sys.time()-t1
+options(mrbaseapi = "http://ieu-db-interface.epi.bris.ac.uk:8080/")
+pout1 <- extract_outcome_data(snplist[1:5000], 1001, proxies = TRUE)
+Sys.time() - t1
 
 
 t1 <- Sys.time()

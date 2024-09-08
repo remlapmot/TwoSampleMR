@@ -1,5 +1,4 @@
-find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05)
-{
+find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05) {
 	d1$pval[d1$pval==0] <- 1e-200
 	d2$pval[d2$pval==0] <- 1e-200
 	d3$pval[d3$pval==0] <- 1e-200
@@ -7,8 +6,7 @@ find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05)
 	index <- d1$pval < 5e-8
 
 	l0 <- list()
-	for (i in seq_len(nrow(d1)))
-	{
+	for (i in seq_len(nrow(d1))) {
 		l0[[i]] <- mr_steiger(
 			d2$pval[i],
 			d1$pval[i],
@@ -17,8 +15,7 @@ find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05)
 		)
 	}
 	l1 <- list()
-	for (i in seq_len(nrow(d1)))
-	{
+	for (i in seq_len(nrow(d1))) {
 		l1[[i]] <- mr_steiger(
 			d3$pval[i],
 			d1$pval[i],
@@ -27,8 +24,7 @@ find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05)
 		)
 	}
 	l2 <- list()
-	for (i in seq_len(nrow(d1)))
-	{
+	for (i in seq_len(nrow(d1))) {
 		l2[[i]] <- mr_steiger(
 			d3$pval[i],
 			d2$pval[i],
@@ -55,8 +51,7 @@ find_invalid_instruments <- function(d1, d2, d3, steiger_thresh=0.05)
 	return(d)
 }
 
-get_summary_stats <- function(pop1, pop2, popu)
-{
+get_summary_stats <- function(pop1, pop2, popu) {
 	x <- gwas(pop1$x, cbind(pop1$G1, pop1$G2, pop1$Gu))
 	y <- gwas(pop2$y, cbind(pop2$G1, pop2$G2, pop2$Gu))
 	u <- gwas(popu$u, cbind(popu$G1, popu$G2, popu$Gu))
@@ -101,8 +96,7 @@ get_summary_stats <- function(pop1, pop2, popu)
 	return(list(dat_xy=dat_xy, dat_yx=dat_yx, gw=gw))
 }
 
-run_sim <- function(nid1, nid2, nidu, ninst1, ninst2, ninstu, var_xy, var_ux, var_uy, var_g1x, var_g2y, var_guu, var_g1y, var_g2x, mu_g1y, mu_g2x)
-{
+run_sim <- function(nid1, nid2, nidu, ninst1, ninst2, ninstu, var_xy, var_ux, var_uy, var_g1x, var_g2y, var_guu, var_g1y, var_g2x, mu_g1y, mu_g2x) {
 
 	param <- data.frame(nid1 = nid1, nid2 = nid2, nidu = nidu, ninst1 = ninst1, ninst2 = ninst2, ninstu = ninstu, var_xy = var_xy, var_ux = var_ux, var_uy = var_uy, var_g1x = var_g1x, var_g2y = var_g2y, var_guu = var_guu, var_g1y = var_g1y, var_g2x = var_g2x, mu_g1y = mu_g1y, mu_g2x = mu_g2x)
 
