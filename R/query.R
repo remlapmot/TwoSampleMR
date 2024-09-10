@@ -4,8 +4,7 @@
 #'
 #' @export
 #' @return Dataframe of details for all available studies
-available_outcomes <- function(opengwas_jwt = ieugwasr::get_opengwas_jwt())
-{
+available_outcomes <- function(opengwas_jwt = ieugwasr::get_opengwas_jwt()) {
 	# .Deprecated("ieugwasr::gwasinfo()")
 	a <- ieugwasr::gwasinfo(opengwas_jwt=opengwas_jwt)
 	return(a)
@@ -30,30 +29,24 @@ available_outcomes <- function(opengwas_jwt = ieugwasr::get_opengwas_jwt())
 #'
 #' @export
 #' @return Dataframe of summary statistics for all available outcomes
-extract_outcome_data <- function(snps, outcomes, proxies = TRUE, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3, opengwas_jwt=ieugwasr::get_opengwas_jwt(), splitsize=10000, proxy_splitsize=500)
-{
+extract_outcome_data <- function(snps, outcomes, proxies = TRUE, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3, opengwas_jwt=ieugwasr::get_opengwas_jwt(), splitsize=10000, proxy_splitsize=500) {
 	# .Deprecated("ieugwasr::associations()")
 	outcomes <- ieugwasr::legacy_ids(unique(outcomes))
 
 	snps <- unique(snps)
 	firstpass <- extract_outcome_data_internal(snps, outcomes, proxies = FALSE, opengwas_jwt=opengwas_jwt, splitsize = splitsize)
 
-	if (proxies)
-	{
-		for (i in seq_along(outcomes))
-		{
-			if (is.null(firstpass))
-			{
+	if (proxies) {
+		for (i in seq_along(outcomes)) {
+			if (is.null(firstpass)) {
 				missedsnps <- snps
 			} else {
 				missedsnps <- snps[!snps %in% subset(firstpass, id.outcome == outcomes[i])$SNP]
 			}
-			if (length(missedsnps)>0)
-			{
+			if (length(missedsnps)>0)	{
 				message("Finding proxies for ", length(missedsnps), " SNPs in outcome ", outcomes[i])
 				temp <- extract_outcome_data_internal(missedsnps, outcomes[i], proxies = TRUE, rsq, align_alleles, palindromes, maf_threshold, opengwas_jwt = opengwas_jwt, splitsize = proxy_splitsize)
-				if (!is.null(temp))
-				{
+				if (!is.null(temp)) {
 					firstpass <- plyr::rbind.fill(firstpass, temp)
 				}
 			}
@@ -65,24 +58,20 @@ extract_outcome_data <- function(snps, outcomes, proxies = TRUE, rsq = 0.8, alig
 
 
 
-extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3, opengwas_jwt=ieugwasr::get_opengwas_jwt(), splitsize=10000)
-{
+extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 0.8, align_alleles = 1, palindromes = 1, maf_threshold = 0.3, opengwas_jwt=ieugwasr::get_opengwas_jwt(), splitsize=10000) {
 	snps <- unique(snps)
 	message("Extracting data for ", length(snps), " SNP(s) from ", length(unique(outcomes)), " GWAS(s)")
 	outcomes <- unique(outcomes)
 
-	if (proxies == FALSE)
-	{
+	if (proxies == FALSE) {
 		proxies <- 0
-	} else if (proxies == TRUE)
-	{
+	} else if (proxies == TRUE) {
 		proxies <- 1
 	} else {
 		stop("'proxies' argument should be TRUE or FALSE")
 	}
 
-	if ((length(snps) < splitsize && length(outcomes) < splitsize) || (length(outcomes) < splitsize && length(snps) < splitsize))
-	{
+	if ((length(snps) < splitsize && length(outcomes) < splitsize) || (length(outcomes) < splitsize && length(snps) < splitsize)) {
 
 		d <- ieugwasr::associations(
 			variants = snps,
@@ -102,12 +91,10 @@ extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 
 		n <- length(snps)
 		splits <- data.frame(snps=snps, chunk_id=rep(1:(ceiling(n/splitsize)), each=splitsize)[1:n])
 		d <- list()
-		for (i in seq_along(outcomes))
-		{
+		for (i in seq_along(outcomes)) {
 			message(i, " of ", length(outcomes), " outcomes")
 
-			d[[i]] <- plyr::ddply(splits, c("chunk_id"), function(x)
-			{
+			d[[i]] <- plyr::ddply(splits, c("chunk_id"), function(x) {
 				x <- plyr::mutate(x)
 				message(" [>] ", x$chunk_id[1], " of ", max(splits$chunk_id), " chunks")
 				out <- ieugwasr::associations(
@@ -132,12 +119,10 @@ extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 
 		n <- length(outcomes)
 		splits <- data.frame(outcomes=outcomes, chunk_id=rep(1:(ceiling(n/splitsize)), each=splitsize)[1:n])
 		d <- list()
-		for (i in seq_along(snps))
-		{
+		for (i in seq_along(snps)) {
 			message(i, " of ", length(snps), " snps")
 
-			d[[i]] <- plyr::ddply(splits, c("chunk_id"), function(x)
-			{
+			d[[i]] <- plyr::ddply(splits, c("chunk_id"), function(x) {
 				x <- plyr::mutate(x)
 				message(" [>] ", x$chunk_id[1], " of ", max(splits$chunk_id), " chunks")
 
@@ -160,8 +145,7 @@ extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 
 		d <- plyr::rbind.fill(d)
 
 	}
-	if (is.null(nrow(d)) || nrow(d) == 0)
-	{
+	if (is.null(nrow(d)) || nrow(d) == 0) {
 		# message("None of the requested SNPs were available in the specified GWASs.")
 		return(NULL)
 	}
@@ -181,8 +165,7 @@ extract_outcome_data_internal <- function(snps, outcomes, proxies = TRUE, rsq = 
 #' @param d Data frame
 #' @return Cleaned data frame
 #' @keywords internal
-cleanup_outcome_data <- function(d)
-{
+cleanup_outcome_data <- function(d) {
 	d$se.outcome[d$se.outcome <= 0] <- NA
 	d$eaf.outcome[d$eaf.outcome <= 0 | d$eaf.outcome >= 1] <- NA
 	d$beta.outcome[d$beta.outcome == -9] <- NA
@@ -196,8 +179,7 @@ cleanup_outcome_data <- function(d)
 #' @param pval p-values
 #' @return array
 #' @export
-get_se <- function(eff, pval)
-{
+get_se <- function(eff, pval) {
 	abs(eff) / abs(stats::qnorm(pval / 2))
 }
 
@@ -207,8 +189,7 @@ get_se <- function(eff, pval)
 #' @param d Data frame
 #' @return Data frame
 #' @keywords internal
-format_d <- function(d)
-{
+format_d <- function(d) {
 
 	d1 <- data.frame(
 		SNP = as.character(d$rsid),
@@ -226,8 +207,7 @@ format_d <- function(d)
 		stringsAsFactors=FALSE
 	)
 
-	if ("proxy" %in% names(d))
-	{
+	if ("proxy" %in% names(d)) {
 		p <- data.frame(
 			proxy.outcome = d$proxy,
 			target_snp.outcome = d$target_snp,
@@ -241,8 +221,7 @@ format_d <- function(d)
 		d <- cbind(d1, p)
 
 		# If two SNPs have the same proxy SNP then one has to be removed
-		d <- plyr::ddply(d, c("outcome"), function(x)
-		{
+		d <- plyr::ddply(d, c("outcome"), function(x) {
 			x <- plyr::mutate(x)
 			subset(x, !duplicated(proxy_snp.outcome))
 		})
@@ -251,10 +230,7 @@ format_d <- function(d)
 		d <- d1
 	}
 
-
-
-	if (nrow(d) == 0)
-	{
+	if (nrow(d) == 0) {
 		message("No matches")
 		return(d)
 	}
@@ -268,8 +244,7 @@ format_d <- function(d)
 
 	# For any that have missing SE but available beta and pval, infer SE
 	index <- (is.na(d$se.outcome) | d$se.outcome == 0) & (!is.na(d$beta.outcome) & !is.na(d$pval.outcome))
-	if (any(index))
-	{
+	if (any(index)) {
 		d$se.outcome[index] <- get_se(d$beta.outcome[index], d$pval.outcome[index])
 	}
 
@@ -277,12 +252,10 @@ format_d <- function(d)
 
 	mrcols <- c("beta.outcome", "se.outcome", "effect_allele.outcome")
 	d$mr_keep.outcome <- apply(d[, mrcols], 1, function(x) !any(is.na(x)))
-	if (any(!d$mr_keep.outcome))
-	{
+	if (any(!d$mr_keep.outcome)) {
 		warning("The following SNP(s) are missing required information for the MR tests and will be excluded\n", paste(subset(d, !mr_keep.outcome)$SNP, collapse="\n"))
 	}
-	if (all(!d$mr_keep.outcome))
-	{
+	if (all(!d$mr_keep.outcome)) {
 		warning("None of the provided SNPs can be used for MR analysis, they are missing required information.")
 	}
 
