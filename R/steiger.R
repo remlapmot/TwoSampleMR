@@ -13,10 +13,8 @@
 #' \item{sensitivity_ratio}{Ratio of vz1/vz0. Higher means inferred direction is less susceptible to measurement error}
 #' \item{pl}{plot of parameter space}
 #' }
-steiger_sensitivity <- function(rgx_o, rgy_o, ...)
-{
-	if (rgy_o > rgx_o)
-	{
+steiger_sensitivity <- function(rgx_o, rgy_o, ...) {
+	if (rgy_o > rgx_o) {
 		a <- rgy_o
 		b <- rgx_o
 	} else {
@@ -96,8 +94,7 @@ steiger_sensitivity <- function(rgx_o, rgy_o, ...)
 #' \item{sensitivity_ratio}{Ratio of vz1/vz0. Higher means inferred direction is less susceptible to measurement error}
 #' \item{sensitivity_plot}{Plot of parameter space of causal directions and measurement error}
 #' }
-mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yyo=1, ...)
-{
+mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yyo=1, ...) {
 	r_exp <- abs(r_exp)
 	r_out <- abs(r_out)
 
@@ -107,12 +104,10 @@ mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yy
 	ip_exp <- is.na(p_exp) | is.na(n_exp)
 	ip_out <- is.na(p_out) | is.na(n_out)
 
-	if (any(ir_exp))
-	{
+	if (any(ir_exp)) {
 		r_exp[ir_exp] <- get_r_from_pn(p_exp[ir_exp & !ip_exp], n_exp[ir_exp & !ip_exp])
 	}
-	if (any(ir_out))
-	{
+	if (any(ir_out)) {
 		r_out[ir_out] <- get_r_from_pn(p_out[ir_out & !ip_out], n_out[ir_out & !ip_out])
 	}
 
@@ -156,13 +151,10 @@ mr_steiger <- function(p_exp, p_out, n_exp, n_out, r_exp, r_out, r_xxo = 1, r_yy
 #'
 #' @export
 #' @return List
-directionality_test <- function(dat)
-{
-	if (! all(c("r.exposure", "r.outcome") %in% names(dat)))
-	{
+directionality_test <- function(dat) {
+	if (! all(c("r.exposure", "r.outcome") %in% names(dat))) {
 		message("r.exposure and/or r.outcome not present.")
-		if (! all(c("pval.exposure", "pval.outcome", "samplesize.exposure", "samplesize.outcome") %in% names(dat)))
-		{
+		if (! all(c("pval.exposure", "pval.outcome", "samplesize.exposure", "samplesize.outcome") %in% names(dat))) {
 			message("Can't calculate approximate SNP-exposure and SNP-outcome correlations without pval.exposure, pval.outcome, samplesize.exposure, samplesize.outcome")
 			message("Either supply these values, or supply the r.exposure and r.outcome values")
 			message("Note, automated correlations assume quantitative traits. For binary traits please pre-calculate in r.exposure and r.outcome e.g. using get_r_from_lor()")
@@ -171,14 +163,11 @@ directionality_test <- function(dat)
 			message("Calculating approximate SNP-exposure and/or SNP-outcome correlations, assuming all are quantitative traits. Please pre-calculate r.exposure and/or r.outcome using get_r_from_lor() for any binary traits")
 		}
 	}
-	dtest <- plyr::ddply(dat, c("id.exposure", "id.outcome"), function(x)
-	{
-		if (!"r.exposure" %in% names(x))
-		{
+	dtest <- plyr::ddply(dat, c("id.exposure", "id.outcome"), function(x) {
+		if (!"r.exposure" %in% names(x)) {
 			x$r.exposure <- NA
 		}
-		if (!"r.outcome" %in% names(x))
-		{
+		if (!"r.outcome" %in% names(x)) {
 			x$r.outcome <- NA
 		}
 		b <- mr_steiger(x$pval.exposure, x$pval.outcome, x$samplesize.exposure, x$samplesize.outcome, x$r.exposure, x$r.outcome)
@@ -227,8 +216,7 @@ directionality_test <- function(dat)
 #' \item{sensitivity_ratio}{Ratio of vz1/vz0. Higher means inferred direction is less susceptible to measurement error}
 #' \item{sensitivity_plot}{Plot of parameter space of causal directions and measurement error}
 #' }
-mr_steiger2 <- function(r_exp, r_out, n_exp, n_out, r_xxo = 1, r_yyo=1, ...)
-{
+mr_steiger2 <- function(r_exp, r_out, n_exp, n_out, r_xxo = 1, r_yyo=1, ...) {
 	index <- any(is.na(r_exp)) | any(is.na(r_out)) | any(is.na(n_exp)) | any(is.na(n_out))
 	n_exp <- n_exp[!index]
 	n_out <- n_out[!index]
