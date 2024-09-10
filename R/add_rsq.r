@@ -11,14 +11,12 @@
 #' @return data frame
 add_rsq <- function(dat) {
 	if ("id.exposure" %in% names(dat)) {
-		dat <- 	plyr::ddply(dat, c("id.exposure"), function(x)
-			{
+		dat <- 	plyr::ddply(dat, c("id.exposure"), function(x) {
 				add_rsq_one(x, "exposure")
 			})
 	}
 	if ("id.outcome" %in% names(dat)) {
-		dat <- 	plyr::ddply(dat, c("id.outcome"), function(x)
-			{
+		dat <- 	plyr::ddply(dat, c("id.outcome"), function(x) {
 				add_rsq_one(x, "outcome")
 			})
 	}

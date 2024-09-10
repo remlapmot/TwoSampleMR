@@ -223,8 +223,7 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
 }
 
 
-extract_split <- function(snplist, id, splitsize=20000)
-{
+extract_split <- function(snplist, id, splitsize=20000) {
     nsplit <- round(length(snplist)/splitsize)
     split(snplist, 1:nsplit) %>%
         pbapply::pblapply(., function(x) {

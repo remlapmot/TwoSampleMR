@@ -18,8 +18,7 @@ add_metadata <- function(dat, cols = c("sample_size", "ncase", "ncontrol", "unit
 			return(NULL)
 		}
 		for (col in cols) {
-			if (!col %in% names(info))
-			{
+			if (!col %in% names(info)) {
 				info[[col]] <- NA
 			}
 		}

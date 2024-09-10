@@ -246,8 +246,7 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 #' @export
 #' @return data.frame with duplicate summary sets removed
 
-power_prune <- function(dat,method=1,dist.outcome="binary")
-{
+power_prune <- function(dat,method=1,dist.outcome="binary") {
 
 	# dat[,c("eaf.exposure","beta.exposure","se.exposure","samplesize.outcome","ncase.outcome","ncontrol.outcome")]
 	if (method==1) {
