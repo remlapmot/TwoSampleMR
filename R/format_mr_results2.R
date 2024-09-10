@@ -6,8 +6,7 @@
 #'
 #' @export
 #' @return data frame
-split_outcome <- function(mr_res)
-{
+split_outcome <- function(mr_res) {
 	Pos<-grep("\\|\\|",mr_res$outcome) #the "||"" indicates that the outcome column was derived from summary data in MR-Base. Sometimes it wont look like this e.g. if the user has supplied their own outcomes
 	if (sum(Pos)!=0) {
 		Outcome<-as.character(mr_res$outcome[Pos])
@@ -30,8 +29,7 @@ split_outcome <- function(mr_res)
 #'
 #' @export
 #' @return data frame
-split_exposure <- function(mr_res)
-{
+split_exposure <- function(mr_res) {
 	Pos<-grep("\\|\\|",mr_res$exposure) #the "||"" indicates that the outcome column was derived from summary data in MR-Base. Sometimes it wont look like this e.g. if the user has supplied their own outcomes
 	# Pos2<-grep("\\|\\|",mr_res$exposure,invert=T)
 	# mr_res2 <-mr_res[Pos2,]
@@ -57,8 +55,7 @@ split_exposure <- function(mr_res)
 #'
 #' @export
 #' @return data frame
-generate_odds_ratios <- function(mr_res)
-{
+generate_odds_ratios <- function(mr_res) {
 	mr_res$lo_ci <- mr_res$b - 1.96 * mr_res$se
 	mr_res$up_ci <- mr_res$b + 1.96 * mr_res$se
 	mr_res$or <- exp(mr_res$b)
@@ -77,8 +74,7 @@ generate_odds_ratios <- function(mr_res)
 #'
 #' @export
 #' @return data frame.
-subset_on_method <- function(mr_res, single_snp_method="Wald ratio", multi_snp_method="Inverse variance weighted")
-{
+subset_on_method <- function(mr_res, single_snp_method="Wald ratio", multi_snp_method="Inverse variance weighted") {
 	dat <- subset(mr_res, (nsnp==1 & method==single_snp_method) | (nsnp > 1 & method == multi_snp_method))
 	return(dat)
 
@@ -132,8 +128,7 @@ subset_on_method <- function(mr_res, single_snp_method="Wald ratio", multi_snp_m
 # All.res<-split_exposure(All.res)
 # All.res<-split_outcome(All.res)
 
-combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.exposure=FALSE,split.outcome=FALSE)
-{
+combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.exposure=FALSE,split.outcome=FALSE) {
 	het<-het[,c("id.exposure","id.outcome","method","Q","Q_df","Q_pval")]
 
 	# Convert all factors to character
@@ -178,8 +173,7 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 	res<-merge(res,het,by=c("id.outcome","id.exposure","Method"),all.x=TRUE)
 	res<-plyr::rbind.fill(res,sin[,c("exposure","outcome","id.exposure","id.outcome","SNP","b","se","pval","Method")])
 
-	if (ao_slc)
-	{
+	if (ao_slc) {
 		ao<-available_outcomes()
 		names(ao)[names(ao)=="nsnp"]<-"nsnps.outcome.array"
 		res<-merge(res,ao[,!names(ao) %in% c("unit","priority","sd","path","note","filename","access","mr")],by.x="id.outcome",by.y="id")
@@ -187,12 +181,10 @@ combine_all_mrresults <- function(res,het,plt,sin,ao_slc=TRUE,Exp=FALSE,split.ex
 
 	res$nsnp[is.na(res$nsnp)]<-1
 
-	for (i in unique(res$id.outcome))
-	{
+	for (i in unique(res$id.outcome)) {
 		Methods<-unique(res$Method[res$id.outcome==i])
 		Methods<-Methods[Methods!="Wald ratio"]
-		for (j in unique(Methods))
-		{
+		for (j in unique(Methods)) {
 			res$SNP[res$id.outcome == i & res$Method==j]<-paste(res$SNP[res$id.outcome == i & res$Method=="Wald ratio"],collapse="; ")
 		}
 	}
@@ -402,8 +394,7 @@ power_prune <- function(dat,method=1,dist.outcome="binary")
 #' @export
 #' @return data frame
 
-size.prune <- function(dat)
-{
+size.prune <- function(dat) {
 	dat$ncase[is.na(dat$ncase)]<-dat$samplesize[is.na(dat$ncase)]
 	dat<-dat[order(dat$ncase,decreasing=TRUE),]
 	id.expout<-paste(dat$exposure,dat$outcome)
