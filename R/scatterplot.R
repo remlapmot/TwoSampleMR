@@ -6,14 +6,11 @@
 #' @param dat Output from [harmonise_data()].
 #' @export
 #' @return List of plots
-mr_scatter_plot <- function(mr_results, dat)
-{
+mr_scatter_plot <- function(mr_results, dat) {
 	# dat <- subset(dat, paste(id.outcome, id.exposure) %in% paste(mr_results$id.outcome, mr_results$id.exposure))
-	mrres <- plyr::dlply(dat, c("id.exposure", "id.outcome"), function(d)
-	{
+	mrres <- plyr::dlply(dat, c("id.exposure", "id.outcome"), function(d) {
 		d <- plyr::mutate(d)
-		if (nrow(d) < 2 | sum(d$mr_keep) == 0)
-		{
+		if (nrow(d) < 2 | sum(d$mr_keep) == 0) {
 			return(blank_plot("Insufficient number of SNPs"))
 		}
 		d <- subset(d, mr_keep)
@@ -22,14 +19,12 @@ mr_scatter_plot <- function(mr_results, dat)
 		d$beta.outcome[index] <- d$beta.outcome[index] * -1
 		mrres <- subset(mr_results, id.exposure == d$id.exposure[1] & id.outcome == d$id.outcome[1])
 		mrres$a <- 0
-		if ("MR Egger" %in% mrres$method)
-		{
+		if ("MR Egger" %in% mrres$method) {
 			temp <- mr_egger_regression(d$beta.exposure, d$beta.outcome, d$se.exposure, d$se.outcome, default_parameters())
 			mrres$a[mrres$method == "MR Egger"] <- temp$b_i
 		}
 
-		if ("MR Egger (bootstrap)" %in% mrres$method)
-		{
+		if ("MR Egger (bootstrap)" %in% mrres$method) {
 			temp <- mr_egger_regression_bootstrap(d$beta.exposure, d$beta.outcome, d$se.exposure, d$se.outcome, default_parameters())
 			mrres$a[mrres$method == "MR Egger (bootstrap)"] <- temp$b_i
 		}
@@ -48,8 +43,7 @@ mr_scatter_plot <- function(mr_results, dat)
 }
 
 
-blank_plot <- function(message)
-{
+blank_plot <- function(message) {
 	ggplot2::ggplot(data.frame(a=0,b=0,n=message)) +
     ggplot2::geom_text(ggplot2::aes(x=a,y=b,label=n)) +
     ggplot2::labs(x=NULL,y=NULL) +
