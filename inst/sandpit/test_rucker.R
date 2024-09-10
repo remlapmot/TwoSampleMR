@@ -190,31 +190,31 @@ signif(cooks.distance(lmI), 3)   # ~= Ci in Table 3, p.184
 
 
 for (i in 1:BootSim) {
-BXG = rnorm(length(BetaXG),BetaXG,seBetaXG)
-BYG = rnorm(length(BetaYG),BetaYG,seBetaYG)
+BXG <- rnorm(length(BetaXG),BetaXG,seBetaXG)
+BYG <- rnorm(length(BetaYG),BetaYG,seBetaYG)
 
-if (weights==1) W = BXG^2/seBetaYG^2
-if (weights==2) W = 1 / (seBetaYG^2/BXG^2 + (BYG^2)*seBetaXG^2/BXG^4)
+if (weights==1) W <- BXG^2/seBetaYG^2
+if (weights==2) W <- 1 / (seBetaYG^2/BXG^2 + (BYG^2)*seBetaXG^2/BXG^4)
 
-            BIVw = BIV*sqrt(W)
-            sW   = sqrt(W)
-IR          = lm(BIVw ~ -1+sW)
-IVW[i] = IR$coef[1]
-MR          = lm(BIVw ~    sW)
-E[i]   = MR$coef[2]
+            BIVw <- BIV*sqrt(W)
+            sW   <- sqrt(W)
+IR          <- lm(BIVw ~ -1+sW)
+IVW[i] <- IR$coef[1]
+MR          <- lm(BIVw ~    sW)
+E[i]   <- MR$coef[2]
 
-DF1      = length(BetaYG)-1
-phi_IVW  = summary(IR)$sigma^2
-QQ[i]    = DF1*phi_IVW
-DF2      = length(BetaYG)-2
-phi_E    = summary(MR)$sigma^2
-QQd[i]   = DF2*phi_E
+DF1      <- length(BetaYG)-1
+phi_IVW  <- summary(IR)$sigma^2
+QQ[i]    <- DF1*phi_IVW
+DF2      <- length(BetaYG)-2
+phi_E    <- summary(MR)$sigma^2
+QQd[i]   <- DF2*phi_E
 
-Qp       = 1-pchisq(Q,DF1)
+Qp       <- 1-stats::pchisq(Q,DF1)
 
-if (QQ[i] <= qchisq(1-alpha,DF1)) Mod[i]=1
-if (QQ[i] >= qchisq(1-alpha,DF1)) Mod[i]=2
-if (QQ[i] >= qchisq(1-alpha,DF1) && QQ[i] - QQd[i] >= qchisq(1-alpha,1)) Mod[i]=3
-if (QQ[i] >= qchisq(1-alpha,DF1) && QQ[i] - QQd[i] >= qchisq(1-alpha,1) && QQd[i] >=qchisq(1-alpha,DF2)) Mod[i]=4
+if (QQ[i] <= stats::qchisq(1-alpha,DF1)) Mod[i] <- 1
+if (QQ[i] >= stats::qchisq(1-alpha,DF1)) Mod[i] <- 2
+if (QQ[i] >= stats::qchisq(1-alpha,DF1) && QQ[i] - QQd[i] >= stats::qchisq(1-alpha,1)) Mod[i] <- 3
+if (QQ[i] >= stats::qchisq(1-alpha,DF1) && QQ[i] - QQd[i] >= stats::qchisq(1-alpha,1) && QQd[i] >= stats::qchisq(1-alpha,DF2)) Mod[i] <- 4
 
 }

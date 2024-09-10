@@ -30,7 +30,7 @@ format_1_to_many <- function(mr_res, b="b",se="se",exponentiate=FALSE, ao_slc=FA
 	}
 
 	if (is.null(weight)) {
-		mr_res$weight=3
+		mr_res$weight <- 3
 	}
 
 	if (TraitM=="exposure") { #the plot function currently tries to plot separate plots for each unique exposure. This is a legacy of the original multiple exposures forest plot function and needs to be cleaned up. The function won't work if the TraitM column is called exposure
@@ -546,8 +546,8 @@ forest_plot_addcol <- function(dat, section=NULL, addcol=NULL,bottom=TRUE,addcol
 forest_plot_1_to_many <- function(mr_res="mr_res", b="b",se="se",TraitM="outcome",col1_width=1,col1_title="",exponentiate=FALSE, trans="identity",ao_slc=TRUE,lo=NULL,up=NULL,by=NULL,xlab="Effect (95% confidence interval)",addcols=NULL,addcol_widths=NULL,addcol_titles="",subheading_size=6,shape_points=15,colour_scheme="black",col_text_size=5,weight=NULL) {
 	# if(is.null(lo) | is.null(up)) warning("Values missing for the lower or upper bounds of the x axis. Did you forget to set the lo and up arguments?")
 
-	xlim=NULL
-	ncols=1+length(addcols)
+	xlim <- NULL
+	ncols <- 1+length(addcols)
 	if (addcol_titles=="") {
 		addcol_titles<-rep(addcol_titles,length(addcols))
 	}

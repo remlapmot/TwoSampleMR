@@ -473,7 +473,7 @@ mv_multiple <- function(mvdat, intercept=FALSE, instrument_specific=FALSE, pval_
 	out <- list(
 		result=result
 	)
-	if (plots) out$plots=p
+	if (plots) out$plots <- p
 
 	return(out)
 }
