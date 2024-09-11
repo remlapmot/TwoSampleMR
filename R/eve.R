@@ -49,7 +49,7 @@ mr_mean_ivw <- function(d) {
 	y2 <- ratios * weights2
 	ivw2 <- summary(stats::lm(y2 ~ -1 + weights2))
 
-	ivwoutliers <- dplyr::tibble(id.exposure = id.exposure, id.outcome = id.outcome, SNP=d$SNP, Qj=weights2^2 * (ratios - stats::coefficients(ivw2)[1])^2, Qpval=stats::pchisq(Qj,1,lower.tail=FALSE))
+	ivwoutliers <- dplyr::tibble(id.exposure = id.exposure, id.outcome = id.outcome, SNP=d$SNP, Qj=weights2^2 * (ratios - stats::coefficients(ivw2)[1])^2, Qpval=stats::pchisq(Qj, 1, lower.tail=FALSE))
 
 	Qivw2 <- sum(ivwoutliers$Qj)
 	Qivw2pval <- stats::pchisq(Qivw2, nrow(d)-1, lower.tail=FALSE)
@@ -112,8 +112,8 @@ mr_mean_egger <- function(d) {
 	egger2 <- summary(stats::lm(y2 ~ weights2))
 	eggeroutliers <- dplyr::tibble(
 		SNP=d$SNP,
-		Qj = weights2^2 * (ratios - stats::coefficients(egger2)[1,1] / weights2 - stats::coefficients(egger2)[2,1])^2,
-		Qpval=stats::pchisq(Qj,1,lower.tail=FALSE)
+		Qj = weights2^2 * (ratios - stats::coefficients(egger2)[1, 1] / weights2 - stats::coefficients(egger2)[2, 1])^2,
+		Qpval=stats::pchisq(Qj, 1, lower.tail=FALSE)
 	)
 
 	Qegger2 <- sum(eggeroutliers$Qj)
@@ -126,8 +126,8 @@ mr_mean_egger <- function(d) {
 		id.outcome = id.outcome,
 		method = c("RE Egger"),
 		nsnp = nrow(d),
-		b = c(egger2$coefficients[2,1]),
-		se = c(egger2$coefficients[2,2]),
+		b = c(egger2$coefficients[2, 1]),
+		se = c(egger2$coefficients[2, 2]),
 		ci_low = b - se * 1.96,
 		ci_upp = b + se * 1.96,
 		pval = stats::pt(abs(b / se), nrow(d)-2, lower.tail=FALSE) * 2
@@ -155,8 +155,8 @@ mr_mean_egger <- function(d) {
 		id.outcome = id.outcome,
 		method = c("FE Egger intercept", "RE Egger intercept"),
 		nsnp = nrow(d),
-		b = c(egger2$coefficients[1,1], egger2$coefficients[1,1]),
-		se = c(egger2$coefficients[1,2] / max(1, egger2$sigma), egger2$coefficients[1,2]),
+		b = c(egger2$coefficients[1, 1], egger2$coefficients[1, 1]),
+		se = c(egger2$coefficients[1, 2] / max(1, egger2$sigma), egger2$coefficients[1, 2]),
 		pval = stats::pt(abs(b/se), nrow(d)-2, lower.tail=FALSE) * 2
 	)
 
@@ -197,7 +197,7 @@ mr_all <- function(dat, parameters=default_parameters()) {
 	m1 <- mr_mean(dat)
 	if (sum(dat$mr_keep) > 3) {
 		m2 <- try(mr_median(dat, parameters=parameters))
-		m3 <- try(mr_mode(dat, parameters=parameters)[1:3,])
+		m3 <- try(mr_mode(dat, parameters=parameters)[1:3, ])
 		m1$estimates <- dplyr::bind_rows(m1$estimates, m2, m3)
 	}
 	m1$info <- c(list(
