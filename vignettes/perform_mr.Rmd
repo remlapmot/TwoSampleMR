@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   cache = TRUE,
-  fig.align = 'center'
+  fig.align = "center"
 )
 ```
 
@@ -28,8 +28,8 @@ library(ggplot2)
 
 ```{r, eval=FALSE, echo=FALSE}
 ao <- available_outcomes()
-bmi_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
-chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = 'ieu-a-7')
+bmi_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
+chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = "ieu-a-7")
 id_exposure <- c("ieu-a-299", "ieu-a-300", "ieu-a-302")
 id_outcome <- "ieu-a-7"
 mv_exposure_dat <- mv_extract_exposures(id_exposure)
@@ -48,8 +48,8 @@ load(system.file("extdata", "vig_perform_mr.RData", package = "TwoSampleMR"))
 Let's continue with the example of BMI on CHD:
 
 ```{r, eval=FALSE}
-bmi_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
-chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = 'ieu-a-7')
+bmi_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
+chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = "ieu-a-7")
 ```
 
 ```{r}
@@ -264,10 +264,10 @@ In this example we wish to plot results from an MR analysis of the effect of mul
 res <- subset_on_method(res) # default is to subset on either the IVW method (>1 instrumental SNP) or Wald ratio method (1 instrumental SNP).
 res <- sort_1_to_many(res, b = "b", sort_action = 4) # this sorts results by decreasing effect size (largest effect at top of the plot)
 res <- split_exposure(res) # to keep the Y axis label clean we exclude the exposure ID labels from the exposure column
-res$weight <- 1/res$se
+res$weight <- 1 / res$se
 
-min(exp(res$b - 1.96*res$se)) # identify value for 'lo' in forest_plot_1_to_many
-max(exp(res$b + 1.96*res$se)) # identify value for 'up' in forest_plot_1_to_many
+min(exp(res$b - 1.96 * res$se)) # identify value for 'lo' in forest_plot_1_to_many
+max(exp(res$b + 1.96 * res$se)) # identify value for 'up' in forest_plot_1_to_many
 
 forest_plot_1_to_many(
   res,
@@ -289,7 +289,7 @@ forest_plot_1_to_many(
 It is also possible to add additional columns and column titles and to choose the size of the text in the columns:
 
 ```{r cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
-res$pval<-formatC(res$pval, format = "e", digits = 2)
+res$pval <- formatC(res$pval, format = "e", digits = 2)
 forest_plot_1_to_many(
   res,
   b = "b",
@@ -382,7 +382,7 @@ res <- split_exposure(res)
 res <- subset_on_method(res)
 res$subcategory[res$exposure %in% c("Adiponectin", "Hip circumference", "Waist circumference")] <- "Group 1"
 res$subcategory[is.na(res$subcategory)] <- "Group 2"
-res$weight <- 1/res$se
+res$weight <- 1 / res$se
 res <- sort_1_to_many(res, sort_action = 1, group = "subcategory")
 
 forest_plot_1_to_many(
@@ -544,7 +544,7 @@ mr_steiger(
   n_out = dat$samplesize.outcome,
   r_xxo = 1,
   r_yyo = 1,
-  r_exp=0
+  r_exp = 0
 )
 ```
 
