@@ -5,7 +5,7 @@ library(knitr)
 load_all()
 
 
-lipids <- mv_extract_exposures(c(299,300,302))
+lipids <- mv_extract_exposures(c(299, 300, 302))
 chd <- extract_outcome_data(lipids$SNP, 7)
 control <- mv_harmonise_data(lipids, chd)
 ```

@@ -2,9 +2,9 @@ library(devtools)
 load_all()
 
 ed <- extract_instruments(2)
-ed1 <- ed[1,]
-ed2 <- ed[1:2,]
-ed3 <- ed[1:3,]
+ed1 <- ed[1, ]
+ed2 <- ed[1:2, ]
+ed3 <- ed[1:3, ]
 
 od <- extract_outcome_data(ed$SNP, 7)
 od1 <- extract_outcome_data(ed1$SNP, 7)
