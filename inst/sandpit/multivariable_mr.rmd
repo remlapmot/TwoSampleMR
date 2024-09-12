@@ -12,35 +12,35 @@ control <- mv_harmonise_data(lipids, chd)
 
 
 ```{r}
-kable(mv_residual(control, intercept=TRUE, instrument_specific=TRUE)$result)
+kable(mv_residual(control, intercept = TRUE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_residual(control, intercept=FALSE, instrument_specific=TRUE)$result)
+kable(mv_residual(control, intercept = FALSE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_residual(control, intercept=TRUE, instrument_specific=FALSE)$result)
+kable(mv_residual(control, intercept = TRUE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_residual(control, intercept=FALSE, instrument_specific=FALSE)$result)
+kable(mv_residual(control, intercept = FALSE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(control, intercept=TRUE, instrument_specific=TRUE)$result)
+kable(mv_multiple(control, intercept = TRUE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(control, intercept=FALSE, instrument_specific=TRUE)$result)
+kable(mv_multiple(control, intercept = FALSE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(control, intercept=TRUE, instrument_specific=FALSE)$result)
+kable(mv_multiple(control, intercept = TRUE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(control, intercept=FALSE, instrument_specific=FALSE)$result)
+kable(mv_multiple(control, intercept = FALSE, instrument_specific = FALSE)$result)
 ```
 
 
@@ -51,35 +51,35 @@ dat <- mv_harmonise_data(a, b)
 ```
 
 ```{r}
-kable(mv_residual(dat, intercept=TRUE, instrument_specific=TRUE)$result)
+kable(mv_residual(dat, intercept = TRUE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_residual(dat, intercept=FALSE, instrument_specific=TRUE)$result)
+kable(mv_residual(dat, intercept = FALSE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_residual(dat, intercept=TRUE, instrument_specific=FALSE)$result)
+kable(mv_residual(dat, intercept = TRUE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_residual(dat, intercept=FALSE, instrument_specific=FALSE)$result)
+kable(mv_residual(dat, intercept = FALSE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(dat, intercept=TRUE, instrument_specific=TRUE)$result)
+kable(mv_multiple(dat, intercept = TRUE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(dat, intercept=FALSE, instrument_specific=TRUE)$result)
+kable(mv_multiple(dat, intercept = FALSE, instrument_specific = TRUE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(dat, intercept=TRUE, instrument_specific=FALSE)$result)
+kable(mv_multiple(dat, intercept = TRUE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
-kable(mv_multiple(dat, intercept=FALSE, instrument_specific=FALSE)$result)
+kable(mv_multiple(dat, intercept = FALSE, instrument_specific = FALSE)$result)
 ```
 
 ```{r}
