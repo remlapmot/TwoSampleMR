@@ -2,6 +2,7 @@
 
 (Release date 2024-##-##)
 
+* Continued to improve formatting of code base
 
 # TwoSampleMR v0.6.8
 
