@@ -21,9 +21,9 @@ We provide three example files in the package, one for telomere length, one for 
 
 ```{r }
 library(TwoSampleMR)
-tl_file <- system.file("data/telomere_length.txt", package="TwoSampleMR")
-bc_file <- system.file("data/bladdercancer.txt", package="TwoSampleMR")
-chd_file <- system.file("data/cardiogram.txt", package="TwoSampleMR")
+tl_file <- system.file("data/telomere_length.txt", package = "TwoSampleMR")
+bc_file <- system.file("data/bladdercancer.txt", package = "TwoSampleMR")
+chd_file <- system.file("data/cardiogram.txt", package = "TwoSampleMR")
 ```
 
 To read in the data:
@@ -49,7 +49,7 @@ data(gwas_catalog)
 and to extract, e.g. the instruments for BMI using the [@Speliotes2010] SNPs:
 
 ```{r }
-bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
+bmi <- subset(gwas_catalog, Phenotype == "Body mass index" & Year == 2010 & grepl("kg", Units))
 bmi <- format_gwas_catalog(bmi)
 ```
 
@@ -91,7 +91,7 @@ This returns the same data frame with any SNPs in LD removed.
 You need to obtain the executable for [plink2](https://cog-genomics.org/plink2), and binary plink files for your reference data, e.g. 1000 genomes data. 
 
 ```{r eval=FALSE}
-bmi <- clump_data(bmi, where="local", refdat="/path/to/reference_data", plink_bin="/path/to/plink2")
+bmi <- clump_data(bmi, where = "local", refdat = "/path/to/reference_data", plink_bin = "/path/to/plink2")
 ```
 
 ## Outcome data
