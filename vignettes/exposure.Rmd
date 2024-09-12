@@ -27,7 +27,7 @@ library(TwoSampleMR)
 ```{r, eval=FALSE, echo=FALSE}
 # Get data for the vignette
 ao <- available_outcomes()
-bmi2014_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
+bmi2014_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
 bmi_exp_dat <- clump_data(bmi2014_exp_dat)
 save(ao, bmi_exp_dat, bmi2014_exp_dat, file = file.path("inst", "extdata", "vig_exposure.RData"), compress = "xz")
 ```
@@ -137,18 +137,18 @@ To read in this data:
 
 ```{r}
 bmi_exp_dat <- read_exposure_data(
-	filename = bmi2_file,
-	sep = ",",
-	snp_col = "rsid",
-	beta_col = "effect",
-	se_col = "SE",
-	effect_allele_col = "a1",
-	other_allele_col = "a2",
-	eaf_col = "a1_freq",
-	pval_col = "p-value",
-	units_col = "Units",
-	gene_col = "Gene",
-	samplesize_col = "n"
+  filename = bmi2_file,
+  sep = ",",
+  snp_col = "rsid",
+  beta_col = "effect",
+  se_col = "SE",
+  effect_allele_col = "a1",
+  other_allele_col = "a2",
+  eaf_col = "a1_freq",
+  pval_col = "p-value",
+  units_col = "Units",
+  gene_col = "Gene",
+  samplesize_col = "n"
 )
 head(bmi_exp_dat)
 ```
@@ -206,9 +206,11 @@ For example, to obtain instruments for body mass index using the Speliotes et al
 
 ```{r eval=FALSE}
 bmi_gwas <-
-  subset(gwas_catalog,
-         grepl("Speliotes", Author) &
-           Phenotype == "Body mass index")
+  subset(
+    gwas_catalog,
+    grepl("Speliotes", Author) &
+      Phenotype == "Body mass index"
+  )
 bmi_exp_dat <- format_data(bmi_gwas)
 ```
 
@@ -276,7 +278,7 @@ For example, to obtain instruments for cg25212131 CpG DNA methylation levels in 
 ```{r}
 cg25212131_exp_dat <-
   format_aries_mqtl(subset(aries_mqtl, cpg == "cg25212131" &
-                             age == "Birth"))
+    age == "Birth"))
 ```
 
 ### IEU GWAS database
@@ -316,7 +318,7 @@ head(subset(ao, select = c(trait, id)))
 To extract instruments for a particular trait using a particular study, for example to obtain SNPs for body mass index using the Locke et al. 2015 GIANT study, you specify the study ID as follows:
 
 ```{r, eval=FALSE}
-bmi2014_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
+bmi2014_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
 ```
 
 ```r
