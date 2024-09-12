@@ -7,9 +7,9 @@
 # mysql -u gh13047 -h epi-franklin.epi.bris.ac.uk -p
 # ri.K-2Gbvd
 
-mydb <- dbConnect(MySQL(), user='epxjz', password='wv-92n_YjB', dbname='mrbase', host='epi-franklin.epi.bris.ac.uk')
+mydb <- dbConnect(MySQL(), user="epxjz", password="wv-92n_YjB", dbname="mrbase", host="epi-franklin.epi.bris.ac.uk")
 dbListTables(mydb)
-dbListFields(mydb, 'assoc')
+dbListFields(mydb, "assoc")
 
 
 rs <- dbSendQuery(mydb, "select * from study")
