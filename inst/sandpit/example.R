@@ -1,4 +1,4 @@
-tl_file <- system.file("data/telomere_length.txt", package="TwoSampleMR")
+tl_file <- system.file("data/telomere_length.txt", package = "TwoSampleMR")
 exposure_dat <- read_exposure_data(tl_file, "Telomere length")
 exposure_dat <- clump_data(exposure_dat)
 ao <- available_outcomes()
@@ -25,7 +25,7 @@ p[[2]]
 
 
 
-bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
+bmi <- subset(gwas_catalog, Phenotype == "Body mass index" & Year == 2010 & grepl("kg", Units))
 exposure_dat <- format_gwas_catalog(bmi)
 
 
