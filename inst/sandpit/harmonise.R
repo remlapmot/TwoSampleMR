@@ -40,24 +40,24 @@ fB <- a$fB
 
 
 exposure_dat <- data.frame(
-	SNP=a$SNP,
-	effect_allele.exposure=a$A1,
-	other_allele.exposure=a$A2,
-	beta.exposure=a$betaA,
-	eaf.exposure=a$fA,
-	exposure="A",
-	stringsAsFactors=FALSE
+  SNP=a$SNP,
+  effect_allele.exposure=a$A1,
+  other_allele.exposure=a$A2,
+  beta.exposure=a$betaA,
+  eaf.exposure=a$fA,
+  exposure="A",
+  stringsAsFactors=FALSE
 )
 
 
 outcome_dat <- data.frame(
-	SNP=a$SNP,
-	effect_allele.outcome=a$B1,
-	other_allele.outcome=a$B2,
-	beta.outcome=a$betaB,
-	eaf.outcome=NA,
-	id.outcome="B",
-	stringsAsFactors=FALSE
+  SNP=a$SNP,
+  effect_allele.outcome=a$B1,
+  other_allele.outcome=a$B2,
+  beta.outcome=a$betaB,
+  eaf.outcome=NA,
+  id.outcome="B",
+  stringsAsFactors=FALSE
 )
 
 dat <- TwoSampleMR::harmonise_data(exposure_dat, outcome_dat)

@@ -24,7 +24,6 @@ library(TwoSampleMR)
 tl_file <- system.file("data/telomere_length.txt", package="TwoSampleMR")
 bc_file <- system.file("data/bladdercancer.txt", package="TwoSampleMR")
 chd_file <- system.file("data/cardiogram.txt", package="TwoSampleMR")
-
 ```
 
 To read in the data:
@@ -60,13 +59,13 @@ You can create the expoure data object using data already in R also. e.g.
 
 ```{r }
 manual_exposure <- data.frame(
-	SNP = c("rs10150332", "rs10767664"),
-	beta = c(0.13, 0.19),
-	se = c(0.03061224, 0.03061224),
-	effect_allele = c("C", "A"),
-	other_allele = c("T", "T"),
-	eaf = c(0.21, 0.78),
-	P_value = c(3e-11, 5e-26)
+  SNP = c("rs10150332", "rs10767664"),
+  beta = c(0.13, 0.19),
+  se = c(0.03061224, 0.03061224),
+  effect_allele = c("C", "A"),
+  other_allele = c("T", "T"),
+  eaf = c(0.21, 0.78),
+  P_value = c(3e-11, 5e-26)
 )
 manual_exposure <- format_exposure_dat(manual_exposure, "BMI")
 ```
