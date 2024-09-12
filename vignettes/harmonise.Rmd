@@ -29,8 +29,8 @@ library(TwoSampleMR)
 ```{r, echo=FALSE, eval=FALSE, warning=FALSE}
 # Get all required data
 ao <- available_outcomes()
-bmi_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
-chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = 'ieu-a-7')
+bmi_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
+chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = "ieu-a-7")
 save(ao, bmi_exp_dat, chd_out_dat, file = file.path("inst", "extdata", "vig_harmonise.RData"), compress = "xz")
 ```
 
@@ -41,8 +41,8 @@ load(system.file("extdata", "vig_harmonise.RData", package = "TwoSampleMR"))
 The exposure data and outcome data are now obtained, e.g.:
 
 ```{r, eval=FALSE}
-bmi_exp_dat <- extract_instruments(outcomes = 'ieu-a-2')
-chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = 'ieu-a-7')
+bmi_exp_dat <- extract_instruments(outcomes = "ieu-a-2")
+chd_out_dat <- extract_outcome_data(snps = bmi_exp_dat$SNP, outcomes = "ieu-a-7")
 ```
 
 but it is important to harmonise the effects. This means that the effect of a SNP on the exposure and the effect of that SNP on the outcome must each correspond to the same allele.
@@ -53,8 +53,8 @@ To harmonise the exposure and outcome data, do the following:
 
 ```{r}
 dat <- harmonise_data(
-	exposure_dat = bmi_exp_dat,
-	outcome_dat = chd_out_dat
+  exposure_dat = bmi_exp_dat,
+  outcome_dat = chd_out_dat
 )
 ```
 
