@@ -1,6 +1,4 @@
 
-
-
 ## Exposure data
 
 You can read in exposure data from a text file, or from the GWAS catalog.
@@ -19,7 +17,7 @@ The text file must have the following columns (in any order) with these exact co
 
 We provide three example files in the package, one for telomere length, one for bladder cancer, and one for coronary heart disease. After installing the package you can find their locations on your computer like this:
 
-```{r }
+```{r}
 library(TwoSampleMR)
 tl_file <- system.file("data/telomere_length.txt", package = "TwoSampleMR")
 bc_file <- system.file("data/bladdercancer.txt", package = "TwoSampleMR")
@@ -28,7 +26,7 @@ chd_file <- system.file("data/cardiogram.txt", package = "TwoSampleMR")
 
 To read in the data:
 
-```{r }
+```{r}
 library(TwoSampleMR)
 library(pander)
 tl <- read_exposure_data(tl_file, "Telomere length")
@@ -42,13 +40,13 @@ The GWAS catalog ([https://www.ebi.ac.uk/gwas/](https://www.ebi.ac.uk/gwas/)) is
 
 To use the GWAS catalog:
 
-```{r }
+```{r}
 data(gwas_catalog)
 ```
 
 and to extract, e.g. the instruments for BMI using the [@Speliotes2010] SNPs:
 
-```{r }
+```{r}
 bmi <- subset(gwas_catalog, Phenotype == "Body mass index" & Year == 2010 & grepl("kg", Units))
 bmi <- format_gwas_catalog(bmi)
 ```
@@ -57,7 +55,7 @@ bmi <- format_gwas_catalog(bmi)
 
 You can create the expoure data object using data already in R also. e.g.
 
-```{r }
+```{r}
 manual_exposure <- data.frame(
   SNP = c("rs10150332", "rs10767664"),
   beta = c(0.13, 0.19),
@@ -79,7 +77,7 @@ For most 2SMR methods it is required that the instruments are in linkage equilib
 
 This is currently limited to using European samples from 1000 genomes data only. You must provide a data frame that has a P-value column, SNP name, SNP position and SNP chromosome. The output from `read_exposure_data` has all of these.
 
-```{r }
+```{r}
 tl <- clump_data(tl)
 bmi <- clump_data(bmi)
 ```
@@ -102,7 +100,7 @@ Ideally for every SNP in your exposure data you will have the corresponding summ
 
 To see a list of all the available GWAS studies in the database:
 
-```{r }
+```{r}
 ao <- available_outcomes()
 nrow(ao)
 pander(head(ao))
@@ -110,13 +108,13 @@ pander(head(ao))
 
 and to extract the BMI SNPs from the Celiac disease and T2D GWASs provide the relevant exposure data and outcome IDs:
 
-```{r }
+```{r}
 outcome_dat <- extract_outcome_data(bmi, c(13, 6))
 ```
 
 The resulting data frame has the following columns:
 
-```{r }
+```{r}
 names(outcome_dat)
 ```
 
@@ -136,7 +134,7 @@ Alternatively, create a data frame with the following columns:
 
 In order to ensure that the effect sizes in the exposure data correspond to the same allele effects in the outcome data it is necessary to check and harmonise these data. We provide a function that ensures all corresponding exposure and outcome alleles are on the same strand (where possible), and returns a harmonised dataset. 
 
-```{r }
+```{r}
 bmi_outcome <- harmonise_exposure_outcome(bmi, outcome_dat, action = 2)
 ```
 
@@ -151,13 +149,13 @@ The `action` argument specifies how strict to be when checking for the correct s
 
 The data is now ready to perform 2-sample MR. To do this:
 
-```{r }
+```{r}
 mr_results <- mr(bmi_outcome)
 ```
 
 This performs MR using the following different available methods:
 
-```{r }
+```{r}
 pander(mr_method_list())
 ```
 
@@ -165,20 +163,20 @@ pander(mr_method_list())
 
 To see how different methods compare:
 
-```{r }
+```{r}
 mr_scatter_plot(mr_results, bmi_outcome)[[2]]
 ```
 
 To compare the effects of each of the SNPs we can generate a forest plot, e.g. for BMI on T2D:
 
-```{r }
+```{r}
 s <- mr_singlesnp(bmi_outcome)
 mr_forest_plot(s)[[2]]
 ```
 
 And to perform a leave-one-out sensitivity analysis:
 
-```{r }
+```{r}
 l <- mr_leaveoneout(bmi_outcome)
 mr_leaveoneout_plot(l)[[2]]
 ```
