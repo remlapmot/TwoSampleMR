@@ -1,3 +1,9 @@
+# TwoSampleMR v0.6.10
+
+* The **mr.raps** package was archived from CRAN on 2025-03-01.
+A later version (0.4.1) than was on CRAN (0.2) is available from its GitHub repo <https://github.com/qingyuanzhao/mr.raps>.
+However, version 0.4.1 depends upon **rsnps** package which is itself now only available on its GitHub repo.
+
 # TwoSampleMR v0.6.9
 
 (Release date 2025-02-05)
