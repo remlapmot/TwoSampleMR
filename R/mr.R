@@ -974,6 +974,10 @@ mr_ivw_fe <- function(b_exp, b_out, se_exp, se_out, parameters=default_parameter
 #' @export
 mr_raps <- function(b_exp, b_out, se_exp, se_out, parameters = default_parameters()) {
 
+  if (!(requireNamespace("mr.raps", quietly = TRUE))) {
+    stop("You can install mr.raps with install.packages('mr.raps', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))")
+  }
+  
     data <- data.frame(beta.exposure = b_exp,
                        beta.outcome = b_out,
                        se.exposure = se_exp,
