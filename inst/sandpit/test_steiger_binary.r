@@ -12,7 +12,18 @@ dat <- harmonise_data(bmi, chd)
 dat$r.exposure <- get_r_from_pn(dat$pval.exposure, dat$samplesize.exposure)
 
 # Calculate variance explained in CHD (using log OR and allele frequencies)
-dat$r.outcome <- get_r_from_lor(dat$beta.outcome, dat$eaf.outcome, dat$ncase.outcome, dat$ncontrol.outcome, prevalence=0.4)
+dat$r.outcome <- get_r_from_lor(
+  dat$beta.outcome,
+  dat$eaf.outcome,
+  dat$ncase.outcome,
+  dat$ncontrol.outcome,
+  prevalence = 0.4
+)
 
 # Test causal direction
-mr_steiger2(dat$r.exposure, dat$r.outcome, dat$samplesize.exposure, dat$samplesize.outcome)
+mr_steiger2(
+  dat$r.exposure,
+  dat$r.outcome,
+  dat$samplesize.exposure,
+  dat$samplesize.outcome
+)

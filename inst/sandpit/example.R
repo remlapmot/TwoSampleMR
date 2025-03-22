@@ -1,4 +1,4 @@
-tl_file <- system.file("data/telomere_length.txt", package="TwoSampleMR")
+tl_file <- system.file("data/telomere_length.txt", package = "TwoSampleMR")
 exposure_dat <- read_exposure_data(tl_file, "Telomere length")
 exposure_dat <- clump_data(exposure_dat)
 ao <- available_outcomes()
@@ -24,12 +24,11 @@ p[[1]]
 p[[2]]
 
 
-
-bmi <- subset(gwas_catalog, Phenotype=="Body mass index" & Year==2010 & grepl("kg", Units))
+bmi <- subset(
+  gwas_catalog,
+  Phenotype == "Body mass index" & Year == 2010 & grepl("kg", Units)
+)
 exposure_dat <- format_gwas_catalog(bmi)
-
-
-
 
 
 library(TwoSampleMR)
@@ -42,7 +41,6 @@ outcome_dat <- extract_outcome_data(exposure_dat, ao$id[33:35])
 dim(outcome_dat)
 
 
-
 exposure_dat <- read_exposure_data("~/Downloads/HDL.txt", "HDL")
 exposure_dat <- clump_data(exposure_dat)
 
@@ -51,8 +49,10 @@ outcome_dat <- extract_outcome_data(exposure_dat, ao$id[33:35])
 dim(outcome_dat)
 
 
-
-exposure_dat <- read_exposure_data("~/Downloads/smoking_behaviour.txt", "smoking_behaviour")
+exposure_dat <- read_exposure_data(
+  "~/Downloads/smoking_behaviour.txt",
+  "smoking_behaviour"
+)
 exposure_dat <- clump_data(exposure_dat)
 
 ao <- available_outcomes()

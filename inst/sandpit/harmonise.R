@@ -24,10 +24,7 @@
 # 1E + 1O + Of
 # 1E + 1O
 
-
-
-
-a <- read.table("inst/extdata/alleles.txt", he=TRUE, stringsAsFactors=FALSE)
+a <- read.table("inst/extdata/alleles.txt", he = TRUE, stringsAsFactors = FALSE)
 SNP <- a$SNP
 A1 <- a$A1
 A2 <- a$A2
@@ -40,29 +37,29 @@ fB <- a$fB
 
 
 exposure_dat <- data.frame(
-	SNP=a$SNP,
-	effect_allele.exposure=a$A1,
-	other_allele.exposure=a$A2,
-	beta.exposure=a$betaA,
-	eaf.exposure=a$fA,
-	exposure="A",
-	stringsAsFactors=FALSE
+  SNP = a$SNP,
+  effect_allele.exposure = a$A1,
+  other_allele.exposure = a$A2,
+  beta.exposure = a$betaA,
+  eaf.exposure = a$fA,
+  exposure = "A",
+  stringsAsFactors = FALSE
 )
 
 
 outcome_dat <- data.frame(
-	SNP=a$SNP,
-	effect_allele.outcome=a$B1,
-	other_allele.outcome=a$B2,
-	beta.outcome=a$betaB,
-	eaf.outcome=NA,
-	id.outcome="B",
-	stringsAsFactors=FALSE
+  SNP = a$SNP,
+  effect_allele.outcome = a$B1,
+  other_allele.outcome = a$B2,
+  beta.outcome = a$betaB,
+  eaf.outcome = NA,
+  id.outcome = "B",
+  stringsAsFactors = FALSE
 )
 
 dat <- TwoSampleMR::harmonise_data(exposure_dat, outcome_dat)
 
-a <- read.table("inst/extdata/alleles.txt", he=TRUE, stringsAsFactors=FALSE)
+a <- read.table("inst/extdata/alleles.txt", he = TRUE, stringsAsFactors = FALSE)
 SNP <- a$SNP
 A1 <- a$A1
 A2 <- a$A2
@@ -74,5 +71,16 @@ fA <- a$fA
 fB <- a$fB
 
 fA[4] <- NA
-TwoSampleMR:::harmonise_21(SNP, A1, A2, B1, betaA, betaB, fA, rep(NA, length(SNP)), 0.08, 2)
+TwoSampleMR:::harmonise_21(
+  SNP,
+  A1,
+  A2,
+  B1,
+  betaA,
+  betaB,
+  fA,
+  rep(NA, length(SNP)),
+  0.08,
+  2
+)
 TwoSampleMR:::harmonise_22(SNP, A1, A2, B1, B2, betaA, betaB, fA, fB, 0.08, 3)

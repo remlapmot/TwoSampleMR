@@ -7,26 +7,36 @@
 # mysql -u gh13047 -h epi-franklin.epi.bris.ac.uk -p
 # ri.K-2Gbvd
 
-mydb <- dbConnect(MySQL(), user='epxjz', password='wv-92n_YjB', dbname='mrbase', host='epi-franklin.epi.bris.ac.uk')
+mydb <- dbConnect(
+  MySQL(),
+  user = 'epxjz',
+  password = 'wv-92n_YjB',
+  dbname = 'mrbase',
+  host = 'epi-franklin.epi.bris.ac.uk'
+)
 dbListTables(mydb)
 dbListFields(mydb, 'assoc')
 
 
 rs <- dbSendQuery(mydb, "select * from study")
-d <- dbFetch(rs, n=-1)
+d <- dbFetch(rs, n = -1)
 
 
 load("~/repo/mr_base/inst/data/tel.RData")
 snps <- as.character(unique(tel$SNP))
-te <- paste("+", paste(snps, collapse=" +"), sep="")
+te <- paste("+", paste(snps, collapse = " +"), sep = "")
 
-query <- paste("SELECT * FROM mrbase_assoc_info WHERE MATCH (snp_id) AGAINST ('", te, "' IN BOOLEAN MODE);", sep="")
+query <- paste(
+  "SELECT * FROM mrbase_assoc_info WHERE MATCH (snp_id) AGAINST ('",
+  te,
+  "' IN BOOLEAN MODE);",
+  sep = ""
+)
 
 query <- "SELECT * FROM assoc WHERE name='rs10936599'"
 rs <- dbSendQuery(mydb, query)
-d <- fetch(rs, n=10)
+d <- fetch(rs, n = 10)
 dim(d)
-
 
 # ssh -L 3306:localhost:3306 gh13047@epi-franklin.epi.bris.ac.uk
 # mysql -u gh13047 -h 127.0.0.1 -P 3306 -p
