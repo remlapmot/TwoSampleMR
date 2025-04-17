@@ -58,7 +58,8 @@ Suggests:
     MRInstruments,
     randomForest,
     testthat,
-    tidyr
+    tidyr,
+    vcr (>= 0.6.0)
 VignetteBuilder: 
     knitr
 Remotes:
