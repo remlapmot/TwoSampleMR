@@ -1,3 +1,9 @@
+# TwoSampleMR v0.6.15
+
+(Release date 2025-##-##)
+
+* TwoSampleMR now uses the **vcr** package for its tests, so the tests no longer place a burden on the OpenGWAS server.
+
 # TwoSampleMR v0.6.14
 
 (Release date 2025-03-28)
