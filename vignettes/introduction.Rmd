@@ -34,14 +34,53 @@ This package uses the [ieugwasr](https://github.com/mrcieu/ieugwasr) package to 
 
 ## Installation
 
-To install directly from the GitHub repository do the following:
+If you are on macOS or Windows you can install a binary version of **TwoSampleMR** from our <https://mrcieu.r-universe.dev> with the following code.
+
+```{r eval=FALSE}
+install.packages("TwoSampleMR", repos = c("https://mrcieu.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+If you are on the latest long term support version of Ubuntu you can install a binary version of TwoSampleMR with the following code.
+
+```{r eval=FALSE}
+options(HTTPUserAgent = sprintf(
+  "R/%s R (%s)",
+  getRversion(),
+  paste(getRversion(),
+        R.version["platform"],
+        R.version["arch"],
+        R.version["os"])
+))
+
+install.packages(
+  'TwoSampleMR',
+  repos = c(
+    'https://mrcieu.r-universe.dev/bin/linux/noble/4.5/',
+    'https://p3m.dev/cran/__linux__/noble/latest',
+    'https://cloud.r-project.org'
+  )
+)
+```
+
+To install directly from source from our GitHub repository do the following.
 
 ```{r eval=FALSE}
 library(remotes)
 install_github("MRCIEU/TwoSampleMR")
 ```
 
-If you don't have the `remotes` package install it from CRAN using `install.packages("remotes")`.
+If you don't have the **remotes** package install it from CRAN using the following code.
+
+```{r eval=FALSE}
+install.packages("remotes")
+```
+
+And TwoSampleMR can also be installed in [WebR](https://docs.r-wasm.org/webr/latest/) using the following code.
+
+```{r eval=FALSE}
+install.packages('TwoSampleMR',
+  repos = c('https://mrcieu.r-universe.dev', 'https://repo.r-wasm.org'))
+```
 
 ## Overview
 
