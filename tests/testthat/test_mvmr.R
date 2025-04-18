@@ -1,16 +1,12 @@
 context("mvmr")
 
 skip_on_cran()
-skip_if_offline()
-skip_if_offline(host = "api.opengwas.io")
 
+vcr::use_cassette("test_mvmr_01", {
 test_that("control", {
-	lipids <- try(mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302")))
-	if (inherits(lipids, "try-error")) skip("Server issues")
-	chd <- try(extract_outcome_data(lipids$SNP, "ieu-a-7"))
-	if (inherits(chd, "try-error")) skip("Server issues")
-	control <- try(mv_harmonise_data(lipids, chd))
-	if (inherits(control, "try-error")) skip("Server issues")
+	lipids <- mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302"))
+	chd <- extract_outcome_data(lipids$SNP, "ieu-a-7")
+	control <- mv_harmonise_data(lipids, chd)
 	expect_output(print(mv_residual(control, intercept=TRUE, instrument_specific=TRUE)))
 	expect_output(print(mv_residual(control, intercept=FALSE, instrument_specific=TRUE)))
 	expect_output(print(mv_residual(control, intercept=TRUE, instrument_specific=FALSE)))
@@ -20,15 +16,13 @@ test_that("control", {
 	expect_output(print(mv_multiple(control, intercept=TRUE, instrument_specific=FALSE)))
 	expect_output(print(mv_multiple(control, intercept=FALSE, instrument_specific=FALSE)))
 })
+})
 
-
+vcr::use_cassette("test_mvmr_02", {
 test_that("dat", {
-	a <- try(mv_extract_exposures(c("ukb-b-5238", "ieu-a-1001")))
-	if (inherits(a, "try-error")) skip("Server issues")
-	b <- try(extract_outcome_data(a$SNP, "ieu-a-297"))
-	if (inherits(b, "try-error")) skip("Server issues")
-	dat <- try(mv_harmonise_data(a, b))
-	if (inherits(dat, "try-error")) skip("Server issues")
+	a <- mv_extract_exposures(c("ukb-b-5238", "ieu-a-1001"))
+	b <- extract_outcome_data(a$SNP, "ieu-a-297")
+	dat <- mv_harmonise_data(a, b)
 	expect_output(print(mv_residual(dat, intercept=TRUE, instrument_specific=TRUE)))
 	expect_output(print(mv_residual(dat, intercept=FALSE, instrument_specific=TRUE)))
 	expect_output(print(mv_residual(dat, intercept=TRUE, instrument_specific=FALSE)))
@@ -40,24 +34,22 @@ test_that("dat", {
 	expect_output(print(mv_ivw(dat)))
 	expect_output(print(mv_basic(dat)))
 })
-
-
-test_that("ordering 1", {
-	lipids1 <- try(mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302")))
-	if (inherits(lipids1, "try-error")) skip("Server issues")
-	chd1 <- try(extract_outcome_data(lipids1$SNP, "ieu-a-7"))
-	if (inherits(chd1, "try-error")) skip("Server issues")
-	control1 <- try(mv_harmonise_data(lipids1, chd1))
-	if (inherits(control1, "try-error")) skip("Server issues")
-	expect_output(print(mv_multiple(control1)))
 })
 
+vcr::use_cassette("test_mvmr_03", {
+test_that("ordering 1", {
+	lipids1 <- mv_extract_exposures(c("ieu-a-299","ieu-a-300","ieu-a-302"))
+	chd1 <- extract_outcome_data(lipids1$SNP, "ieu-a-7")
+	control1 <- mv_harmonise_data(lipids1, chd1)
+	expect_output(print(mv_multiple(control1)))
+})
+})
+
+vcr::use_cassette("test_mvmr_04", {
 test_that("ordering 2", {
-	lipids2 <- try(mv_extract_exposures(c("ieu-a-302","ieu-a-300","ieu-a-299")))
-	if (inherits(lipids2, "try-error")) skip("Server issues")
-	chd2 <- try(extract_outcome_data(lipids2$SNP, "ieu-a-7"))
-	if (inherits(chd2, "try-error")) skip("Server issues")
-	control2 <- try(mv_harmonise_data(lipids2, chd2))
-	if (inherits(control2, "try-error")) skip("Server issues")
+	lipids2 <- mv_extract_exposures(c("ieu-a-302","ieu-a-300","ieu-a-299"))
+	chd2 <- extract_outcome_data(lipids2$SNP, "ieu-a-7")
+	control2 <- mv_harmonise_data(lipids2, chd2)
 	expect_output(print(mv_multiple(control2)))
+})
 })
