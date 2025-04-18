@@ -1,44 +1,49 @@
 context("outcome")
 
-skip_if_offline()
-skip_if_offline(host = "api.opengwas.io")
 skip_on_cran()
 
-a <- try(extract_instruments("ieu-a-7"))
-if(inherits(a, "try-error")) skip("Server issues")
+vcr::use_cassette("test_outcomes_01", {
+a <- extract_instruments("ieu-a-7")
+})
 
+vcr::use_cassette("test_outcomes_02", {
 test_that("outcomes 1", {
-	b <- try(extract_outcome_data(a$SNP, "ieu-a-2", proxies=FALSE))
-	if(inherits(b, "try-error")) skip("Server issues")
+	b <- extract_outcome_data(a$SNP, "ieu-a-2", proxies=FALSE)
 	expect_true(nrow(b) < 30 & nrow(b) > 15)
 })
+})
 
+vcr::use_cassette("test_outcomes_03", {
 test_that("outcomes 2", {
-	b <- try(extract_outcome_data(a$SNP, "ieu-a-2", proxies=TRUE))
-	if(inherits(b, "try-error")) skip("Server issues")
+	b <- extract_outcome_data(a$SNP, "ieu-a-2", proxies=TRUE)
 	expect_true(nrow(b) > 30 & nrow(b) < nrow(a))
 })
+})
 
+vcr::use_cassette("test_outcomes_04", {
 test_that("outcomes 3", {
-	b <- try(extract_outcome_data(a$SNP, c("ieu-a-2", "a"), proxies=FALSE))
-	if(inherits(b, "try-error")) skip("Server issues")
+	b <- extract_outcome_data(a$SNP, c("ieu-a-2", "a"), proxies=FALSE)
 	expect_true(nrow(b) < 30 & nrow(b) > 15)
 })
-
-test_that("outcomes 4", {
-	b <- try(extract_outcome_data(a$SNP, c("ieu-a-2", "a"), proxies=TRUE))
-	if(inherits(b, "try-error")) skip("Server issues")
-	expect_true(nrow(b) > 30 & nrow(b) < nrow(a))
 })
 
+vcr::use_cassette("test_outcomes_05", {
+test_that("outcomes 4", {
+	b <- extract_outcome_data(a$SNP, c("ieu-a-2", "a"), proxies=TRUE)
+	expect_true(nrow(b) > 30 & nrow(b) < nrow(a))
+})
+})
+
+vcr::use_cassette("test_outcomes_06", {
 test_that("outcomes 5", {
-	b <- try(extract_outcome_data(a$SNP, c("ieu-a-2", "ieu-a-7"), proxies=FALSE))
-	if(inherits(b, "try-error")) skip("Server issues")
+	b <- extract_outcome_data(a$SNP, c("ieu-a-2", "ieu-a-7"), proxies=FALSE)
 	expect_true(nrow(b) > 60)
 })
+})
 
+vcr::use_cassette("test_outcomes_07", {
 test_that("outcomes 6", {
-	b <- try(extract_outcome_data(a$SNP, c("ieu-a-2", "ieu-a-7"), proxies=TRUE))
-	if(inherits(b, "try-error")) skip("Server issues")
+	b <- extract_outcome_data(a$SNP, c("ieu-a-2", "ieu-a-7"), proxies=TRUE)
 	expect_true(nrow(b) > 70)
+})
 })
