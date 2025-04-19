@@ -34,13 +34,13 @@ This package uses the [ieugwasr](https://github.com/mrcieu/ieugwasr) package to 
 
 ## Installation
 
-If you are on macOS or Windows you can install a binary version of **TwoSampleMR** from our <https://mrcieu.r-universe.dev> with the following code.
+If you are using macOS or Windows you can install a binary version of **TwoSampleMR** from our <https://mrcieu.r-universe.dev> with the following code.
 
 ```{r eval=FALSE}
 install.packages("TwoSampleMR", repos = c("https://mrcieu.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
-If you are on the latest long term support version of Ubuntu (currently 24.04 Noble Numbat) you can install a binary version of TwoSampleMR with the following code.
+If you are using the latest long term support version of Ubuntu Linux (currently 24.04 Noble Numbat) you can install a binary version of TwoSampleMR with the following code.
 
 ```{r eval=FALSE}
 options(HTTPUserAgent = sprintf(
