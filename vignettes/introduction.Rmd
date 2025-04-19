@@ -62,7 +62,7 @@ install.packages(
 )
 ```
 
-To install directly from source from our GitHub repository do the following.
+To install TwoSampleMR from source from our GitHub repository run the following code.
 
 ```{r eval=FALSE}
 # install.packages("remotes") # Run if remotes package not installed
