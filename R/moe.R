@@ -227,7 +227,7 @@ mr_moe_single <- function(res, rf)
 		)
 		return(d)
 	}) |>
-	  bind_rows |>
+	  bind_rows() |>
 	  arrange(desc(MOE))
 	if("MOE" %in% names(res$estimates))
 	{
