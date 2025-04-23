@@ -208,7 +208,6 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
         )
 
     gcov <- dat |>
-        {
             ldsc_rg_internal(
                 Zs = cbind(.$z1, .$z2),
                 r2 = .$l2,
@@ -218,7 +217,7 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
                 N2 = .$n2,
                 W = .$l2
             )
-        }
+
     return(list(
         gcov = gcov,
         h1=h1,
