@@ -302,7 +302,7 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		})
 	}
 
-	nom <- lapply(m, names) |> unlist |> unique |> as.list
+	nom <- lapply(m, names) |> unlist() |> unique() |> as.list()
 	nom <- nom[nom != "outliers"]
 	o <- lapply(nom, function(i) {
 		lapply(m, function(y) y[[i]]) |> dplyr::bind_rows()
