@@ -211,7 +211,7 @@ mr_all <- function(dat, parameters=default_parameters())
 	m1$info <- c(list(
 			id.exposure = dat$id.exposure[1], id.outcome = dat$id.outcome[1]),
 			system_metrics(dat)
-		) %>% dplyr::as_tibble()
+		) |> dplyr::as_tibble()
 	return(m1)
 }
 
@@ -302,13 +302,13 @@ mr_wrapper_single <- function(dat, parameters=default_parameters())
 		})
 	}
 
-	nom <- lapply(m, names) %>% unlist %>% unique %>% as.list
+	nom <- lapply(m, names) |> unlist |> unique |> as.list
 	nom <- nom[nom != "outliers"]
 	o <- lapply(nom, function(i) {
-		lapply(m, function(y) y[[i]]) %>% dplyr::bind_rows()
+		lapply(m, function(y) y[[i]]) |> dplyr::bind_rows()
 	})
 	names(o) <- nom
-	o$info <- o$info %>% dplyr::mutate(nsnp_removed = dplyr::first(nsnp)-nsnp)
+	o$info <- o$info |> dplyr::mutate(nsnp_removed = dplyr::first(nsnp)-nsnp)
 	o$snps_retained <- snps_retained
 
 	return(o)

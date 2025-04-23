@@ -46,7 +46,7 @@ library(dplyr)
 
 t1 <- Sys.time()
 options(mrbaseapi="http://ieu-db-interface.epi.bris.ac.uk:8080/")
-pout1 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) %>% bind_rows()
+pout1 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) |> bind_rows()
 Sys.time()-t1
 # 48sec
 
@@ -58,7 +58,7 @@ Sys.time()-t1
 
 t1 <- Sys.time()
 toggle_api("release")
-pout2 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) %>% bind_rows()
+pout2 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) |> bind_rows()
 Sys.time()-t1
 # 53sec
 
@@ -72,7 +72,7 @@ Sys.time()-t1
 
 t1 <- Sys.time()
 options(mrbaseapi="http://ieu-db-interface.epi.bris.ac.uk:8080/")
-pout1 <- lapply(split(snplist, 1:4), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) %>% bind_rows()
+pout1 <- lapply(split(snplist, 1:4), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) |> bind_rows()
 Sys.time()-t1
 # 3,7m
 
@@ -106,7 +106,7 @@ Sys.time()-t1
 
 t1 <- Sys.time()
 toggle_api("release")
-pout2 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) %>% bind_rows()
+pout2 <- lapply(split(snplist[1:5000], 1:5), function(x) extract_outcome_data(x, 1001, proxies=TRUE)) |> bind_rows()
 Sys.time()-t1
 # 53sec
 

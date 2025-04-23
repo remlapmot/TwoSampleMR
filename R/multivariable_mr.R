@@ -217,7 +217,7 @@ mv_extract_exposures_local <- function(
 
 	d1 <- lapply(l_full, function(x) {
 		subset(x, SNP %in% exposure_dat$SNP)
-		}) %>% dplyr::bind_rows()
+		}) |> dplyr::bind_rows()
 
 	stopifnot(length(unique(d1$id)) == length(unique(id_exposure)))
 	d1 <- subset(d1, mr_keep.outcome)

@@ -113,7 +113,7 @@ format_mr_results <- function(mr_res, exponentiate=FALSE, single_snp_method="Wal
 		}
 		return(x)
 	})
-	# dat <- dplyr::group_by(dat, outcome) %>%
+	# dat <- dplyr::group_by(dat, outcome) |>
 	# 	dplyr::do({
 	# 		x <- .
 	# 		nc <- ncol(x)
@@ -127,7 +127,7 @@ format_mr_results <- function(mr_res, exponentiate=FALSE, single_snp_method="Wal
 	# 			x <- dplyr::bind_rows(x, md)
 	# 		}
 	# 		return(x)
-	# 	}) %>% as.data.frame(stringsAsFactors=FALSE)
+	# 	}) |> as.data.frame(stringsAsFactors=FALSE)
 
 	dat <- dat[order(dat$index), ]
 

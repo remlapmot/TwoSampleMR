@@ -216,7 +216,7 @@ mr_moe_single <- function(res, rf)
       call. = FALSE
     )
   }
-	metric <- res$info[1,] %>% dplyr::select(-c(id.exposure, id.outcome, steiger_filtered, outlier_filtered, nsnp_removed))
+	metric <- res$info[1,] |> dplyr::select(-c(id.exposure, id.outcome, steiger_filtered, outlier_filtered, nsnp_removed))
 
 	methodlist <- names(rf)
 	pred <- lapply(methodlist, function(m)
@@ -226,8 +226,8 @@ mr_moe_single <- function(res, rf)
 			MOE = predict(rf[[m]], metric, type="prob")[,2]
 		)
 		return(d)
-	}) %>%
-	  bind_rows %>%
+	}) |>
+	  bind_rows |>
 	  arrange(desc(MOE))
 	if("MOE" %in% names(res$estimates))
 	{
@@ -239,6 +239,6 @@ mr_moe_single <- function(res, rf)
 	res$estimates$selection[res$estimates$outlier_filtered & !res$estimates$steiger_filtered] <- "HF"
 	res$estimates$selection[!res$estimates$outlier_filtered & !res$estimates$steiger_filtered] <- "Tophits"
 	res$estimates$method2 <- paste(res$estimates$method, "-", res$estimates$selection)
-	res$estimates <- dplyr::left_join(res$estimates, pred, by=c("method2"="method")) %>% dplyr::arrange(dplyr::desc(MOE))
+	res$estimates <- dplyr::left_join(res$estimates, pred, by=c("method2"="method")) |> dplyr::arrange(dplyr::desc(MOE))
 	return(res)
 }

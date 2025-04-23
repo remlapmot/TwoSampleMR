@@ -140,8 +140,8 @@ run_sim <- function(nid1, nid2, nidu, ninst1, ninst2, ninstu, var_xy, var_ux, va
 
 	res$isq <- (res$Q - res$Q_df) / res$Q
 
-	txy <- table(xy$inst, xy$keep) %>% as.data.frame.matrix()
-	tyx <- table(yx$inst, yx$keep) %>% as.data.frame.matrix()
+	txy <- table(xy$inst, xy$keep) |> as.data.frame.matrix()
+	tyx <- table(yx$inst, yx$keep) |> as.data.frame.matrix()
 	names(txy) <- names(tyx) <- c("excluded", "included")
 	txy$var <- tyx$var <- rownames(txy)
 	txy$dir <- "xy"

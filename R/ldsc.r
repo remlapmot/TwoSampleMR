@@ -121,13 +121,13 @@ ldsc_h2 <- function(id, ancestry="infer", snpinfo = NULL, splitsize=20000)
         snpinfo <- ieugwasr::afl2_list("hapmap3")
     }
 
-    snpinfo <- snpinfo %>%
+    snpinfo <- snpinfo |>
         dplyr::filter(complete.cases(.))
 
-    d <- extract_split(snpinfo$rsid, id, splitsize) %>%
-        ieugwasr::fill_n() %>%
-        dplyr::mutate(z = beta / se) %>%
-        dplyr::select(rsid, z = z, n = n, eaf) %>%
+    d <- extract_split(snpinfo$rsid, id, splitsize) |>
+        ieugwasr::fill_n() |>
+        dplyr::mutate(z = beta / se) |>
+        dplyr::select(rsid, z = z, n = n, eaf) |>
         dplyr::filter(complete.cases(.))
 
     stopifnot(nrow(d) > 0)
@@ -136,9 +136,9 @@ ldsc_h2 <- function(id, ancestry="infer", snpinfo = NULL, splitsize=20000)
         ancestry <- ieugwasr::infer_ancestry(d, snpinfo)$pop[1]
     }
 
-    d <- snpinfo %>%
-        dplyr::select(rsid, l2=paste0("L2.", ancestry)) %>%
-        dplyr::inner_join(., d, by="rsid") %>%
+    d <- snpinfo |>
+        dplyr::select(rsid, l2=paste0("L2.", ancestry)) |>
+        dplyr::inner_join(., d, by="rsid") |>
         dplyr::filter(complete.cases(.))
 
     return(ldsc_h2_internal(d$z, d$l2, d$n))
@@ -163,18 +163,18 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
     }
 
     x <- extract_split(snpinfo$rsid, c(id1, id2), splitsize)
-    d1 <- subset(x, id == id1) %>%
-        ieugwasr::fill_n() %>%
-        dplyr::mutate(z = beta / se) %>%
-        dplyr::select(rsid, z1 = z, n1 = n, eaf) %>%
+    d1 <- subset(x, id == id1) |>
+        ieugwasr::fill_n() |>
+        dplyr::mutate(z = beta / se) |>
+        dplyr::select(rsid, z1 = z, n1 = n, eaf) |>
         dplyr::filter(complete.cases(.))
 
     stopifnot(nrow(d1) > 0)
 
-    d2 <- subset(x, id == id2) %>%
-        ieugwasr::fill_n() %>%
-        dplyr::mutate(z = beta / se) %>%
-        dplyr::select(rsid, z2 = z, n2 = n, eaf) %>%
+    d2 <- subset(x, id == id2) |>
+        ieugwasr::fill_n() |>
+        dplyr::mutate(z = beta / se) |>
+        dplyr::select(rsid, z2 = z, n2 = n, eaf) |>
         dplyr::filter(complete.cases(.))
 
     stopifnot(nrow(d2) > 0)
@@ -188,18 +188,18 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
         ancestry <- ancestry1$pop[1]
     }
 
-    d1 <- snpinfo %>%
-        dplyr::select(rsid, l2=paste0("L2.", ancestry)) %>%
+    d1 <- snpinfo |>
+        dplyr::select(rsid, l2=paste0("L2.", ancestry)) |>
         dplyr::inner_join(., d1, by="rsid")
 
-    d2 <- snpinfo %>%
-        dplyr::select(rsid, l2=paste0("L2.", ancestry)) %>%
+    d2 <- snpinfo |>
+        dplyr::select(rsid, l2=paste0("L2.", ancestry)) |>
         dplyr::inner_join(., d2, by="rsid")
 
     h1 <- ldsc_h2_internal(d1$z1, d1$l2, d1$n1, d1$l2)
     h2 <- ldsc_h2_internal(d2$z2, d2$l2, d2$n2, d1$l2)
 
-    dat <- dplyr::inner_join(d1, d2, by="rsid") %>%
+    dat <- dplyr::inner_join(d1, d2, by="rsid") |>
         dplyr::mutate(
             l2 = l2.x,
             n1 = as.numeric(n1),
@@ -207,7 +207,7 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
             rhs = l2 * sqrt(n1 * n2)
         )
 
-    gcov <- dat %>%
+    gcov <- dat |>
         {
             ldsc_rg_internal(
                 Zs = cbind(.$z1, .$z2),
@@ -231,10 +231,10 @@ ldsc_rg <- function(id1, id2, ancestry="infer", snpinfo = NULL, splitsize=20000)
 extract_split <- function(snplist, id, splitsize=20000)
 {
     nsplit <- round(length(snplist)/splitsize)
-    split(snplist, 1:nsplit) %>%
+    split(snplist, 1:nsplit) |>
         pbapply::pblapply(., function(x)
         {
             ieugwasr::associations(x, id, proxies=FALSE)
-        }) %>%
+        }) |>
         dplyr::bind_rows()
 }

@@ -13,11 +13,11 @@ al <- matrix(c(
 "I", "D", "A", "AT",
 "I", "D", "AT", "AT",
 "I", "D", "D", "I"
-), nrow=4) %>% t
+), nrow=4) |> t
 
-TwoSampleMR:::recode_indels_22(al[,1], al[,2], al[,3], al[,4]) %>% cbind(al, .)
-TwoSampleMR:::recode_indels_21(al[,1], al[,2], al[,3]) %>% cbind(al, .)
-TwoSampleMR:::recode_indels_12(al[,1], al[,3], al[,4]) %>% cbind(al, .)
+TwoSampleMR:::recode_indels_22(al[,1], al[,2], al[,3], al[,4]) |> cbind(al, .)
+TwoSampleMR:::recode_indels_21(al[,1], al[,2], al[,3]) |> cbind(al, .)
+TwoSampleMR:::recode_indels_12(al[,1], al[,3], al[,4]) |> cbind(al, .)
 
 
 

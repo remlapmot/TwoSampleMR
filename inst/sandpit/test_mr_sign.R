@@ -18,7 +18,7 @@ ggplot(param, aes(x=x, y=n)) +
 geom_point(aes(colour=pval < 0.05))
 
 library(dplyr)
-group_by(param, n) %>% summarise(minp = min(pval))
+group_by(param, n) |> summarise(minp = min(pval))
 
 # Looks like 6 is the smallest number of SNPs that can achieve p < 0.05
 library(TwoSampleMR)
