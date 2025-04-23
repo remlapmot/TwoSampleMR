@@ -1,3 +1,9 @@
+# TwoSampleMR development version
+
+(Release date 2025-##-##)
+
+* The use of the **magrittr** pipe, `%>%`, has been replaced with the use of the native pipe, `|>`.
+
 # TwoSampleMR v0.6.15
 
 (Release date 2025-05-01)
