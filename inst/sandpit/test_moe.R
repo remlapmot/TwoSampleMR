@@ -18,5 +18,4 @@ o <- summary(lm(beta.outcome ~ 0 + beta.exposure, weight=1/se.outcome^2, data=da
 o$sigma
 o$coefficients[1,2] / o$sigma
 
-library(magrittr)
 mr_rucker(dat)[[1]]$rucker
