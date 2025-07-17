@@ -1,3 +1,9 @@
+# TwoSampleMR v0.6.19
+
+(Release date 2025-##-##)
+
+* Small amends in some tests.
+
 # TwoSampleMR v0.6.18
 
 (Release date 2025-07-15)
