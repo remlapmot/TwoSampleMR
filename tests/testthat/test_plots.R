@@ -74,7 +74,8 @@ test_that("Forest plot 1 to many", {
 
 test_that("Forest plot 1 to many test 2", {
   res$pval<-formatC(res$pval, format = "e", digits = 2)
-  expect_warning(p9 <- forest_plot_1_to_many(
+
+  expect_warning(p9 <- utils::capture.output(forest_plot_1_to_many(
     res,
     b = "b",
     se = "se",
@@ -94,7 +95,7 @@ test_that("Forest plot 1 to many test 2", {
     addcols = c("nsnp", "pval"),
     addcol_widths = c(1.0, 1.0),
     addcol_titles = c("No. SNPs", "P-val")
-  ))
+  )))
 })
 
 test_that("Forest plot 1 to many test 3 - with subcategory in by argument", {
