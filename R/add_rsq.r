@@ -322,7 +322,7 @@ contingency <- function(af, prop, odds_ratio, eps = 1e-15) {
     matrix(0.0, 2, 2)
   )
   i <- apply(y, 3, function(u) all(u >= 0))
-  return(y[,, i])
+  return(y[, , i])
 }
 
 #' Estimate allele frequency from SNP
