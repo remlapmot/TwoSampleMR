@@ -1,3 +1,9 @@
+# TwoSampleMR v0.6.22
+
+(Release date 2025-##-##)
+
+* Reformatting of code base
+
 # TwoSampleMR v0.6.21
 
 (Release date 2025-08-11)
