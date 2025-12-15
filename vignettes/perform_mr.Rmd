@@ -710,7 +710,7 @@ In order to run the analysis you must download an RData object that contains the
 
 Once downloaded, read in the object and use the `mr_moe()` function to perform the analysis. An example is shown here, estimating the causal effect of BMI on coronary heart disease:
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 # Extact instruments for BMI
 exposure_dat <- extract_instruments("ieu-a-2")
 
@@ -719,7 +719,9 @@ outcome_dat <- extract_outcome_data(exposure_dat$SNP, "ieu-a-7")
 
 # Harmonise
 dat <- harmonise_data(exposure_dat, outcome_dat)
+```
 
+```{r, eval=file.exists('rf.rdata')}
 # Load the downloaded RData object. This loads the rf object
 load("rf.rdata")
 
