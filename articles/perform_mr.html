@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">TwoSampleMR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.27</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.28</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
 and Philip Haycock</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/MRCIEU/TwoSampleMR/blob/master/vignettes/perform_mr.Rmd" class="external-link"><code>vignettes/perform_mr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MRCIEU/TwoSampleMR/blob/2025-12-fixes-2/vignettes/perform_mr.Rmd" class="external-link"><code>vignettes/perform_mr.Rmd</code></a></small>
       <div class="d-none name"><code>perform_mr.Rmd</code></div>
     </div>
 
@@ -1120,29 +1120,57 @@ rates.</p>
 <p>In order to run the analysis you must download an RData object that
 contains the trained random forests that are used to predict the
 efficacy of each method. This can be downloaded from here:</p>
-<p><a href="dropbox.com/s/5la7y38od95swcf">dropbox.com/s/5la7y38od95swcf</a></p>
+<p><a href="https://www.dropbox.com/s/5la7y38od95swcf" class="external-link uri">https://www.dropbox.com/s/5la7y38od95swcf</a></p>
 <p><strong>Caution: this is a large file (approx 167Mb)</strong></p>
 <p>Once downloaded, read in the object and use the <code><a href="../reference/mr_moe.html">mr_moe()</a></code>
 function to perform the analysis. An example is shown here, estimating
 the causal effect of BMI on coronary heart disease:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Extact instruments for BMI</span></span>
+<code class="sourceCode R"><span><span class="co"># Extract instruments for BMI</span></span>
 <span><span class="va">exposure_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_instruments.html">extract_instruments</a></span><span class="op">(</span><span class="st">"ieu-a-2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get corresponding effects for CHD</span></span>
 <span><span class="va">outcome_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_outcome_data.html">extract_outcome_data</a></span><span class="op">(</span><span class="va">exposure_dat</span><span class="op">$</span><span class="va">SNP</span>, <span class="st">"ieu-a-7"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Extracting data for 78 SNP(s) from 1 GWAS(s)</span></span>
+<span><span class="co">#&gt; Querying id chunk 1 of 1</span></span>
+<span><span class="co">#&gt; Querying variant chunk 1 of 2</span></span>
+<span><span class="co">#&gt; Querying variant chunk 2 of 2</span></span>
 <span></span>
 <span><span class="co"># Harmonise</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/harmonise_data.html">harmonise_data</a></span><span class="op">(</span><span class="va">exposure_dat</span>, <span class="va">outcome_dat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Harmonising Body mass index || id:ieu-a-2 (ieu-a-2) and Coronary heart disease || id:ieu-a-7 (ieu-a-7)</span></span>
+<span><span class="co">#&gt; Removing the following SNPs for being palindromic with intermediate allele frequencies:</span></span>
+<span><span class="co">#&gt; rs1558902</span></span>
 <span></span>
 <span><span class="co"># Load the downloaded RData object. This loads the rf object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"rf.rdata"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Obtain estimates from all methods, and generate data metrics</span></span>
 <span><span class="va">res_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mr_wrapper.html">mr_wrapper</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Performing MR analysis of 'ieu-a-2' on 'ieu-a-7'</span></span>
+<span><span class="co">#&gt; Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7</span></span>
+<span><span class="co">#&gt; Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7</span></span>
+<span><span class="co">#&gt; Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7</span></span>
+<span><span class="co">#&gt; Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7</span></span>
 <span></span>
 <span><span class="co"># MR-MoE - predict the performance of each method</span></span>
-<span><span class="va">res_moe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mr_moe.html">mr_moe</a></span><span class="op">(</span><span class="va">res_all</span>, <span class="va">rf</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">res_moe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mr_moe.html">mr_moe</a></span><span class="op">(</span><span class="va">res_all</span>, <span class="va">rf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Now you can view the estimates, and see that they have</span></span>
+<span><span class="co"># been sorted in order from most likely to least likely to</span></span>
+<span><span class="co"># be accurate, based on MOE prediction</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_moe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">estimates</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span></span>
+<span><span class="co">#&gt;   id.exposure id.outcome method         nsnp     b     se ci_low ci_upp     pval</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ieu-a-2     ieu-a-7    FE IVW           77 0.479 0.047<span style="text-decoration: underline;">4</span>  0.353  0.606 5.06<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ieu-a-2     ieu-a-7    Simple median    77 0.397 0.071<span style="text-decoration: underline;">7</span>  0.257  0.538 3.09<span style="color: #949494;">e</span><span style="color: #BB0000;">- 8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ieu-a-2     ieu-a-7    FE IVW           67 0.482 0.044<span style="text-decoration: underline;">7</span>  0.394  0.569 4.10<span style="color: #949494;">e</span><span style="color: #BB0000;">-27</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ieu-a-2     ieu-a-7    Simple median    67 0.397 0.075<span style="text-decoration: underline;">4</span>  0.249  0.545 1.38<span style="color: #949494;">e</span><span style="color: #BB0000;">- 7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ieu-a-2     ieu-a-7    RE IVW           67 0.482 0.044<span style="text-decoration: underline;">7</span>  0.394  0.569 3.34<span style="color: #949494;">e</span><span style="color: #BB0000;">-16</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ieu-a-2     ieu-a-7    Weighted med…    67 0.442 0.074<span style="text-decoration: underline;">9</span>  0.295  0.588 3.69<span style="color: #949494;">e</span><span style="color: #BB0000;">- 9</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: steiger_filtered &lt;lgl&gt;, outlier_filtered &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   selection &lt;chr&gt;, method2 &lt;chr&gt;, MOE &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>The function does the following:</p>
 <ol style="list-style-type: decimal">
 <li>Performs MR using each of 11 MR methods</li>
@@ -1187,8 +1215,8 @@ managing or editing MR results.</p>
 <div class="section level3">
 <h3 id="split-outcome-names">Split outcome names<a class="anchor" aria-label="anchor" href="#split-outcome-names"></a>
 </h3>
-<p>The outcome column in the output of mr() combines the original
-outcome name with the outcome trait ID.</p>
+<p>The outcome column in the output of <code><a href="../reference/mr.html">mr()</a></code> combines the
+original outcome name with the outcome trait ID.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $result</span></span>
@@ -1213,11 +1241,11 @@ outcome name using the split_outcome function:</p>
 <span><span class="co">#&gt; 4     ieu-a-2    ieu-a-7 Coronary heart disease Body mass index || id:ieu-a-2</span></span>
 <span><span class="co">#&gt; 5     ieu-a-2    ieu-a-7 Coronary heart disease Body mass index || id:ieu-a-2</span></span>
 <span><span class="co">#&gt;                      method nsnp         b         se         pval</span></span>
-<span><span class="co">#&gt; 1                  MR Egger   79 0.5024935 0.14396056 8.012590e-04</span></span>
-<span><span class="co">#&gt; 2           Weighted median   79 0.3870065 0.07671416 4.540309e-07</span></span>
-<span><span class="co">#&gt; 3 Inverse variance weighted   79 0.4459091 0.05898302 4.032020e-14</span></span>
-<span><span class="co">#&gt; 4               Simple mode   79 0.3401554 0.15196883 2.805152e-02</span></span>
-<span><span class="co">#&gt; 5             Weighted mode   79 0.3790910 0.10242200 3.980416e-04</span></span></code></pre></div>
+<span><span class="co">#&gt; 1                  MR Egger   77 0.5480371 0.18668642 4.417059e-03</span></span>
+<span><span class="co">#&gt; 2           Weighted median   77 0.5020780 0.07282864 5.425901e-12</span></span>
+<span><span class="co">#&gt; 3 Inverse variance weighted   77 0.4795636 0.06453223 1.074690e-13</span></span>
+<span><span class="co">#&gt; 4               Simple mode   77 0.3494593 0.16555969 3.808074e-02</span></span>
+<span><span class="co">#&gt; 5             Weighted mode   77 0.4539777 0.15914106 5.581716e-03</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="split-exposure-names">Split exposure names<a class="anchor" aria-label="anchor" href="#split-exposure-names"></a>
@@ -1241,17 +1269,17 @@ confidence intervals using:</p>
 <span><span class="co">#&gt; 4     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7</span></span>
 <span><span class="co">#&gt; 5     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7</span></span>
 <span><span class="co">#&gt;                        exposure                    method nsnp         b</span></span>
-<span><span class="co">#&gt; 1 Body mass index || id:ieu-a-2                  MR Egger   79 0.5024935</span></span>
-<span><span class="co">#&gt; 2 Body mass index || id:ieu-a-2           Weighted median   79 0.3870065</span></span>
-<span><span class="co">#&gt; 3 Body mass index || id:ieu-a-2 Inverse variance weighted   79 0.4459091</span></span>
-<span><span class="co">#&gt; 4 Body mass index || id:ieu-a-2               Simple mode   79 0.3401554</span></span>
-<span><span class="co">#&gt; 5 Body mass index || id:ieu-a-2             Weighted mode   79 0.3790910</span></span>
-<span><span class="co">#&gt;           se         pval      lo_ci     up_ci       or or_lci95 or_uci95</span></span>
-<span><span class="co">#&gt; 1 0.14396056 8.012590e-04 0.22033081 0.7846562 1.652838 1.246489 2.191653</span></span>
-<span><span class="co">#&gt; 2 0.07671416 4.540309e-07 0.23664672 0.5373662 1.472566 1.266993 1.711493</span></span>
-<span><span class="co">#&gt; 3 0.05898302 4.032020e-14 0.33030238 0.5615158 1.561909 1.391389 1.753328</span></span>
-<span><span class="co">#&gt; 4 0.15196883 2.805152e-02 0.04229652 0.6380143 1.405166 1.043204 1.892719</span></span>
-<span><span class="co">#&gt; 5 0.10242200 3.980416e-04 0.17834387 0.5798381 1.460956 1.195236 1.785749</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Body mass index || id:ieu-a-2                  MR Egger   77 0.5480371</span></span>
+<span><span class="co">#&gt; 2 Body mass index || id:ieu-a-2           Weighted median   77 0.5020780</span></span>
+<span><span class="co">#&gt; 3 Body mass index || id:ieu-a-2 Inverse variance weighted   77 0.4795636</span></span>
+<span><span class="co">#&gt; 4 Body mass index || id:ieu-a-2               Simple mode   77 0.3494593</span></span>
+<span><span class="co">#&gt; 5 Body mass index || id:ieu-a-2             Weighted mode   77 0.4539777</span></span>
+<span><span class="co">#&gt;           se         pval     lo_ci     up_ci       or or_lci95 or_uci95</span></span>
+<span><span class="co">#&gt; 1 0.18668642 4.417059e-03 0.1821318 0.9139425 1.729854 1.199772 2.494136</span></span>
+<span><span class="co">#&gt; 2 0.07282864 5.425901e-12 0.3593338 0.6448221 1.652151 1.432375 1.905648</span></span>
+<span><span class="co">#&gt; 3 0.06453223 1.074690e-13 0.3530804 0.6060468 1.615369 1.423446 1.833170</span></span>
+<span><span class="co">#&gt; 4 0.16555969 3.808074e-02 0.0249623 0.6739563 1.418300 1.025276 1.961984</span></span>
+<span><span class="co">#&gt; 5 0.15914106 5.581716e-03 0.1420612 0.7658942 1.574563 1.152647 2.150917</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="subset-on-method">Subset on method<a class="anchor" aria-label="anchor" href="#subset-on-method"></a>
@@ -1263,9 +1291,9 @@ is one unique result for each exposure-outcome combination:</p>
 <span><span class="co">#&gt;   id.exposure id.outcome                              outcome</span></span>
 <span><span class="co">#&gt; 3     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7</span></span>
 <span><span class="co">#&gt;                        exposure                    method nsnp         b</span></span>
-<span><span class="co">#&gt; 3 Body mass index || id:ieu-a-2 Inverse variance weighted   79 0.4459091</span></span>
+<span><span class="co">#&gt; 3 Body mass index || id:ieu-a-2 Inverse variance weighted   77 0.4795636</span></span>
 <span><span class="co">#&gt;           se        pval</span></span>
-<span><span class="co">#&gt; 3 0.05898302 4.03202e-14</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 0.06453223 1.07469e-13</span></span></code></pre></div>
 <p>The default is to subset on the IVW method when &gt;1 SNP is
 available and to use the Wald ratio method when a single SNP is
 available. Users can specify which multi-SNP method to subset on.</p>
