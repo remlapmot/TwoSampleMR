@@ -1190,27 +1190,15 @@ exposure_dat <- extract_instruments("ieu-a-2")
 
 # Get corresponding effects for CHD
 outcome_dat <- extract_outcome_data(exposure_dat$SNP, "ieu-a-7")
-#> Extracting data for 78 SNP(s) from 1 GWAS(s)
-#> Querying id chunk 1 of 1
-#> Querying variant chunk 1 of 2
-#> Querying variant chunk 2 of 2
 
 # Harmonise
 dat <- harmonise_data(exposure_dat, outcome_dat)
-#> Harmonising Body mass index || id:ieu-a-2 (ieu-a-2) and Coronary heart disease || id:ieu-a-7 (ieu-a-7)
-#> Removing the following SNPs for being palindromic with intermediate allele frequencies:
-#> rs1558902
 
 # Load the downloaded RData object. This loads the rf object
 load("rf.rdata")
 
 # Obtain estimates from all methods, and generate data metrics
 res_all <- mr_wrapper(dat)
-#> Performing MR analysis of 'ieu-a-2' on 'ieu-a-7'
-#> Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7
-#> Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7
-#> Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7
-#> Body mass index || id:ieu-a-2 - Coronary heart disease || id:ieu-a-7
 
 # MR-MoE - predict the performance of each method
 res_moe <- mr_moe(res_all, rf)
@@ -1218,18 +1206,7 @@ res_moe <- mr_moe(res_all, rf)
 # Now you can view the estimates, and see that they have
 # been sorted in order from most likely to least likely to
 # be accurate, based on MOE prediction
-head(res_moe[[1]]$estimates)
-#> # A tibble: 6 × 14
-#>   id.exposure id.outcome method         nsnp     b     se ci_low ci_upp     pval
-#>   <chr>       <chr>      <chr>         <int> <dbl>  <dbl>  <dbl>  <dbl>    <dbl>
-#> 1 ieu-a-2     ieu-a-7    FE IVW           77 0.479 0.0474  0.353  0.606 5.06e-24
-#> 2 ieu-a-2     ieu-a-7    Simple median    77 0.397 0.0717  0.257  0.538 3.09e- 8
-#> 3 ieu-a-2     ieu-a-7    FE IVW           67 0.482 0.0447  0.394  0.569 4.10e-27
-#> 4 ieu-a-2     ieu-a-7    Simple median    67 0.397 0.0754  0.249  0.545 1.38e- 7
-#> 5 ieu-a-2     ieu-a-7    RE IVW           67 0.482 0.0447  0.394  0.569 3.34e-16
-#> 6 ieu-a-2     ieu-a-7    Weighted med…    67 0.442 0.0749  0.295  0.588 3.69e- 9
-#> # ℹ 5 more variables: steiger_filtered <lgl>, outlier_filtered <lgl>,
-#> #   selection <chr>, method2 <chr>, MOE <dbl>
+res_moe[[1]]$estimates
 ```
 
 The function does the following:
@@ -1302,11 +1279,11 @@ split_outcome(res)
 #> 4     ieu-a-2    ieu-a-7 Coronary heart disease Body mass index || id:ieu-a-2
 #> 5     ieu-a-2    ieu-a-7 Coronary heart disease Body mass index || id:ieu-a-2
 #>                      method nsnp         b         se         pval
-#> 1                  MR Egger   77 0.5480371 0.18668642 4.417059e-03
-#> 2           Weighted median   77 0.5020780 0.07282864 5.425901e-12
-#> 3 Inverse variance weighted   77 0.4795636 0.06453223 1.074690e-13
-#> 4               Simple mode   77 0.3494593 0.16555969 3.808074e-02
-#> 5             Weighted mode   77 0.4539777 0.15914106 5.581716e-03
+#> 1                  MR Egger   79 0.5024935 0.14396056 8.012590e-04
+#> 2           Weighted median   79 0.3870065 0.07671416 4.540309e-07
+#> 3 Inverse variance weighted   79 0.4459091 0.05898302 4.032020e-14
+#> 4               Simple mode   79 0.3401554 0.15196883 2.805152e-02
+#> 5             Weighted mode   79 0.3790910 0.10242200 3.980416e-04
 ```
 
 ### Split exposure names
@@ -1331,17 +1308,17 @@ generate_odds_ratios(res)
 #> 4     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7
 #> 5     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7
 #>                        exposure                    method nsnp         b
-#> 1 Body mass index || id:ieu-a-2                  MR Egger   77 0.5480371
-#> 2 Body mass index || id:ieu-a-2           Weighted median   77 0.5020780
-#> 3 Body mass index || id:ieu-a-2 Inverse variance weighted   77 0.4795636
-#> 4 Body mass index || id:ieu-a-2               Simple mode   77 0.3494593
-#> 5 Body mass index || id:ieu-a-2             Weighted mode   77 0.4539777
-#>           se         pval     lo_ci     up_ci       or or_lci95 or_uci95
-#> 1 0.18668642 4.417059e-03 0.1821318 0.9139425 1.729854 1.199772 2.494136
-#> 2 0.07282864 5.425901e-12 0.3593338 0.6448221 1.652151 1.432375 1.905648
-#> 3 0.06453223 1.074690e-13 0.3530804 0.6060468 1.615369 1.423446 1.833170
-#> 4 0.16555969 3.808074e-02 0.0249623 0.6739563 1.418300 1.025276 1.961984
-#> 5 0.15914106 5.581716e-03 0.1420612 0.7658942 1.574563 1.152647 2.150917
+#> 1 Body mass index || id:ieu-a-2                  MR Egger   79 0.5024935
+#> 2 Body mass index || id:ieu-a-2           Weighted median   79 0.3870065
+#> 3 Body mass index || id:ieu-a-2 Inverse variance weighted   79 0.4459091
+#> 4 Body mass index || id:ieu-a-2               Simple mode   79 0.3401554
+#> 5 Body mass index || id:ieu-a-2             Weighted mode   79 0.3790910
+#>           se         pval      lo_ci     up_ci       or or_lci95 or_uci95
+#> 1 0.14396056 8.012590e-04 0.22033081 0.7846562 1.652838 1.246489 2.191653
+#> 2 0.07671416 4.540309e-07 0.23664672 0.5373662 1.472566 1.266993 1.711493
+#> 3 0.05898302 4.032020e-14 0.33030238 0.5615158 1.561909 1.391389 1.753328
+#> 4 0.15196883 2.805152e-02 0.04229652 0.6380143 1.405166 1.043204 1.892719
+#> 5 0.10242200 3.980416e-04 0.17834387 0.5798381 1.460956 1.195236 1.785749
 ```
 
 ### Subset on method
@@ -1354,9 +1331,9 @@ subset_on_method(res)
 #>   id.exposure id.outcome                              outcome
 #> 3     ieu-a-2    ieu-a-7 Coronary heart disease || id:ieu-a-7
 #>                        exposure                    method nsnp         b
-#> 3 Body mass index || id:ieu-a-2 Inverse variance weighted   77 0.4795636
+#> 3 Body mass index || id:ieu-a-2 Inverse variance weighted   79 0.4459091
 #>           se        pval
-#> 3 0.06453223 1.07469e-13
+#> 3 0.05898302 4.03202e-14
 ```
 
 The default is to subset on the IVW method when \>1 SNP is available and
