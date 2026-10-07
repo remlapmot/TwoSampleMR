@@ -7,7 +7,7 @@ test:
 test-server:
     TWOSAMPLEMR_ENABLE_OPENGWAS_TESTS=TRUE Rscript -e "devtools::test()"
 install: docs
-    Rscript -e "devtools::install(build_vignettes = TRUE)"
+    Rscript -e "pkg <- pkgbuild::build(); install.packages(pkg, repos = NULL, type = 'source'); unlink(pkg)"
 install-fast: docs
     Rscript -e "pkg <- pkgbuild::build(dest_path = tempdir(), vignettes = FALSE); install.packages(pkg, repos = NULL, type = 'source')"
 dev:
