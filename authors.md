@@ -37,7 +37,7 @@ systematic causal inference across the human phenome. eLife
       volume = {7},
       journal = {eLife},
       pages = {e34408},
-      url = {https://elifesciences.org/articles/34408},
+      url = {https://doi.org/10.7554/eLife.34408},
       doi = {10.7554/eLife.34408},
     }
 
